@@ -2,9 +2,10 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki sovellukseeni](www.madufva.users.cs.helsinki.fi/tsoha)
+* [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+Suppea projektinhallintasovellus, jossa voidaan lisätä tekijöitä ja tehtäviä ja liittää niitä toisiinsa,
+sekä merkitä tehtäviä tehdyiksi.
