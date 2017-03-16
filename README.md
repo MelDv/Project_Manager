@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](www.madufva.users.cs.helsinki.fi/tsoha)
+* [Linkki sovellukseeni](madufva.users.cs.helsinki.fi/tsoha)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
 ## Työn aihe
