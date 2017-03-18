@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HUOM!!! Muokkaa kaikki #:t! Hae automaattisesti h1 + linkki, h5, tekijät tietoineen -->
+<!-- label autom. pois kun valmis, viesti tekijöille -->
+<!-- toiminta nappeihin yhteydenotto, poista, muokkaa, lisää tekijä -->
+
+<h1>#Tehtävän nimi</h1>
+<a href="http://madufva.users.cs.helsinki.fi/tsoha/projekti">#Projektilinkki</a>
+<h5>Projektipäällikkö Karianne</h5> <button type="button" class="btn btn-success">#Lähetä viesti</button>
+
+<label class="label label-danger">#Kesken</label>
+
+<h3>###Kuvaus</h3>
+<strong>Tässä on lyhyt kuvaus</strong>
+<p>Tarkka kuvaus</p>
+<button type="button" class="btn btn-default">Muokkaa</button>
+
+<h3>###Tekijät</h3>
+<button type="button" class="btn btn-default">Lisää tekijä</button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Tehtävä</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Projektin tekijät -->
+        <tr>
+            <td>Sanna</td>
+            <td>Sivupohjan tekeminen</td>
+            <th><a class="btn btn-danger">Poista</a></th>
+            <th><a class="btn btn-success">Lähetä viesti</a></th>
+        </tr>
+        <tr>
+            <td>Nanna</td>
+            <td>CSS</td>
+            <th><a class="btn btn-danger">Poista</a></th>
+            <th><a class="btn btn-success">Lähetä viesti</a></th>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

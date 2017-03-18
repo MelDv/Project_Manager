@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HUOM!!! Muokkaa kaikki #:t! -->
+<button type="button" class="btn btn-default">Uusi projekti</button>
+
+<h3>#Aktiiviset projektit</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>
+            <th>Tehtävät</th>
+            <th>Tekijät</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Projektit -->
+        <tr>
+            <td>Nettisivut kalanviljelylaitosten keskusviraston talousosastolle</td>
+            <td>Lyhyt kuvaus</td>
+            <th><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Tehtävät
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML & CSS</a></li>
+                    <li><a href="#">Sisällöntuotanto</a></li>
+                    <li><a href="#">Nojailu</a></li>
+                </ul>
+            </th>
+            <th><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Tekijät
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Jaana</a></li>
+                    <li><a href="#">Saana</a></li>
+                    <li><a href="#">Reiska</a></li>
+                </ul>
+            </th>
+            <th><th><a class="btn btn-success">Lisää tehtävä</a></th>
+        </tr>
+</table>
+{% endblock %}

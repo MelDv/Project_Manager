@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HUOM!!! Muokkaa kaikki #:t! Hae automaattisesti h1, h5, tehtävät -->
+<!-- toiminta nappeihin yhteydenotto, poista, muokkaa, lisää tekijä -->
+
+<h1>#Projektin nimi</h1>
+<h5>Projektipäällikkö Karianne</h5> <button type="button" class="btn btn-success">#Lähetä viesti</button>
+
+<h3>###Kuvaus</h3>
+<p>Tässä on kuvaus</p>
+<p>Tarkka kuvaus</p>
+<button type="button" class="btn btn-default">Muokkaa</button>
+
+<h3>###Tehtävät</h3>
+<button type="button" class="btn btn-default">Lisää tehtävä</button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>
+            <th>Tekijät</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Projektin tehtävät -->
+        <tr class="danger">
+            <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/tehtava">Sivupohjat</a></td>
+            <td>Tärkeimpien sivupohjien html5 ja css</td>
+            <th><a class="btn btn-danger">Sanna ja Janna</a></th>
+            <th><a class="btn btn-success">Merkitse valmiiksi</a></th>
+        </tr>
+        <tr class="danger">
+            <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/tehtava">Sisällöntuotanto</a></td>
+            <td>Reiska keksii sisältöä</td>
+            <th><a class="btn btn-danger">No se Reiska</a></th>
+            <th><a class="btn btn-success">Merkitse valmiiksi</a></th>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
