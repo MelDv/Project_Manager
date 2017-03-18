@@ -36,42 +36,55 @@
                     <a class="navbar-brand" href="{{base_path}}">Projektityökalu</a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="nav navbar-nav">
-                        <!-- Navigaation linkit -->
-                        <li><a href="/tsoha/etusivu">Etusivu</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="/tsoha/projektit">Projektit
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/tsoha/projektit/1">Joku proggis</a></li>
-                                <li><a href="/tsoha/projektit/2">Toinen proggis</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/tsoha/omasivu">Oma sivu</a></li>
-                        <li><a href="/tsoha/hiekkalaatikko">Hiekkis</a></li>
-                    </ul>
+                <nav class="navbar navbar-fixed-top admin-menu" role="navigation">
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+                            <!-- Navigaation linkit -->
+                            <li><a href="/tsoha/etusivu">Etusivu</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- dropdown -->
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="nav navbar-nav navbar-right">                               
+                            <li class="dropdown">
+                                <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/tsoha/projektit">Projektit
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tsoha/projektit/1">Joku proggis</a></li>
+                                    <li><a href="#">Toinen proggis</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- loput navilinkit -->
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/tsoha/omasivu">Oma sivu</a></li>
+                            <li><a href="/tsoha/hiekkalaatikko">Hiekkis</a></li>
+                        </ul>
+                    </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Kirjaudu sisään</a></li>
                     </ul>
-                </div>
             </div>
-        </nav>
-
-        <div id="main-container">
-            <!-- Dynaaminen sisältö tulee tähän -->
-            {% block content %}{% endblock %}
         </div>
+    </nav>
 
-        {% block body %}
-        <!-- jQuery -->
-        <script src="{{base_path}}/vendor/jquery.min.js"></script>
+    <div id="main-container">
+        <!-- Dynaaminen sisältö tulee tähän -->
+        {% block content %}{% endblock %}
+    </div>
 
-        <!-- Bootstrap (skriptitiedosto) -->
-        <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
+    {% block body %}
+    <!-- jQuery -->
+    <script src="{{base_path}}/vendor/jquery.min.js"></script>
 
-        <!-- Oma skriptitiedostomme -->
-        <script src="{{base_path}}/assets/js/site.js"></script>
-        {% endblock %}
-    </body>
+    <!-- Bootstrap (skriptitiedosto) -->
+    <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Oma skriptitiedostomme -->
+    <script src="{{base_path}}/assets/js/site.js"></script>
+    {% endblock %}
+</body>
 </html>

@@ -14,7 +14,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Nimi</th>
+            <th>Projekti</th>
             <th>Kuvaus</th>
             <th>Tehtävät</th>
             <th></th>
@@ -26,12 +26,29 @@
         <tr class="danger">
             <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/projekti">Sivupohjat</a></td>
             <td>Nettisivut kalanviljelylaitosten keskusviraston talousosastolle</td>
-            <th><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Omat tehtävät
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">HTML & CSS</a></li>  
-                    <li><a href="#">Nojailu</a></li>
-                </ul>
+            <th>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" id="tehtavalista" data-toggle="dropdown">Omat tehtävät
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sisällöntuotanto</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nojailu</a></li>
+                    </ul>
+                </div>
+            </th>
+        </tr>
+        <tr class="success">
+            <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/projekti">Sivupohjat</a></td>
+            <td>Varastonhallintasovellus</td>
+            <th>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" id="tehtavalista" data-toggle="dropdown">Omat tehtävät
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Keräily</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Nojailu</a></li>
+                    </ul>
+                </div>
             </th>
         </tr>
     </tbody>
