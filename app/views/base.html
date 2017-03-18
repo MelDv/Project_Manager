@@ -22,7 +22,7 @@
 
     <body>
 
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -40,7 +40,14 @@
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
                         <li><a href="/tsoha/etusivu">Etusivu</a></li>
-                        <li><a href="/tsoha/projektit">Projektit</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/tsoha/projektit">Projektit
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tsoha/projektit/1">Joku proggis</a></li>
+                                <li><a href="/tsoha/projektit/2">Toinen proggis</a></li>
+                            </ul>
+                        </li>
                         <li><a href="/tsoha/omasivu">Oma sivu</a></li>
                         <li><a href="/tsoha/hiekkalaatikko">Hiekkis</a></li>
                     </ul>

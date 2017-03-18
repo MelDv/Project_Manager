@@ -29,14 +29,15 @@
                     <li><a href="#">Nojailu</a></li>
                 </ul>
             </th>
-            <th><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Tekijät
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Jaana</a></li>
-                    <li><a href="#">Saana</a></li>
-                    <li><a href="#">Reiska</a></li>
-                </ul>
-            </th>
+            <th><div class="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" id="projektilista" data-toggle="dropdown">Tekijät
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="projektilista">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jaana</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Saana</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Reiska</a></li>
+                    </ul>
+                </div></th>
             <th><th><a class="btn btn-success">Lisää tehtävä</a></th>
         </tr>
 </table>
