@@ -24,7 +24,7 @@ $routes->get('/projektit', function() {
     HelloWorldController::projektit();
 });
 
-$routes->get('/projekti', function() {
+$routes->get('/projektit/1', function() {
     HelloWorldController::projekti();
 });
 
