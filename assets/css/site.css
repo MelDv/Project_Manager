@@ -1,10 +1,23 @@
 #main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+    max-width: 1200px;
+    padding: 10px 25px;
+    margin: 0px auto;
 }
 
 .navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.vertical-align {
+    letter-spacing: -4px;
+    font-size: 0;
+}
+
+.vertical-align .col-xs-4 {
+    vertical-align: middle;
+    display: inline-block;
+    letter-spacing: 0;
+    font-size: 14px;
+    float: none;
 }

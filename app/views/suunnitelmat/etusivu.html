@@ -1,39 +1,64 @@
 
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:90%">
-            Valmiina
-        </div>
-        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:10%">
-            Työn alla
-        </div>
-        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:0%">
-            Myöhässä
-        </div>
+
+<h4>Laskentaprojekti</h4>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" style="width:90%">
+        Valmiina
     </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:40%">
-            Valmiina
-        </div>
-        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:10%">
-            Työn alla
-        </div>
-        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:20%">
-            Myöhässä
-        </div>
+    <div class="progress-bar progress-bar-warnin" role="progressbar" style="width:10%">
+        Työn alla
     </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:20%">
-            Valmiina
-        </div>
-        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:13%">
-            Työn alla
-        </div>
-        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:56%">
-            Myöhässä
-        </div>
+    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:0%">
+        Myöhässä
     </div>
 </div>
-{% endblock %}
+<h4>Ikea-projekti</h4>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+        Valmiina
+    </div>
+    <div class="progress-bar progress-bar-warnin" role="progressbar" style="width:10%">
+        Työn alla
+    </div>
+    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+        Myöhässä
+    </div>
+</div>
+<h4>Tietokantatyö</h4>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
+        Valmiina
+    </div>
+    <div class="progress-bar progress-bar-warnin" role="progressbar" style="width:13%">
+        Työn alla
+    </div>
+    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:56%">
+        Myöhässä
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <div class="row vertical-align">
+            <div class="col-xs-4">
+                <a href="/tsoha/projektit/1" title="Oma sivu"><img src="assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+            </div>
+            <div class="col-xs-4">
+                <a href="/tsoha/projektit/1" title="Käyttäjät"><img src="assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+            </div>  
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="row vertical-align">
+            <div class="col-xs-4">
+                <a href="/tsoha/projektit/1" title="Projektit"><img src="assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+            </div>
+            <div class="col-xs-4">
+                <a href="/tsoha/projektit/1" title="Omat tehtävät"><img src="assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+            </div>  
+        </div>
+    </div>
+
+    {% endblock %}
