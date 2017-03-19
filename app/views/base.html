@@ -58,49 +58,44 @@
                         <li><a href="/tsoha/omasivu">Oma sivu</a></li>
                         <li><a href="/tsoha/omattehtavat">Omat tehtävät</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
 
-                        <!-- MODAL KIRJAUTUMISPONNAHDUSIKKUNA muokattu esimerkistä sivulta https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_js_modal2&stacked=h -->
-                        <div class="container">
-                            <li><span class="glyphicon glyphicon-log-in" id="kirjautumisnappi"></span>Kirjaudu sisään</li>
-                            <!-- Modal -->
-                            <div class="modal fade" id="kirjautumismodal" role="dialog">
-                                <div class="modal-dialog">
+                    <!-- MODAL KIRJAUTUMISPONNAHDUSIKKUNA -->
+                    <div class="modal fade" id="kirjautumismodal" role="dialog">
+                        <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="padding:35px 50px;">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4><span class="glyphicon glyphicon-lock"></span>Kirjaudu</h4>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="padding:35px 50px;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Kirjaudu</h4>
+                                </div>
+                                <div class="modal-body" style="padding:40px 50px;">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Käyttäjänimi</label>
+                                            <input type="text" class="form-control" id="usrname" placeholder="Kirjoita sähköpostiosoitteesi">
                                         </div>
-                                        <div class="modal-body" style="padding:40px 50px;">
-                                            <form role="form">
-                                                <div class="form-group">
-                                                    <label for="usrname"><span class="glyphicon glyphicon-user"></span> Käyttäjänimi</label>
-                                                    <input type="text" class="form-control" id="usrname" placeholder="Kirjoita sähköpostiosoitteesi">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Salasana</label>
-                                                    <input type="text" class="form-control" id="psw" placeholder="Kirjoita salasana">
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="" checked> Muista minut tällä laitteella</label>
-                                                </div>
-                                                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Kirjaudu</button>
-                                            </form>
+                                        <div class="form-group">
+                                            <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Salasana</label>
+                                            <input type="text" class="form-control" id="psw" placeholder="Kirjoita salasana">
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Peruuta</button>
-                                            <p>Unohditko salasanan? <a href="#">Uusi salasana sähköpostiin</a></p>
-                                            <p>Ongelmia käyttäjätunnuksen kanssa? <a href="#">Ota yhteys tukeen</a></p>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="" checked> Muista minut tällä laitteella</label>
                                         </div>
-                                    </div>
+                                        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Kirjaudu</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Peruuta</button>
+                                    <p>Unohditko salasanan? <a href="#">Uusi salasana sähköpostiin</a></p>
+                                    <p>Ongelmia käyttäjätunnuksen kanssa? <a href="#">Ota yhteys tukeen</a></p>
                                 </div>
                             </div>
-                        </div> 
-                    </ul>
-                </div>
+                        </div>
+                    </div>
+                </div> 
             </div>
+
         </nav>
 
         <div id="main-container">
