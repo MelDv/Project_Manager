@@ -15,10 +15,27 @@
     font-size: 0;
 }
 
-.vertical-align .col-xs-2 {
+.vertical-align .col-xs-6 {
     vertical-align: middle;
     display: inline-block;
     letter-spacing: 0;
     font-size: 14px;
     float: none;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
 }

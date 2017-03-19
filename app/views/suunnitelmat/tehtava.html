@@ -35,14 +35,31 @@
             <td>Sanna</td>
             <td>Sivupohjan tekeminen</td>
             <th><a class="btn btn-danger">Poista</a></th>
-            <th><a class="btn btn-success">Lähetä viesti</a></th>
-        </tr>
-        <tr>
-            <td>Nanna</td>
-            <td>CSS</td>
-            <th><a class="btn btn-danger">Poista</a></th>
-            <th><a class="btn btn-success">Lähetä viesti</a></th>
-        </tr>
-    </tbody>
-</table>
-{% endblock %}
+            
+            <!-- Modal viestinlähetysnappi-->
+    <div class="modal fade" id="viestimodal" role="dialog">
+        <div class="modal-dialog">
+            <th><a class="btn btn-success" data-toggle="modal" data-target="#viestimodal">Lähetä viesti</a></th>
+            <!-- Modal sisältö-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Lähetä viesti käyttäjälle #Jaana</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Kirjoita viesti</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Lähetä</button>
+                </div>
+            </div>
+            </tr>
+            <tr>
+                <td>Nanna</td>
+                <td>CSS</td>
+                <th><a class="btn btn-danger">Poista</a></th>
+                <th><a class="btn btn-success">Lähetä viesti</a></th>
+            </tr>
+            </tbody>
+            </table>
+            {% endblock %}

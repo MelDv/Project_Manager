@@ -2,6 +2,17 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container-fluid">
+    <!-- KATSEENVANGITSIJA -->
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Bootstrap & Projektit</h1> 
+            <p>Tehokkaan nojailun edelläkävijä</p> 
+        </div>
+        <p>Hullu paljon työtä tekee,</p> 
+        <p>viisas pääsee vähemmällä.</p> 
+    </div>
+
+    <!-- PROJEKTIEN EDISTYMISKUVAAJAT -->
     <h4>Laskentaprojekti</h4>
     <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" style="width:90%">
@@ -39,23 +50,23 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-xs-2">
-            <a href="/tsoha/omasivu" title="Oma sivu"><img src="/assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-6">
+                <a href="/tsoha/omasivu" title="Oma sivu"><img src="/assetts/img/man.png" alt="picture_of_me" class="img-rounded img-responsive"></a>
+            </div>
+            <div class="col-xs-6">
+                <a href="#" title="Käyttäjät"><img src="/assetts/img/man.png" alt="pic_of_users" class="img-rounded img-responsive"></a>
+            </div>  
         </div>
-        <div class="col-xs-2">
-            <a href="#" title="Käyttäjät"><img src="/assetts/img/man.png" alt="pic_of_users" class="img-rounded img-responsive"></a>
-        </div>  
-    </div>
-    <div class="row">
-        <div class="col-xs-2">
-            <a href="/tsoha/projektit" title="Projektit"><img src="/assetts/img/man.png" alt="pic_for_projects" class="img-rounded img-responsive"></a>
+        <div class="row">
+            <div class="col-xs-6">
+                <a href="/tsoha/projektit" title="Projektit"><img src="/assetts/img/man.png" alt="pic_for_projects" class="img-rounded img-responsive"></a>
+            </div>
+            <div class="col-xs-6">
+                <a href="/tsoha/omattehtavat" title="Omat tehtävät"><img src="/assetts/img/man.png" alt="pic_for_tasks" ></a>
+            </div>  
         </div>
-        <div class="col-xs-2">
-            <a href="/tsoha/omattehtavat" title="Omat tehtävät"><img src="/assetts/img/man.png" alt="pic_for_tasks" ></a>
-        </div>  
-
     </div>
 
     {% endblock %}
