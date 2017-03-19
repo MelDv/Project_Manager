@@ -5,6 +5,7 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
   * [Oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/omasivu)
+  * [Omat tehtävät](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
 ## Työn aihe

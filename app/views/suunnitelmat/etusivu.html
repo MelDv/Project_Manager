@@ -1,28 +1,39 @@
 
 {% extends "base.html" %}
 {% block content %}
-<!-- progress bar code from www.cssscript.com/pure-css-circular-percentage-bar  -->
-<div class="row">    
-    <div class="c100 p25 big red">
-        <span>25%</span>
-        <div class="circle">
-            <div class="bar"></div>
-            <div class="fill"></div>
+<div class="row">
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:90%">
+            Valmiina
+        </div>
+        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:10%">
+            Työn alla
+        </div>
+        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:0%">
+            Myöhässä
         </div>
     </div>
-    <div class="c100 p25 big orange">
-        <div class="slice">
-            <div class="bar"></div>
-            <div class="fill"></div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:40%">
+            Valmiina
+        </div>
+        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:10%">
+            Työn alla
+        </div>
+        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:20%">
+            Myöhässä
         </div>
     </div>
-    <div class="c100 p25 big dark">
-        <span>0%</span>
-        <div class="slice">
-            <div class="bar"></div>
-            <div class="fill"></div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:20%">
+            Valmiina
+        </div>
+        <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:13%">
+            Työn alla
+        </div>
+        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:56%">
+            Myöhässä
         </div>
     </div>
 </div>
-
 {% endblock %}

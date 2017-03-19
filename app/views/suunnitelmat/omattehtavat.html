@@ -2,17 +2,18 @@
 {% block content %}
 <h1>Keskeneräiset tehtävät</h1>
 
-<!-- progress bar code from www.cssscript.com/pure-css-circular-percentage-bar -->
-<link rel="stylesheet" href="css/circle.css">
-<div class="c100 p25 big red">
-    <span>25%</span>
-    <div class="slice">
-        <div class="bar"></div>
-        <div class="fill"></div>
+<h2>Bootstrap-projekti</h2>
+<div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:40%">
+        Valmiina
+    </div>
+    <div class="progress-bar progress-bar-warnin progress-bar-striped" role="progressbar" style="width:10%">
+        Työn alla
+    </div>
+    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width:20%">
+        Myöhässä
     </div>
 </div>
-
-<h2>Bootstrap-projekti</h2>
 
 <table class="table table-hover">
     <thead>
@@ -35,14 +36,14 @@
             <th><a class="btn btn-success">Merkitse valmiiksi</a></th>
         </tr>
         <tr class="success">
-            <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/tehtava">Eka tehtävä</a></td>
+            <td><a href="/tsoha/tehtava">Eka tehtävä</a></td>
             <td>13.3.2017</td>
             <th>Lyhyt kuvaus</th>
             <th>Anna, Sanna, Hanna</th>
             <th></th>
         </tr>
         <tr class="success">
-            <td><a href="http://madufva.users.cs.helsinki.fi/tsoha/tehtava">Toka tehtävä</a></td>
+            <td><a href="/tsoha/tehtava">Toka tehtävä</a></td>
             <td>2.3.2017</td>
             <th>Lyhyt kuvaus</th>
             <th>Mari, Kari, Jari</th>
