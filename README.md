@@ -3,7 +3,6 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
-  * [Etusivu](http://madufva.users.cs.helsinki.fi/tsoha/etusivu)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
   * [Oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/omasivu)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
