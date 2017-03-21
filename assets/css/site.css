@@ -4,7 +4,7 @@
 }
 
 .navbar .container-fluid{
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0px auto;
 }
 
@@ -31,4 +31,12 @@
 
 .modal-footer {
     background-color: #f9f9f9;
+}
+
+.media-object {
+    align-content: center;
+}
+
+.image {
+    display: block;
 }
