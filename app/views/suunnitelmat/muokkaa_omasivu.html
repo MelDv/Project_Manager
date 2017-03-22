@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa omia tietoja</h1>
+
+<form>
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" class="form-control" value="Jaana Virtanen">
+    </div>
+    <div class="form-group">
+        <label>Nimike</label>
+        <input type="text" class="form-control" value="Boss-woman">
+    </div>
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <input type="text" class="form-control" value="Olen ihana, valoisa ja ystävällinen myös ihmisille.">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+{% endblock %}
