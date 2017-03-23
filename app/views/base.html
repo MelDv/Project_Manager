@@ -18,6 +18,9 @@
         <!-- Oma tyylitiedostomme -->
         <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
 
+        <!-- kuvat -->
+
+
         {% endblock %}
     </head>
 
@@ -25,11 +28,13 @@
 
         <!-- NAVIGAATIO -->
 
-        <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
                         <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -44,7 +49,8 @@
                         <!-- Navigaation linkit -->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="/tsoha/projektit">Projektit
-                                <span class="caret"></span></a>
+                                <span class="caret"></span>
+                            </a>
 
                             <!-- DROPDOWN-MENU PROJEKTEILLE -->
 
@@ -53,13 +59,26 @@
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="/tsoha/projektit/1">Joku proggis</a></li>
                                 <li><a href="/tsoha/projektit">Toinen proggis</a></li>
-                            </ul>
-                        </li>
+                            </ul>                       
                         <li><a href="/tsoha/omasivu">Oma sivu</a></li>
                         <li><a href="/tsoha/omattehtavat">Omat tehtävät</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/tsoha/kirjaudu"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu</a></li>
+                    </ul>
 
-                    <!-- MODAL KIRJAUTUMISPONNAHDUSIKKUNA -->
+                    <form class="navbar-form navbar-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Etsi">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- MODAL KIRJAUTUMISPONNAHDUSIKKUNA ei toimi vielä -->
                     <div class="modal" id="kirjautumismodal" role="dialog">
                         <div class="modal-dialog">
 
@@ -70,7 +89,7 @@
                                     <h4 class="modal-title">Kirjaudu</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form role="form">
+                                    <form>
                                         <div class="form-group">
                                             <label for="usrname"><span class="glyphicon glyphicon-user"></span> Käyttäjänimi</label>
                                             <input type="text" class="form-control" id="usrname" placeholder="Kirjoita sähköpostiosoitteesi">

@@ -11,23 +11,37 @@ class HelloWorldController extends BaseController {
         // Testaa koodiasi täällä
         View::make('helloworld.html');
     }
-    
+
     public static function etusivu() {
         View::make('suunnitelmat/etusivu.html');
     }
-        public static function omasivu() {
+
+    public static function omasivu() {
         View::make('suunnitelmat/omasivu.html');
     }
-        public static function omatTehtavat() {
+
+    public static function omatTehtavat() {
         View::make('suunnitelmat/omattehtavat.html');
     }
-        public static function projektit() {
+
+    public static function projektit() {
         View::make('suunnitelmat/projektit.html');
     }
-        public static function projekti() {
+
+    public static function projekti() {
         View::make('suunnitelmat/projekti.html');
     }
-        public static function tehtava() {
+
+    public static function tehtava() {
         View::make('suunnitelmat/tehtava.html');
     }
+
+    public static function muokkaa_omasivu() {
+        View::make('suunnitelmat/muokkaa_omasivu.html');
+    }
+
+    public static function kirjaudu() {
+        View::make('suunnitelmat/kirjaudu.html');
+    }
+
 }

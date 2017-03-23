@@ -47,23 +47,27 @@
         </div>
     </div>
 
-    <div class="jumbotron">
-        <div class="row" style="align-content: center">
-            <div class="col-xs-6">
-                <a href="/tsoha/omasivu" title="Oma sivu"><img src="tsoha/assetts/img/man.png" alt="picture_of_me"></a>
-            </div>
-            <div class="col-xs-6">
-                <a href="#" title="Käyttäjät"><img src="/tsoha/assetts/img/man.png" alt="pic_of_users" class="img-rounded img-responsive"></a>
-            </div>  
-        </div>
-        <div class="row" style="align-content: center;">
-            <div class="col-xs-6">
-                <a href="/tsoha/projektit" title="Projektit"><img src="/tsoha/assetts/img/man.png" alt="pic_for_projects" class="img-rounded img-responsive"></a>
-            </div>
-            <div class="col-xs-6">
-                <a href="/tsoha/omattehtavat" title="Omat tehtävät"><img src="/tsoha/assetts/img/man.png" alt="pic_for_tasks" ></a>
-            </div>  
-        </div>
-    </div>
 
-    {% endblock %}
+    <br> <br> <br>
+    <!-- linkkinappulat tai -kuvat -->
+    
+        <a href="/tsoha/omasivu" class="btn btn-info btn-lg col-xs-3">
+            <span class="glyphicon glyphicon-user"></span> Oma sivu                   
+        </a>
+
+        <a href="#" title="Käyttäjät" class="btn btn-success btn-lg col-xs-3">
+            <span class="glyphicon glyphicon-user"></span> 
+            <span class="glyphicon glyphicon-user"></span> Käyttäjät
+        </a>
+
+
+        <a href="/tsoha/projektit" class="btn btn-warning btn-lg col-xs-3">
+            <span class="glyphicon glyphicon-th-large"></span> Projektit
+        </a>
+        <a href="/tsoha/omattehtavat" class="btn btn-danger btn-lg col-xs-3">
+            <span class="glyphicon glyphicon-th-list"></span> Tehtävät
+        </a>
+  
+
+</div>
+{% endblock %}
