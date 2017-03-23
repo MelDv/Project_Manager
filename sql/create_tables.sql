@@ -8,7 +8,7 @@ CREATE TABLE person(
     password varchar(40) NOT NULL,
     sotu character(11),
     address varchar(120),
-    email varchar(40) NOT NULL,
+    email varchar(40) NOT NULL UNIQUE,
     phone INTEGER NOT NULL,
     workphone INTEGER,
     office varchar(10),

@@ -1,6 +1,9 @@
 -- Lisää DROP TABLE lauseet tähän tiedostoon
+-- Enumit
 DROP TYPE IF EXISTS rights CASCADE;
 DROP TYPE IF EXISTS status CASCADE;
+
+-- Taulut
 DROP TABLE IF EXISTS person CASCADE;
 DROP TABLE IF EXISTS job CASCADE;
 DROP TABLE IF EXISTS project CASCADE;
