@@ -20,7 +20,7 @@ CREATE TABLE person(
 
 CREATE TABLE job(
     id SERIAL PRIMARY KEY,
-    name varchar(50) NOT NULL,
+    name varchar(50) NOT NULL UNIQUE,
     current_status status DEFAULT 'pending',
     late BOOLEAN DEFAULT FALSE,
     short_description varchar(400) NOT NULL,
