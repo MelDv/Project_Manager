@@ -2,48 +2,57 @@
 CREATE TYPE rights AS ENUM ('admin', 'worker', 'intern', 'visitor');
 CREATE TYPE status AS ENUM('pending', 'underway', 'finished');
 
+CREATE TABLE work_group(
+    id SERIAL PRIMARY KEY,
+    name varchar(40) NOT NULL UNIQUE,
+    description varchar(2000)
+);
+
 CREATE TABLE person(
     id SERIAL PRIMARY KEY,
     name varchar(40) NOT NULL,
     password varchar(40) NOT NULL,
-    sotu character(11),
-    address varchar(120),
     email varchar(40) NOT NULL UNIQUE,
-    phone INTEGER NOT NULL,
-    workphone INTEGER,
-    office varchar(10),
-    title varchar(40),
     description varchar(2000),
     active BOOLEAN DEFAULT TRUE,
     current_rights rights DEFAULT 'visitor'
 );
 
-CREATE TABLE job(
+CREATE TABLE project(
     id SERIAL PRIMARY KEY,
+    manager INTEGER REFERENCES person(id) NOT NULL,
     name varchar(50) NOT NULL UNIQUE,
     current_status status DEFAULT 'pending',
     late BOOLEAN DEFAULT FALSE,
-    short_description varchar(400) NOT NULL,
-    description varchar(5000),
+    description varchar(400),
     start_date DATE,
     deadline DATE,
-    creator INTEGER REFERENCES person(id),
     approved BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE project (
-    job INTEGER REFERENCES job PRIMARY KEY,
-    manager INTEGER REFERENCES person(id)
-);
-
-CREATE TABLE task (
-    job INTEGER REFERENCES job PRIMARY KEY,
-    owner_project varchar(50) NOT NULL
-);
-
--- liitostaulu tehtävän ja tekijöiden väliin; workforcella voi olla yksi tehtävä, monta tekijää
-CREATE TABLE workforce (
+CREATE TABLE task(
     id SERIAL PRIMARY KEY,
-    owner_task INTEGER REFERENCES task(job),
-    worker INTEGER REFERENCES person(id)
+    project INTEGER REFERENCES project(id),
+    name varchar(50) NOT NULL UNIQUE,
+    current_status status DEFAULT 'pending',
+    late BOOLEAN DEFAULT FALSE,
+    description varchar(400),
+    start_date DATE,
+    deadline DATE,
+    approved BOOLEAN DEFAULT FALSE
+);
+
+-- liitostaulu tehtävän ja tekijöiden väliin
+CREATE TABLE workers_tasks (
+    id SERIAL PRIMARY KEY,
+    owner_task INTEGER REFERENCES task,
+    worker INTEGER REFERENCES person
+);
+
+--liitostaulu tekijöiden ja ryhmien väliin
+
+CREATE TABLE workers_groups (
+    id SERIAL PRIMARY KEY,
+    owner_person INTEGER REFERENCES person,
+    owner_group INTEGER REFERENCES work_group
 );
