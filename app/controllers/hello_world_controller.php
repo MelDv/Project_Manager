@@ -1,47 +1,69 @@
 <?php
 
 class HelloWorldController extends BaseController {
-
-    public static function index() {
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-        echo 'Tämä on etusivu!';
-    }
+//
+//    public static function index() {
+//        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
+//        echo 'Tämä on etusivu!';
+//    }
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        View::make('helloworld.html');
+        //View::make('helloworld.html');
+        //
+        //testausta:
+
+        $findOne = Person::find(2);
+        $persons = Person::all();
+        $authorized_personnel = Person::findActivePersons(true);
+
+        Kint::dump($findOne);
+        Kint::dump($persons);
+        Kint::dump($authorized_personnel);
     }
 
     public static function etusivu() {
-        View::make('suunnitelmat/etusivu.html');
+        View::make('projektit/etusivu.html');
     }
 
     public static function omasivu() {
-        View::make('suunnitelmat/omasivu.html');
+        View::make('kayttaja/omasivu.html');
     }
 
     public static function omatTehtavat() {
-        View::make('suunnitelmat/omattehtavat.html');
+        View::make('kayttaja/omattehtavat.html');
     }
 
     public static function projektit() {
-        View::make('suunnitelmat/projektit.html');
+        View::make('projektit/projektit.html');
     }
 
     public static function projekti() {
-        View::make('suunnitelmat/projekti.html');
+        View::make('projektit/projekti.html');
     }
 
     public static function tehtava() {
-        View::make('suunnitelmat/tehtava.html');
+        View::make('projektit/tehtava.html');
     }
 
     public static function muokkaa_omasivu() {
-        View::make('suunnitelmat/muokkaa_omasivu.html');
+        View::make('kayttaja/muokkaa_omasivu.html');
     }
 
     public static function kirjaudu() {
-        View::make('suunnitelmat/kirjaudu.html');
+        View::make('kayttaja/kirjaudu.html');
+    }
+
+    public static function uusikayttaja() {
+        View::make('kayttaja/uusikayttaja.html');
+    }
+
+//    public static function kayttajat() {
+//        View::make('kayttaja/kayttajat.html');
+//    }
+
+    public static function muokkaa() {
+        View::make('kayttaja/muokkaa.html');
     }
 
 }

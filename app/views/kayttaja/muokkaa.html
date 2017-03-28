@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa käyttäjän {{person.name}} tietoja</h1>
+
+<form>
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" class="form-control">{{person.name}}
+    </div>
+    <div class="form-group">
+        <label>Käytettävissä</label>
+        <input type="text" class="form-control">{{person.active}}
+    </div>
+    <div class="form-group">
+        <label>Oikeudet</label>
+        <input type="text" class="form-control">{{person.current_rights}}
+    </div>
+    <!--listää tähän ryhmät-->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+{% endblock %}

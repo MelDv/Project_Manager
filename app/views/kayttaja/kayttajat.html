@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HUOM!!! Muokkaa kaikki #:t! -->
+<a class="btn btn-default" href="{{base_path}}/uusikayttaja">Uusi käyttäjä</a>
+
+<h3>#Kaikki käyttäjät</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Sähköposti</th>
+            <th>Kuvaus</th>
+            <th>Käytettävissä</th>
+            <th>Luokitus</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for person in persons %}
+        <tr>
+            <td><a href="{{base_path}}/kayttajat/{{person.id}}">{{person.name}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.description}}</td>
+            <td>
+                {% if person.active %}
+                <label class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Available"></label>
+                {% else %}
+                <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Not available"></label>
+                {% endif %}
+            </td>
+            <td>{{person.current_rights}}</td>
+            <td><a class="btn btn-success" href="{{base_path}}/kayttaja/{{person.id}}/muokkaa"">Muokkaa</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

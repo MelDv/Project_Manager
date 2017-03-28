@@ -37,6 +37,16 @@
     align-content: center;
 }
 
-.image {
-    display: block;
+.table td, th {
+    text-align: center;   
+}
+
+.glyphicon-ok {
+    font-size: 1.3em;
+    color: green;
+}
+
+.glyphicon-remove {
+    font-size: 1.3em;
+    color: red;
 }
