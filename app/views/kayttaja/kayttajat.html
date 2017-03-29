@@ -2,15 +2,15 @@
 {% block content %}
 
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
-<a class="btn btn-default" href="{{base_path}}/uusikayttaja">Uusi käyttäjä</a>
+<a class="btn btn-default" href="{{base_path}}/kayttajat/uusikayttaja">Uusi käyttäjä</a>
 
 <h3>#Kaikki käyttäjät</h3>
-<table class="table table-hover">
+
+<table class="table table-hover table-responsive">
     <thead>
         <tr>
             <th>Nimi</th>
             <th>Sähköposti</th>
-            <th>Kuvaus</th>
             <th>Käytettävissä</th>
             <th>Luokitus</th>
             <th></th>
@@ -22,18 +22,18 @@
         <tr>
             <td><a href="{{base_path}}/kayttajat/{{person.id}}">{{person.name}}</td>
             <td>{{person.email}}</td>
-            <td>{{person.description}}</td>
-            <td>
+            <td style='text-align: center'>
                 {% if person.active %}
                 <label class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Available"></label>
                 {% else %}
                 <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Not available"></label>
                 {% endif %}
             </td>
-            <td>{{person.current_rights}}</td>
-            <td><a class="btn btn-success" href="{{base_path}}/kayttaja/{{person.id}}/muokkaa"">Muokkaa</a></td>
+            <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
+            <td><a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a></td>
         </tr>
         {% endfor %}
-    </tbody>
+    </tbody> 
 </table>
+
 {% endblock %}

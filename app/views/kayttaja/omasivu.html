@@ -4,13 +4,41 @@
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
 
 <img src="tsoha/assetts/img/man.png" alt="picture_of_me" class="img-rounded">
-<h1>#Nimi</h1>
-<strong>Nimike</strong>
-<p>Kuvaus</p>
 
-<a href="/tsoha/muokkaa_omasivu" class="btn btn-default">Muokkaa</a>
+<h1>{{person.name}}</h1>
 
-<h3>###Omat projektit</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Sähköposti</th>
+            <th>Käytettävissä</th>
+            <th>Luokitus</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{person.email}}</td>
+            <td style='text-align: center'>
+                {% if person.active %}
+                <label class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Available"></label>
+                {% else %}
+                <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Not available"></label>
+                {% endif %}
+            </td>
+            <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
+        </tr>
+    </tbody> 
+</table>
+</br></br>
+
+<strong>Kuvaus:</strong>
+<p>{{person.description}}</p>
+</br></br></br></br>
+<a href="{{base_path}}/kayttajat/{{person.id}}/muokkaa" class="btn btn-default" style='text-align: center'>Muokkaa</a>
+</br></br>
+<!--<h3>###Omat projektit</h3>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -23,9 +51,9 @@
     </thead>
 
     <tbody>
-        <!-- Projektit -->
+         Projektit 
         <tr class="danger">
-            <td><a href="/tsoha/projektit/1">Laskentasivut</a></td>
+            <td><a href="{{base_path}}/projektit/{{id}}">Laskentasivut</a></td>
             <td>33 %</td>
             <td>Nettisivut kalanviljelylaitosten keskusviraston talousosastolle</td>
             <th>
@@ -53,7 +81,7 @@
                     </ul>
                 </div>
             </th>
-        </tr>
-    </tbody>
-</table>
+        </tr>-->
+<!--    </tbody>
+</table>-->
 {% endblock %}

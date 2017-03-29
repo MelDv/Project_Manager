@@ -13,7 +13,9 @@
     </div>
     <div class="form-group">
         <label>Oikeudet</label>
+        {% filter upper %}
         <input type="text" class="form-control">{{person.current_rights}}
+        {% endfilter %}
     </div>
     <!--listää tähän ryhmät-->
     <div class="form-group">

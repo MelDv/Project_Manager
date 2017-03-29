@@ -1,9 +1,18 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    margin: 0 0 100px;
+}
+
 #main-container{
     max-width: 1000px;
     margin: 0px auto;
 }
 
-.navbar .container-fluid{
+.navbar .container-fluid {   
     max-width: 1200px;
     margin: 0px auto;
 }
@@ -37,7 +46,7 @@
     align-content: center;
 }
 
-.table td, th {
+.table th {
     text-align: center;   
 }
 
@@ -49,4 +58,28 @@
 .glyphicon-remove {
     font-size: 1.3em;
     color: red;
+}
+
+.footer {
+    background-color: #444;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;    
+}
+
+.form-control{
+    width: 700px;
+}
+
+.form-select{
+    width: 250px;
+}
+
+.table-responsive{
+    overflow-x: auto;
+    overflow-y: hidden;
 }

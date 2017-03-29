@@ -1,6 +1,7 @@
 <?php
 
 class HelloWorldController extends BaseController {
+
 //
 //    public static function index() {
 //        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
@@ -12,7 +13,25 @@ class HelloWorldController extends BaseController {
         //View::make('helloworld.html');
         //
         //testausta:
+        //project-luokka
+        $all = Project::all();
+        $findProject = Project::find(1);
 
+        Kint::dump($all);
+        Kint::dump($findProject);
+
+        //task-luokka
+        $allTasks = Task::all();
+        $findTask = Task::find(1);
+
+        Kint::dump($allTasks);
+        Kint::dump($findTask);
+
+        //workers_tasks-luokka
+//        $findMyTasks= Workers_tasks::findWorkersTasks(1);
+//        
+//        Kint::dump($findMyTasks);
+        //person-luokka
         $findOne = Person::find(2);
         $persons = Person::all();
         $authorized_personnel = Person::findActivePersons(true);
@@ -24,10 +43,6 @@ class HelloWorldController extends BaseController {
 
     public static function etusivu() {
         View::make('projektit/etusivu.html');
-    }
-
-    public static function omasivu() {
-        View::make('kayttaja/omasivu.html');
     }
 
     public static function omatTehtavat() {
@@ -46,24 +61,8 @@ class HelloWorldController extends BaseController {
         View::make('projektit/tehtava.html');
     }
 
-    public static function muokkaa_omasivu() {
-        View::make('kayttaja/muokkaa_omasivu.html');
-    }
-
     public static function kirjaudu() {
         View::make('kayttaja/kirjaudu.html');
-    }
-
-    public static function uusikayttaja() {
-        View::make('kayttaja/uusikayttaja.html');
-    }
-
-//    public static function kayttajat() {
-//        View::make('kayttaja/kayttajat.html');
-//    }
-
-    public static function muokkaa() {
-        View::make('kayttaja/muokkaa.html');
     }
 
 }

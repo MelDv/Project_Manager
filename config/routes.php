@@ -8,19 +8,11 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/omasivu', function() {
-    HelloWorldController::omasivu();
-});
-
-$routes->get('/omattehtavat', function() {
-    HelloWorldController::omatTehtavat();
-});
-
 $routes->get('/projektit', function() {
     HelloWorldController::projektit();
 });
 
-$routes->get('/projektit/:id', function() {
+$routes->get('/projektit/:id', function($id) {
     HelloWorldController::projekti($id);
 });
 
@@ -35,30 +27,34 @@ $routes->get('/kirjaudu', function() {
     HelloWorldController::kirjaudu();
 });
 
-$routes->get('/muokkaa_omasivu', function() {
-    HelloWorldController::muokkaa_omasivu();
-});
-
-$routes->get('/uusikayttaja', function() {
-    HelloWorldController::uusikayttaja();
-});
-
-$routes->get('/muokkaa', function() {
-    HelloWorldController::muokkaa();
-});
-
-$routes->get('/muokkaa', function() {
-    PersonController::muokkaa_hlotietoja($id);
-});
-
 $routes->get('/kayttajat', function() {
     PersonController::index();
 });
 
-$routes->get('/kayttajat', function() {
-    PersonController::kayttajat();
+$routes->get('/omasivu', function($id) {
+    PersonController::omasivu($id);
 });
 
-$routes->get('/kayttaja/:id', function() {
+$routes->get('/kayttajat/:id/muokkaa', function($id) {
+    PersonController::muokkaa_hlotietoja($id);
+});
+
+$routes->post('/kayttajat', function() {
+    PersonController::uusi();
+});
+
+$routes->get('/kayttajat/uusikayttaja', function() {
+    PersonController::uusikayttaja();
+});
+
+$routes->get('/kayttajat/:id', function($id) {
     PersonController::omasivu($id);
+});
+
+$routes->get('/muokkaa_omasivu', function() {
+    PersonController::muokkaa_omasivu();
+});
+
+$routes->get('/omattehtavat', function() {
+    HelloWorldController::omatTehtavat();
 });

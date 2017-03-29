@@ -1,5 +1,5 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
-CREATE TYPE rights AS ENUM ('Admin', 'Worker', 'Intern', 'Visitor');
+CREATE TYPE rights AS ENUM ('admin', 'worker', 'intern', 'visitor');
 CREATE TYPE status AS ENUM('Pending', 'Underway', 'Finished');
 
 CREATE TABLE work_group(
