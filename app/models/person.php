@@ -58,7 +58,7 @@ class Person extends BaseModel {
         return 'Id doesn\'t exist';
     }
 
-    public static function findActivePersons($active) {
+    public static function findByActivity($active) {
         $query = DB::connection()->prepare('SELECT * FROM Person WHERE active = :active');
         $query->bindValue(':active', $active, PDO::PARAM_BOOL);
         $query->execute();

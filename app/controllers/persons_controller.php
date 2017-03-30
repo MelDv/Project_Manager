@@ -22,6 +22,20 @@ class PersonController extends BaseController {
     }
 
     //POST
+    public static function muokkaa_oma($id) {
+        $params = $_POST;
+        $person = Person::find($id);
+        $person = (array(
+            'name' => $params['name'],
+            'email' => $params['email'],
+            'password' => $params['password'],
+            'description' => $params['description']
+        ));
+        Kint::dump($params);
+        $person->save();
+//        Redirect::to('/kayttajat/:id' . $person->id, array('message' => 'Tietosi on päivitetty'));
+    }
+
     public static function uusi() {
         $params = $_POST;
         $person = new Person(array(
@@ -36,8 +50,8 @@ class PersonController extends BaseController {
         Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjä on lisätty tietokantaan'));
     }
 
-    public static function muokkaa_omasivu() {
+
+    public static function muokkaa_omasivu($id) {
         View::make('kayttaja/muokkaa_omasivu.html');
     }
-
 }

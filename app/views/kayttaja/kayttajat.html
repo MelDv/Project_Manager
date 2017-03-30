@@ -30,7 +30,12 @@
                 {% endif %}
             </td>
             <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
-            <td><a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a></td>
+            <td>{% if person.active %}
+                <a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>
+                {% else %}
+                <a href="#" class="btn btn-danger" style='text-align: center'>Poista</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody> 

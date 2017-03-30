@@ -34,7 +34,7 @@ class HelloWorldController extends BaseController {
         //person-luokka
         $findOne = Person::find(2);
         $persons = Person::all();
-        $authorized_personnel = Person::findActivePersons(true);
+        $authorized_personnel = Person::findByActivity(true);
 
         Kint::dump($findOne);
         Kint::dump($persons);

@@ -35,6 +35,8 @@ $routes->get('/omasivu', function($id) {
     PersonController::omasivu($id);
 });
 
+
+
 $routes->get('/kayttajat/:id/muokkaa', function($id) {
     PersonController::muokkaa_hlotietoja($id);
 });
@@ -47,14 +49,17 @@ $routes->get('/kayttajat/uusikayttaja', function() {
     PersonController::uusikayttaja();
 });
 
-$routes->get('/kayttajat/:id', function($id) {
-    PersonController::omasivu($id);
-});
 
-$routes->get('/muokkaa_omasivu', function() {
+$routes->post('kayttajat/:id', function($id){
+    PersonController::muokkaa_oma($id); 
+});
+$routes->get('kayttajat/:id/muokkaa_omasivu', function() {
     PersonController::muokkaa_omasivu();
 });
 
 $routes->get('/omattehtavat', function() {
     HelloWorldController::omatTehtavat();
+});
+$routes->get('/kayttajat/:id', function($id) {
+    PersonController::omasivu($id);
 });

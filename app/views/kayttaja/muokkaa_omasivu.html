@@ -2,8 +2,7 @@
 {% block content %}
 <h1>Muokkaa omia tietoja</h1>
 
-<form>
-    </form>
+<form method='post' action='{{base_path}}/kayttajat/{{person.id}}'>
     <div class="input-group">
         <label>Nimi</label>
         <input type="text" name='name' class="form-control" value="{{person.name}}">
@@ -24,8 +23,9 @@
         <label>Kuva</label>
         <input type="image" name='picture' class="form-control">
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Tallenna</button>
+    <a href="{{base_path}}/kayttajat/{{person.id}}" class="btn btn-warning col-xs-1">Peruuta</a>
+    <div class="form-group col-xs-1">
+        <button class="btn btn-primary">Tallenna</button>
     </div>
 </form>
 
