@@ -8,7 +8,7 @@ Yleisiä linkkejä:
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
   * [Oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
   * [Omat tehtävät](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
-  * [Oman sivun muokkaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1muokkaa_omasivu)
+  * [Oman sivun muokkaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
   * [Käyttäjälistaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
