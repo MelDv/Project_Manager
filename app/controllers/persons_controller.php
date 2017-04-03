@@ -38,20 +38,29 @@ class PersonController extends BaseController {
 
     public static function uusi() {
         $params = $_POST;
-        $person = new Person(array(
+        $attributes = array(
             'active' => $params['active'],
             'name' => $params['name'],
             'email' => $params['email'],
             'password' => $params['password'],
             'current_rights' => $params['current_rights']
-        ));
+        );
 //        Kint::dump($params);
-        $person->save();
-        Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjä on lisätty tietokantaan'));
-    }
 
+        $person = new Person($attributes);
+        $errors = $person->errors();
+
+        if (count($errors) == 0) {
+            $person->save();
+            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjä lisättiin tietokantaan'));
+        } else {
+            array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
+            View::make('kayttaja/uusikayttaja.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
+    }
 
     public static function muokkaa_omasivu($id) {
         View::make('kayttaja/muokkaa_omasivu.html');
     }
+
 }

@@ -2,6 +2,15 @@
 {% block content %}
 <h1>Lisää uusi käyttäjä</h1>
 
+{% if errors %}
+<div class='alert alert-danger'>
+    {% for error in errors %}
+    <ul>   
+        <li>{{error}}</li>        
+    </ul>
+    {% endfor %}
+</div>
+{% endif %}
 <form method='post' action='{{base_path}}/kayttajat'>
     <div class="form-group">
         <label for='active'>Aktiivisuus</label>
@@ -12,15 +21,15 @@
     </div>
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" name='name' class="form-control" value="{{person.name}}">
+        <input type="text" name='name' class="form-control" value="{{attributes.name}}">
     </div>
     <div class="form-group">
         <label>Sähköposti</label>
-        <input type="email" name= 'email' class="form-control" value="{{person.email}}">
+        <input type="email" name= 'email' class="form-control" value="{{attributes.email}}">
     </div>
     <div class="form-group">
         <label>Salasana</label>
-        <input type="password" name='password' class="form-control" value="{{person.password}}">
+        <input type="password" name='password' class="form-control" value="{{attributes.password}}">
     </div>
     <div class="form-group">
         <label for='rights'>Oikeudet</label>
