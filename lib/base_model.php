@@ -44,8 +44,8 @@ class BaseModel {
         if (!$slug_match) {
             $errors[] = 'Nimessä saa olla vain merkkejä a-ö, A-Ö ja 0-9';
         }
-        $errors[] = 'name length with strlen = ' . strlen($this->name);
-        $errors[] = 'name length with mb_strlen= ' . mb_strlen($this->name, mb_internal_encoding());
+//        $errors[] = 'name length with strlen = ' . strlen($this->name);
+//        $errors[] = 'name length with mb_strlen= ' . mb_strlen($this->name, mb_internal_encoding());
         return $errors;
     }
 
@@ -65,8 +65,8 @@ class BaseModel {
         if (!$slug_match) {
             $errors[] = 'Salasanassa saa olla vain merkkejä a-ö, A-Ö, 0-9, tai -&%+?!';
         }
-        $errors[] = 'pssw length with strlen = ' . strlen($this->password);
-        $errors[] = 'pssw length with mb_strlen = ' . mb_strlen($this->password, mb_internal_encoding());
+//        $errors[] = 'pssw length with strlen = ' . strlen($this->password);
+//        $errors[] = 'pssw length with mb_strlen = ' . mb_strlen($this->password, mb_internal_encoding());
         return $errors;
     }
 
