@@ -18,6 +18,22 @@ class Person extends BaseModel {
         $this->id = $row['id'];
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Person SET (name, password, email, description) = (:name, :password, :email, :description) WHERE id=:id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'description' => $this->description));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public function delete($id) {
+        $query = DB::connection()->prepare('DELETE FROM Person WHERE id=:id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM Person');
         $query->execute();
@@ -57,6 +73,18 @@ class Person extends BaseModel {
             return $person;
         }
         return 'Id doesn\'t exist';
+    }
+
+    public static function findName($id) {
+        $query = DB::connection()->prepare('SELECT name FROM Person WHERE id = :id LIMIT 1');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+            $name = $row['name'];
+            return $name;
+        }
+        return null;
     }
 
     public static function findByActivity($active) {

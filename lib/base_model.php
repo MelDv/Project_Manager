@@ -39,13 +39,12 @@ class BaseModel {
             $errors[] = 'Nimen pitää olla vähintään neljä merkkiä pitkä.';
         }
 
-        $slug = '/^[a-öA-Ö0-9]+$/';
+        $slug = '/^[a-öA-Ö0-9- ]+$/';
         $slug_match = preg_match($slug, $this->name);
         if (!$slug_match) {
-            $errors[] = 'Nimessä saa olla vain merkkejä a-ö, A-Ö ja 0-9';
+            $errors[] = 'Nimessä saa olla vain merkkejä a-ö, A-Ö, 0-9 välilyönti tai -';
         }
-//        $errors[] = 'name length with strlen = ' . strlen($this->name);
-//        $errors[] = 'name length with mb_strlen= ' . mb_strlen($this->name, mb_internal_encoding());
+
         return $errors;
     }
 
@@ -65,21 +64,20 @@ class BaseModel {
         if (!$slug_match) {
             $errors[] = 'Salasanassa saa olla vain merkkejä a-ö, A-Ö, 0-9, tai -&%+?!';
         }
-//        $errors[] = 'pssw length with strlen = ' . strlen($this->password);
-//        $errors[] = 'pssw length with mb_strlen = ' . mb_strlen($this->password, mb_internal_encoding());
+
         return $errors;
     }
 
     public function validate_description() {
         $errors = array();
-        if (strlen($this->description) > 2000) {
+        if (mb_strlen($this->description, 'utf-8') > 2000) {
             $errors[] = 'Kuvaus voi olla enintään 2 000 merkkiä pitkä. ';
         }
         return $errors;
     }
 
     private function validate_length($string, $length) {
-        if (mb_strlen($string, 'UTF-8') < $length) {
+        if (mb_strlen($string, 'utf-8') < $length) {
             return false;
         } else {
             return true;

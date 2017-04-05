@@ -4,6 +4,13 @@
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
 <a class="btn btn-default" href="{{base_path}}/kayttajat/uusikayttaja">Uusi käyttäjä</a>
 
+<br>
+{% if message is not empty %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+<br>
 <h3>#Kaikki käyttäjät</h3>
 
 <table class="table table-hover table-responsive">
@@ -33,7 +40,12 @@
             <td>{% if person.active %}
                 <a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>
                 {% else %}
-                <a href="#" class="btn btn-danger" style='text-align: center'>Poista</a>
+                <form method="post" action="{{base_path}}/kayttajat/{{person.id}}/poista" >
+<!--                    <a class="btn btn-danger" type="submit" style='text-align: center'>Poista</a>
+                </form>-->
+                <div class="form-group">
+                    <button type=submit class="btn btn-danger">Poista</button>
+                </div></form>
                 {% endif %}
             </td>
         </tr>

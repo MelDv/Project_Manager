@@ -11,9 +11,10 @@
     {% endfor %}
 </div>
 {% endif %}
-<form method='post' action='{{base_path}}/kayttajat'>
+
+<form method='post' action='{{base_path}}/kayttajat/'>
     <div class="form-group">
-        <label for='active'>Aktiivisuus</label>
+        <label>Aktiivisuus</label>
         <select class='form-control' name='active'>
             <option value='true'>Käytettävissä</option>
             <option value='false'>Ei käytettävissä</option>
@@ -25,7 +26,7 @@
     </div>
     <div class="form-group">
         <label>Sähköposti</label>
-        <input type="email" name= 'email' class="form-control" value="{{attributes.email}}">
+        <input type="email" name='email' class="form-control" value="{{attributes.email}}">
     </div>
     <div class="form-group">
         <label>Salasana</label>

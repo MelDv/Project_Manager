@@ -39,6 +39,7 @@ class HelloWorldController extends BaseController {
         Kint::dump($findOne);
         Kint::dump($persons);
         Kint::dump($authorized_personnel);
+
     }
 
     public static function etusivu() {

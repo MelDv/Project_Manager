@@ -12,30 +12,38 @@ class PersonController extends BaseController {
         View::make('kayttaja/omasivu.html', array('person' => $person));
     }
 
-    public static function muokkaa_hlotietoja($id) {
-        $person = Person::find($id);
-        View::make('kayttaja/muokkaa_omasivu.html', array('person' => $person));
-    }
-
+    //lomakkeen näyttäminen
     public static function uusikayttaja() {
         View::make('kayttaja/uusikayttaja.html');
     }
 
-    //POST
+    //käyttäjän tietojen muokkaaminen
     public static function muokkaa_oma($id) {
         $params = $_POST;
-        $person = Person::find($id);
-        $person = (array(
+
+        $attributes = array(
+            'id' => $id,
             'name' => $params['name'],
             'email' => $params['email'],
             'password' => $params['password'],
-            'description' => $params['description']
-        ));
-        Kint::dump($params);
-        $person->save();
-//        Redirect::to('/kayttajat/:id' . $person->id, array('message' => 'Tietosi on päivitetty'));
+            'description' => $params['description'],
+            'password' => $params['password'],
+        );
+
+//        Kint::dump($params);
+
+        $person = new Person($attributes);
+        $errors = $person->errors();
+
+        if (count($errors) > 0) {
+            View::make('kayttaja/muokkaa_omasivu.html', array('errors' => $errors, 'person' => $person));
+        } else {
+            $person->update();
+            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Tiedot on päivitetty'));
+        }
     }
 
+    //uuden käyttäjän lisääminen
     public static function uusi() {
         $params = $_POST;
         $attributes = array(
@@ -59,8 +67,25 @@ class PersonController extends BaseController {
         }
     }
 
+    //käyttäjän poistaminen
+    public static function poista_kayttaja($id) {
+        $person = new Person(array('id' => $id));
+        $nimi = Person::findName($id);
+        $person->delete($id);
+
+        Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
+    }
+
+    //lomakkeen näyttäminen
     public static function muokkaa_omasivu($id) {
-        View::make('kayttaja/muokkaa_omasivu.html');
+        $person = Person::find($id);
+        View::make('kayttaja/muokkaa_omasivu.html', array('person' => $person));
+    }
+
+    //lomakkeen näyttäminen - admin
+    public static function muokkaa_hlotietoja($id) {
+        $person = Person::find($id);
+        View::make('kayttaja/muokkaa.html', array('person' => $person));
     }
 
 }
