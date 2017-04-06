@@ -62,8 +62,4 @@ class HelloWorldController extends BaseController {
         View::make('projektit/tehtava.html');
     }
 
-    public static function kirjaudu() {
-        View::make('kayttaja/kirjaudu.html');
-    }
-
 }

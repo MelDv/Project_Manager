@@ -1,6 +1,6 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
 CREATE TYPE rights AS ENUM ('admin', 'worker', 'intern', 'visitor');
-CREATE TYPE status AS ENUM('Pending', 'Underway', 'Finished');
+CREATE TYPE status AS ENUM('pending', 'underway', 'finished');
 
 CREATE TABLE work_group(
     id SERIAL PRIMARY KEY,
@@ -11,7 +11,7 @@ CREATE TABLE work_group(
 CREATE TABLE person(
     id SERIAL PRIMARY KEY,
     name varchar(40) NOT NULL,
-    password varchar(40) NOT NULL,
+    password varchar(255) NOT NULL,
     email varchar(40) NOT NULL UNIQUE,
     description varchar(2000),
     active BOOLEAN DEFAULT TRUE,

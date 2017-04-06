@@ -7,9 +7,29 @@ class PersonController extends BaseController {
         View::make('kayttaja/kayttajat.html', array('persons' => $persons));
     }
 
-    public static function omasivu($id) {
-        $person = Person::find($id);
-        View::make('kayttaja/omasivu.html', array('person' => $person));
+    public static function kirjaudu() {
+        View::make('kayttaja/kirjaudu.html');
+    }
+
+    public static function kirjaudu_ulos() {
+        $_SESSION['person'] = null;
+        Redirect::to('/', array('message' => 'Sinut on kirjattu ulos.'));
+    }
+
+    public static function kirjaudu_sisaan() {
+        $params = $_POST;
+        $person = Person::authenticate($params['email'], $params['password']);
+
+        if (!$person) {
+            View::make('kayttaja/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'email' => $params['email']));
+        } else {
+            $_SESSION['person'] = $person->id;
+            Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $person->name . '!'));
+        }
+    }
+
+    public static function omasivu() {
+        View::make('kayttaja/omasivu.html');
     }
 
     //lomakkeen näyttäminen
@@ -26,8 +46,7 @@ class PersonController extends BaseController {
             'name' => $params['name'],
             'email' => $params['email'],
             'password' => $params['password'],
-            'description' => $params['description'],
-            'password' => $params['password'],
+            'description' => $params['description']
         );
 
 //        Kint::dump($params);
@@ -86,6 +105,12 @@ class PersonController extends BaseController {
     public static function muokkaa_hlotietoja($id) {
         $person = Person::find($id);
         View::make('kayttaja/muokkaa.html', array('person' => $person));
+    }
+
+    //käyttäjän esittelysivu
+    public static function esittely($id) {
+        $person = Person::find($id);
+        View::make('kayttaja/esittely.html', array('person' => $person));
     }
 
 }

@@ -26,13 +26,14 @@
         <input type="text" class="form-control">{% filter upper %}{{attributes.current_rights}}
         {% endfilter %}
     </div>
-<!--    <div>
-        <p>{{person.active}}</p>
-        <p>{{person.current_rights}}</p>
-    </div>-->
+    <!--    <div>
+            <p>{{person.active}}</p>
+            <p>{{person.current_rights}}</p>
+        </div>-->
     <!--listää tähän ryhmät-->
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Tallenna</button>
+    <a href="{{base_path}}/kayttajat/{{person.id}}" class="btn btn-warning col-xs-1">Peruuta</a>
+    <div class="form-group col-xs-1">
+        <button type=submit class="btn btn-primary">Tallenna</button>
     </div>
 </form>
 {% endblock %}

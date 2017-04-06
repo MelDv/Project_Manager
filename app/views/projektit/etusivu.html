@@ -2,10 +2,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Kolmosviikon palautus: Käyttäjät-sivulla listaus, uuden käyttäjän lisääminen ja yksittäisen käyttäjän sivu tietokannasta Person-taulusta</h2>
-<p>Alla olevasta Käyttäjät-linkistä pääsee näihin parhaiten.</p>
-<p>Taululle Person on luotu metodit save(), all(), find($id) ja findByActivity($active), joka etsii annetun boolean-arvon mukaan käyttäjät, jotka ovat tai eivät ole käytettävissä.</p>
-<p>Myös project.php ja task.php luotu ja aloitettu metodien tekeminen. </p>
+{% if message is not empty %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
 <div class="container-fluid">
     <!-- KATSEENVANGITSIJA -->  
     <div class="jumbotron">
@@ -55,24 +57,24 @@
 
     <br> <br> <br>
     <!-- linkkinappulat tai -kuvat -->
-    
-        <a href="{{base_path}}/kayttajat/1" class="btn btn-info btn-lg col-xs-3">
-            <span class="glyphicon glyphicon-user"></span> Oma sivu                   
-        </a>
 
-        <a href="{{base_path}}/kayttajat" title="Käyttäjät" class="btn btn-success btn-lg col-xs-3">
-            <span class="glyphicon glyphicon-user"></span> 
-            <span class="glyphicon glyphicon-user"></span> Käyttäjät
-        </a>
+    <a href="{{base_path}}/kayttajat/1" class="btn btn-info btn-lg col-xs-3">
+        <span class="glyphicon glyphicon-user"></span> Oma sivu                   
+    </a>
+
+    <a href="{{base_path}}/kayttajat" title="Käyttäjät" class="btn btn-success btn-lg col-xs-3">
+        <span class="glyphicon glyphicon-user"></span> 
+        <span class="glyphicon glyphicon-user"></span> Käyttäjät
+    </a>
 
 
-        <a href="{{base_path}}/projektit" class="btn btn-warning btn-lg col-xs-3">
-            <span class="glyphicon glyphicon-th-large"></span> Projektit
-        </a>
-        <a href="{{base_path}}/omattehtavat" class="btn btn-danger btn-lg col-xs-3">
-            <span class="glyphicon glyphicon-th-list"></span> Tehtävät
-        </a>
-  
+    <a href="{{base_path}}/projektit" class="btn btn-warning btn-lg col-xs-3">
+        <span class="glyphicon glyphicon-th-large"></span> Projektit
+    </a>
+    <a href="{{base_path}}/omattehtavat" class="btn btn-danger btn-lg col-xs-3">
+        <span class="glyphicon glyphicon-th-list"></span> Tehtävät
+    </a>
+
 
 </div>
 {% endblock %}

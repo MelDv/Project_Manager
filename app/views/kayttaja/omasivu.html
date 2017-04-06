@@ -7,10 +7,11 @@
 </div>
 {% endif %}
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
+
 <br>
 <a href='{{base_path}}/kayttajat'>Käyttäjät</a>
 
-<h1>{{person.name}}</h1>
+<h1>{{user_logged_in.name}}</h1>
 
 <table class="table table-hover">
     <thead>
@@ -24,27 +25,30 @@
 
     <tbody>
         <tr>
-            <td>{{person.email}}</td>
+            <td>{{user_logged_in.email}}</td>
             <td style='text-align: center'>
-                {% if person.active %}
+                {% if user_logged_in.active %}
                 <label class="glyphicon glyphicon-ok" aria-hidden="true" aria-label="Available"></label>
                 {% else %}
                 <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="Not available"></label>
                 {% endif %}
             </td>
-            <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
+            <td style='text-align: center'> {% filter upper %}{{user_logged_in.current_rights}}{% endfilter %}</td>
         </tr>
     </tbody> 
 </table>
 </br></br>
 
 <strong>Kuvaus:</strong>
-<p>{{person.description}}</p>
+<p>{{user_logged_in.description}}</p>
 </br></br></br></br>
-<a href="{{base_path}}/kayttajat/{{person.id}}/muokkaa_omasivu" class="btn btn-default" style='text-align: center'>Muokkaa</a>
+
+<a href="{{base_path}}/kayttajat/{{user_logged_in.id}}/muokkaa_omasivu" class="btn btn-default" style='text-align: center'>Muokkaa</a>
 </br></br>
 
-<!--<h3>###Omat projektit</h3>
+
+
+<h3>###Omat projektit</h3>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -87,7 +91,7 @@
                     </ul>
                 </div>
             </th>
-        </tr>-->
-<!--    </tbody>
-</table>-->
+        </tr>
+    </tbody>
+</table>
 {% endblock %}

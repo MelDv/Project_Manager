@@ -1,6 +1,24 @@
 # Tietokantasovelluksen esittelysivu
 
-### Huom! Kolmosviikon palautuksena Käyttäjät-sivun listaus, käyttäjän lisääminen ja käyttäjän oma sivu.
+### Huom! Nelosviikolle tehty...
+Testikäyttäjä Testi-Admin. Kirjautuminen sähköpostilla a@a ja salasanalla 1111111 (seitsemän ykköstä)
+
+Käyttäjiä voi päivittää ja poistaa. Huom! Vain adminin oman sivun muokkaus toimii, ei muiden käyttäjien muokkaus vielä. (yläpalkista omalle sivulle) Muiden muokkauksessa muokattaisiin käyttöoikeuksia jne.
+Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
+Virheilmoitukset ja viestit näkyy.
+
+*Validointi
+  * Käyttäjänimi a-Ö, min 4 merkkiä
+  * Salasana min 7 merkkiä ja sallitut merkit listattu
+  * Kuvaus max 2000 merkkiä
+  * Emailin muodon tarkastaminen suoraan bootstapista
+
+* Muutokset kirjautumisen jälkeen
+  * Kirjautumislinkki vaihtuu uloskirjautumiseen
+  * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
+  * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
+  * Navigointilinkeihin tulee oma sivu ja omat tehtävät
+  * Vain admin voi lisätä käyttäjiä
 
 Yleisiä linkkejä:
 

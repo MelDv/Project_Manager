@@ -6,11 +6,34 @@ class Person extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_password', 'validate_description');
+        $this->validators = array('validate_name', 'validate_description', 'validate_password');
+    }
+
+    public function authenticate($email, $password) {
+        $query = DB::connection()->prepare('SELECT * FROM Person WHERE email = :email AND password = :password LIMIT 1');
+
+        $query->execute(array('email' => $email, 'password' => $password));
+        $row = $query->fetch();
+        if ($row) {
+//            if ($row['password'] == crypt($password, $row['password'])) {
+            // Käyttäjä löytyi, palautetaan löytynyt käyttäjä oliona
+            $person = new Person(array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'password' => $row['password'],
+                'email' => $row['email'],
+                'description' => $row['description'],
+                'active' => $row['active'],
+                'current_rights' => $row['current_rights']
+            ));
+            return $person;
+        }
+        return null;
     }
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Person (name, password, email, description, active, current_rights) VALUES (:name, :password, :email, :description, :active, :current_rights) RETURNING id');
+//        $this->password = crypt($this->password);
         $query->execute(array('name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'description' => $this->description, 'active' => $this->active, 'current_rights' => $this->current_rights));
         $row = $query->fetch();
 //        Kint::trace();
@@ -19,8 +42,8 @@ class Person extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Person SET (name, password, email, description) = (:name, :password, :email, :description) WHERE id=:id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'description' => $this->description));
+        $query = DB::connection()->prepare('UPDATE Person SET (name, email, password, description) = (:name, :email, :password, :description) WHERE id=:id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'description' => $this->description));
         $row = $query->fetch();
 
         Kint::dump($row);
@@ -72,7 +95,7 @@ class Person extends BaseModel {
             ));
             return $person;
         }
-        return 'Id doesn\'t exist';
+        return null;
     }
 
     public static function findName($id) {
@@ -106,7 +129,7 @@ class Person extends BaseModel {
             ));
             return $persons;
         }
-        return 'No active personnel';
+        return null;
     }
 
 }

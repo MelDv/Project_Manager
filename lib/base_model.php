@@ -59,10 +59,10 @@ class BaseModel {
             $errors[] = 'Salasanan pitää olla vähintään seitsemän merkkiä pitkä. ';
         }
 
-        $slug = '/^[a-öA-Ö0-9-&%+?!]+$/';
+        $slug = '/^[a-öA-Ö0-9-&%?!]+$/';
         $slug_match = preg_match($slug, $this->password);
         if (!$slug_match) {
-            $errors[] = 'Salasanassa saa olla vain merkkejä a-ö, A-Ö, 0-9, tai -&%+?!';
+            $errors[] = 'Salasanassa saa olla vain merkkejä a-ö, A-Ö, 0-9, tai -&%?!';
         }
 
         return $errors;

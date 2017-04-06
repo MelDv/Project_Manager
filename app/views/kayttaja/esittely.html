@@ -6,19 +6,16 @@
     {{message}}
 </div>
 {% endif %}
-
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
-{% if user_logged_in.current_rights=="admin" %}
-<a class="btn btn-default" href="{{base_path}}/uusikayttaja">Uusi käyttäjä</a>
-{% endif %}
 
 <br>
-<h3>#Kaikki käyttäjät</h3>
+<a href='{{base_path}}/kayttajat'>Käyttäjät</a>
 
-<table class="table table-hover table-responsive">
+<h1>{{person.name}}</h1>
+
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Nimi</th>
             <th>Sähköposti</th>
             <th>Käytettävissä</th>
             <th>Luokitus</th>
@@ -27,9 +24,7 @@
     </thead>
 
     <tbody>
-        {% for person in persons %}
         <tr>
-            <td><a href="{{base_path}}/kayttajat/{{person.id}}">{{person.name}}</td>
             <td>{{person.email}}</td>
             <td style='text-align: center'>
                 {% if person.active %}
@@ -39,17 +34,18 @@
                 {% endif %}
             </td>
             <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
-            <td>{% if person.active %}
-                <a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>
-                {% elseif user_logged_in and user_logged_in.current_rights=="admin" %}
-                <form method="post" action="{{base_path}}/kayttajat/{{person.id}}/poista" >
-                    <button type=submit class="btn btn-danger">Poista</button>
-                </form>
-                {% endif %}
-            </td>
         </tr>
-        {% endfor %}
     </tbody> 
 </table>
+</br></br>
+
+<strong>Kuvaus:</strong>
+<p>{{person.description}}</p>
+</br></br></br></br>
+
+<!-- testaa onko admin tai oma sivu -->
+{% if user_logged_in.current_rights == "admin" %}
+<a href="{{base_path}}/kayttajat/{{person.id}}/muokkaa" class="btn btn-default" style='text-align: center'>Muokkaa</a>
+{% endif %}
 
 {% endblock %}
