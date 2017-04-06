@@ -8,8 +8,8 @@ Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
 Virheilmoitukset ja viestit näkyy.
 
   * Validointi
-    * Käyttäjänimi a-Ö, min 4 merkkiä
-    * Salasana min 7 merkkiä ja sallitut merkit listattu
+    * Käyttäjänimi min 4 merkkiä, sallittujen merkkien testaus
+    * Salasana min 7 merkkiä ja sallitut merkit testataan
     * Kuvaus max 2000 merkkiä
     * Emailin muodon tarkastaminen suoraan bootstapista
   * Muutokset kirjautumisen jälkeen
