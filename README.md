@@ -12,21 +12,20 @@ Virheilmoitukset ja viestit näkyy.
   * Salasana min 7 merkkiä ja sallitut merkit listattu
   * Kuvaus max 2000 merkkiä
   * Emailin muodon tarkastaminen suoraan bootstapista
-
-* Muutokset kirjautumisen jälkeen
-  * Kirjautumislinkki vaihtuu uloskirjautumiseen
-  * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
-  * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
-  * Navigointilinkeihin tulee oma sivu ja omat tehtävät
+  * Muutokset kirjautumisen jälkeen
+    * Kirjautumislinkki vaihtuu uloskirjautumiseen
+    * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
+    * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
+    * Navigointilinkeihin tulee oma sivu ja omat tehtävät
   * Vain admin voi lisätä käyttäjiä
 
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
-  * [Oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
-  * [Omat tehtävät](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
-  * [Oman sivun muokkaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
+  * [Oma sivu esimerkki](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
+  * [Omat tehtävät esimerkki](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
+  * [Oman sivun muokkaus - huom! toimivalle muokkaussivulle pääsee vain kirjautuneena!](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
   * [Käyttäjälistaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
