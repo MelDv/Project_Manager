@@ -7,7 +7,7 @@ Käyttäjiä voi päivittää ja poistaa. Huom! Vain adminin oman sivun muokkaus
 Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
 Virheilmoitukset ja viestit näkyy.
 
-  *Validointi
+  * Validointi
     * Käyttäjänimi a-Ö, min 4 merkkiä
     * Salasana min 7 merkkiä ja sallitut merkit listattu
     * Kuvaus max 2000 merkkiä
@@ -17,7 +17,7 @@ Virheilmoitukset ja viestit näkyy.
     * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
     * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
     * Navigointilinkeihin tulee oma sivu ja omat tehtävät
-  * Vain admin voi lisätä käyttäjiä
+    * Vain admin voi lisätä käyttäjiä
 
 Yleisiä linkkejä:
 
