@@ -38,9 +38,9 @@ class PersonController extends BaseController {
     }
 
     //käyttäjän tietojen muokkaaminen
+
     public static function muokkaa_oma($id) {
         $params = $_POST;
-
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
@@ -59,6 +59,27 @@ class PersonController extends BaseController {
         } else {
             $person->update();
             Redirect::to('/kayttajat/' . $person->id, array('message' => 'Tiedot on päivitetty'));
+        }
+    }
+
+    public static function muokkaa_muita($id) {
+        $params = $_POST;
+        $attributes = array(
+            'id' => $id,
+            'name' => $params['name'],
+            'password' => $params['password'],
+            'active' => $params['active'],
+            'current_rights' => $params['current_rights']
+        );
+
+        $person = new Person($attributes);
+        $errors = $person->errors();
+
+        if (count($errors) > 0) {
+            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person));
+        } else {
+            $person->updateRights();
+            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjän tiedot päivitettiin'));
         }
     }
 

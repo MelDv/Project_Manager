@@ -46,7 +46,7 @@ $routes->post('/kayttajat/:id/muokkaa_omasivu', function($id) {
 });
 
 $routes->post('/kayttajat/:id/muokkaa', function($id) {
-    PersonController::muokkaa_oma($id);
+    PersonController::muokkaa_muita($id);
 });
 
 //muokkaussivujen näyttäminen

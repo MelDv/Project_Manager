@@ -13,24 +13,35 @@
 {% endif %}
 
 <form method='post' action='{{base_path}}/kayttajat/{{person.id}}/muokkaa'>
-    <div class="form-group">
+    <div class="input-group">
         <label>Nimi</label>
-        <input type="text" class="form-control">{{attributes.name}}
+        <input type="text" name='name' class="form-control" value="{{person.name}}">
     </div>
     <div class="form-group">
-        <label>Käytettävissä</label>
-        <input type="text" class="form-control">{{attributes.active}}
+        <label>Salasana</label>
+        <input type="password" name='password' class="form-control" value="{{person.password}}">
     </div>
     <div class="form-group">
-        <label>Oikeudet</label>
-        <input type="text" class="form-control">{% filter upper %}{{attributes.current_rights}}
-        {% endfilter %}
+        <div class="form-group">
+            <label>Aktiivisuus</label>
+            <select class='form-control' name='active'>
+                <option value='true'>Käytettävissä</option>
+                <option value='false'>Ei käytettävissä</option>
+            </select>
+        </div>
     </div>
-    <!--    <div>
-            <p>{{person.active}}</p>
-            <p>{{person.current_rights}}</p>
-        </div>-->
-    <!--listää tähän ryhmät-->
+    <div class="form-group">
+        <div class="form-group">
+            <label for='rights'>Oikeudet</label>
+            <select class='form-control' name='current_rights'>
+                <option value='visitor'>Vierailija</option>
+                <option value='intern'>Harjoittelija</option>
+                <option value='worker'>Työntekijä</option>
+                <option value='admin'>Admin</option>
+            </select>
+        </div>
+    </div>
+
     <a href="{{base_path}}/kayttajat/{{person.id}}" class="btn btn-warning col-xs-1">Peruuta</a>
     <div class="form-group col-xs-1">
         <button type=submit class="btn btn-primary">Tallenna</button>

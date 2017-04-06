@@ -48,6 +48,14 @@ class Person extends BaseModel {
 
         Kint::dump($row);
     }
+    
+    public function updateRights() {
+        $query = DB::connection()->prepare('UPDATE Person SET (name, password, active, current_rights) = (:name, :password, :active, :current_rights) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'active' => $this->active, 'current_rights' => $this->current_rights));
+        $row = $query->fetch();
+        
+        Kint::dump($row);
+    }
 
     public function delete($id) {
         $query = DB::connection()->prepare('DELETE FROM Person WHERE id=:id');

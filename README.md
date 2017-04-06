@@ -3,7 +3,7 @@
 ### Huom! Nelosviikolle tehty...
 Testikäyttäjä Testi-Admin. Kirjautuminen sähköpostilla a@a ja salasanalla 1111111 (seitsemän ykköstä)
 
-Käyttäjiä voi päivittää ja poistaa. Huom! Vain adminin oman sivun muokkaus toimii, ei muiden käyttäjien muokkaus vielä. (yläpalkista omalle sivulle) Muiden muokkauksessa muokattaisiin käyttöoikeuksia jne.
+Käyttäjiä voi päivittää ja poistaa. Huom! Oman sivun muokkauslomake on eri kuin adminille näkyvä muiden muokkauslomake.
 Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
 Virheilmoitukset ja viestit näkyy.
 
