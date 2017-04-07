@@ -1,50 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Muokkaa käyttäjän {{person.name}} tietoja</h1>
 
-{% if errors %}
-<div class='alert alert-danger'>
-    {% for error in errors %}
-    <ul>   
-        <li>{{error}}</li>        
-    </ul>
-    {% endfor %}
-</div>
-{% endif %}
+{% import "macros/forms.html" as forms %}
 
-<form method='post' action='{{base_path}}/kayttajat/{{person.id}}/muokkaa'>
-    <div class="input-group">
-        <label>Nimi</label>
-        <input type="text" name='name' class="form-control" value="{{person.name}}">
-    </div>
-    <div class="form-group">
-        <label>Salasana</label>
-        <input type="password" name='password' class="form-control" value="{{person.password}}">
-    </div>
-    <div class="form-group">
+{% if person.id==null %}
+<!--$uusi=true;-->
+<h1>Lisää uusi käyttäjä</h1>
+<form method='post' action='{{base_path}}/uusikayttaja'>
+    {% else %}
+    <h1>Muokkaa käyttäjän {{person.name}} tietoja</h1>
+    <form method='post' action='{{base_path}}/kayttajat/{{person.id}}/muokkaa'>
+        {% endif %}
+
+
         <div class="form-group">
-            <label>Aktiivisuus</label>
-            <select class='form-control' name='active'>
-                <option value='true'>Käytettävissä</option>
-                <option value='false'>Ei käytettävissä</option>
-            </select>
+            <label>Nimi</label>
+            <input type="text" name='name' class="form-control" value="{{person.name}}">
         </div>
-    </div>
-    <div class="form-group">
         <div class="form-group">
-            <label for='rights'>Oikeudet</label>
-            <select class='form-control' name='current_rights'>
-                <option value='visitor'>Vierailija</option>
-                <option value='intern'>Harjoittelija</option>
-                <option value='worker'>Työntekijä</option>
-                <option value='admin'>Admin</option>
-            </select>
+            <label>Sähköposti</label>
+            <input type="email" name='email' class="form-control" value="{{person.email}}">
         </div>
-    </div>
+        <div class="form-group">
+            <label>Salasana</label>
+            <input type="password" name='password' class="form-control" value="{{person.password}}">
+        </div>
 
-    <a href="{{base_path}}/kayttajat/{{person.id}}" class="btn btn-warning col-xs-1">Peruuta</a>
-    <div class="form-group col-xs-1">
-        <button type=submit class="btn btn-primary">Tallenna</button>
-    </div>
-</form>
-{% endblock %}
+        {{forms.active()}}
+        {{forms.rights()}}
+
+        {{forms.cancel_save("#{base_path}/kayttajat/#{person.id}")}}
+
+    </form>
+    {% endblock %}

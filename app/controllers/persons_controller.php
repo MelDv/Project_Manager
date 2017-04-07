@@ -19,7 +19,6 @@ class PersonController extends BaseController {
     public static function kirjaudu_sisaan() {
         $params = $_POST;
         $person = Person::authenticate($params['email'], $params['password']);
-
         if (!$person) {
             View::make('kayttaja/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'email' => $params['email']));
         } else {
@@ -32,13 +31,7 @@ class PersonController extends BaseController {
         View::make('kayttaja/omasivu.html');
     }
 
-    //lomakkeen näyttäminen
-    public static function uusikayttaja() {
-        View::make('kayttaja/uusikayttaja.html');
-    }
-
     //käyttäjän tietojen muokkaaminen
-
     public static function muokkaa_oma($id) {
         $params = $_POST;
         $attributes = array(
@@ -48,12 +41,9 @@ class PersonController extends BaseController {
             'password' => $params['password'],
             'description' => $params['description']
         );
-
 //        Kint::dump($params);
-
         $person = new Person($attributes);
         $errors = $person->errors();
-
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa_omasivu.html', array('errors' => $errors, 'person' => $person));
         } else {
@@ -67,14 +57,13 @@ class PersonController extends BaseController {
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
+            'email' => $params['email'],
             'password' => $params['password'],
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
-
         $person = new Person($attributes);
         $errors = $person->errors();
-
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person));
         } else {
@@ -87,23 +76,25 @@ class PersonController extends BaseController {
     public static function uusi() {
         $params = $_POST;
         $attributes = array(
-            'active' => $params['active'],
             'name' => $params['name'],
             'email' => $params['email'],
             'password' => $params['password'],
+            'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
 //        Kint::dump($params);
-
         $person = new Person($attributes);
         $errors = $person->errors();
 
+        if (Person::emailExists($params['email'])) {
+            $errors[] = 'Sähköpostiosoite löytyy jo tietokannasta. Et voi luoda sille toista tiliä.';
+        }
         if (count($errors) == 0) {
             $person->save();
             Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjä lisättiin tietokantaan'));
         } else {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
-            View::make('kayttaja/uusikayttaja.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person));
         }
     }
 
@@ -112,7 +103,6 @@ class PersonController extends BaseController {
         $person = new Person(array('id' => $id));
         $nimi = Person::findName($id);
         $person->delete($id);
-
         Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
     }
 
@@ -132,6 +122,11 @@ class PersonController extends BaseController {
     public static function esittely($id) {
         $person = Person::find($id);
         View::make('kayttaja/esittely.html', array('person' => $person));
+    }
+
+    //lomakkeen näyttäminen
+    public static function uusikayttaja() {
+        View::make('kayttaja/muokkaa.html');
     }
 
 }

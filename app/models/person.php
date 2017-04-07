@@ -6,7 +6,7 @@ class Person extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_description', 'validate_password');
+        $this->validators = array('validate_name', 'validate_description', 'validate_password', 'validate_email');
     }
 
     public function authenticate($email, $password) {
@@ -39,6 +39,7 @@ class Person extends BaseModel {
 //        Kint::trace();
 //        Kint::dump($row);
         $this->id = $row['id'];
+        Kint::dump($row);
     }
 
     public function update() {
@@ -48,12 +49,12 @@ class Person extends BaseModel {
 
         Kint::dump($row);
     }
-    
+
     public function updateRights() {
-        $query = DB::connection()->prepare('UPDATE Person SET (name, password, active, current_rights) = (:name, :password, :active, :current_rights) WHERE id = :id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'active' => $this->active, 'current_rights' => $this->current_rights));
+        $query = DB::connection()->prepare('UPDATE Person SET (name, password, email, active, current_rights) = (:name, :password, :email, :active, :current_rights) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'active' => $this->active, 'current_rights' => $this->current_rights));
         $row = $query->fetch();
-        
+
         Kint::dump($row);
     }
 
@@ -138,6 +139,18 @@ class Person extends BaseModel {
             return $persons;
         }
         return null;
+    }
+
+    public static function emailExists($email) {
+        $query = DB::connection()->prepare('SELECT * FROM Person WHERE email = :email');
+        $query->bindValue(':email', $email, PDO::PARAM_BOOL);
+        $query->execute();
+        $rows = $query->fetchAll();
+
+        if ($rows == null) {
+            return false;
+        }
+        return true;
     }
 
 }

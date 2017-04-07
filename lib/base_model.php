@@ -84,4 +84,16 @@ class BaseModel {
         }
     }
 
+    public function validate_email() {
+        $errors = array();
+
+        if ($this->email == '' || $this->email == null) {
+            $errors[] = 'Sähköposti ei saa olla tyhjä!';
+        } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Kirjoita sähköpostiosoite oikeassa muodossa: esimerkki@osoite.fi';
+        }
+
+        return $errors;
+    }
+
 }

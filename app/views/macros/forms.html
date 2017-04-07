@@ -1,0 +1,50 @@
+
+<!-- buttons -->
+<!-- peruuta ja tallenna -->
+{% macro cancel_save(href, cancel_text, save_text) %}
+<a href={{href}} class="btn btn-warning col-xs-1">{{cancel_text|default('Peruuta')}}</a>
+<div class="form-group col-xs-1">
+    <button type=submit class="btn btn-primary">{{save_text|default('Tallenna')}}</button>
+</div>
+{% endmacro %}
+
+<!-- lomakkeen osat Huom!! form-tagien sisään! -->
+<!-- nimi, salasana -->
+{% macro name_pssw(action, name_label, pssw_label, namevalue, psswvalue) %}
+<form method='post' action={{action}}>
+    <div class="form-group">
+        <label>{{name_label|default('Nimi')}}</label>
+        <input type="text" name='name' class="form-control" value="{{namevalue}}">
+    </div>
+    <div class="form-group">
+        <label>{{pssw_label|default('Salasana')}}</label>
+        <input type="password" name='password' class="form-control" value="{{psswvalue}}">
+    </div>
+</form>
+{% endmacro %}
+
+<!-- käytettävissä -->
+{% macro active(label, name_true, name_false) %}
+<div class="form-group">
+    <label>{{label|default('Aktiivisuus')}}</label>
+    <select class='form-control' name='active'>
+        <option name='active' value='true'>{{name_true|default('Käytettävissä')}}</option>
+        <option name='active' value='false'>{{name_false|default('Ei käytettävissä')}}</option>
+    </select>
+</div>
+{% endmacro %}
+
+<!--oikeudet -->
+{% macro rights(label, visitor, intern, worker, admin) %}
+<div class="form-group">
+    <div class="form-group">
+        <label for='rights'>{{label|default('Oikeudet')}}</label>
+        <select class='form-control' name='current_rights'>
+            <option value='visitor'>{{label|default('Vierailija')}}</option>
+            <option value='intern'>{{label|default('Harjoittelija')}}</option>
+            <option value='worker'>{{label|default('Työntekijä')}}</option>
+            <option value='admin'>{{label|default('Admin')}}</option>
+        </select>
+    </div>
+</div>
+{% endmacro %}

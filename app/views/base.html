@@ -28,7 +28,7 @@
 
         <!-- NAVIGAATIO -->
 
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -60,7 +60,7 @@
                                 <li><a href="{{base_path}}/projektit/1">Joku proggis</a></li>
                                 <li><a href="/{{base_path}}/projektit">Toinen proggis</a></li>
                             </ul>                       
-                         {% if user_logged_in %}
+                            {% if user_logged_in %}
                         <li><a href="{{base_path}}/kayttajat/omasivu">Oma sivu</a></li>
                         <li><a href="{{base_path}}/omattehtavat">Omat tehtävät</a></li>
                         {% endif %}
@@ -127,6 +127,20 @@
 
         <div id="main-container">
             <!-- Dynaaminen sisältö tulee tähän -->
+            {% if errors %}
+            <div class='alert alert-danger'>
+                {% for error in errors %}
+                <ul>   
+                    <li>{{error}}</li>        
+                </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if message is not empty %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+            {% endif %}
             {% block content %}{% endblock %}
             </br></br></br>
         </div>

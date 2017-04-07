@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if message is not empty %}
-<div class="alert alert-success">
-    {{message}}
-</div>
-{% endif %}
-
 <!-- HUOM!!! Muokkaa kaikki #:t! -->
 {% if user_logged_in.current_rights=="admin" %}
 <a class="btn btn-default" href="{{base_path}}/uusikayttaja">Uusi käyttäjä</a>

@@ -1,17 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% import "macros/forms.html" as forms %}
+
 <h1>Muokkaa omia tietoja</h1>
-
-{% if errors %}
-<div class='alert alert-danger'>
-    {% for error in errors %}
-    <ul>   
-        <li>{{error}}</li>        
-    </ul>
-    {% endfor %}
-</div>
-{% endif %}
-
 
 <form method='post' action='{{base_path}}/kayttajat/{{person.id}}/muokkaa_omasivu'>
     <div class="input-group">
@@ -34,10 +26,8 @@
         <p>{{attributes.active}}</p>
         <p>{{attributes.current_rights}}</p>
     </div>-->
-    <a href="{{base_path}}/kayttajat/{{person.id}}" class="btn btn-warning col-xs-1">Peruuta</a>
-    <div class="form-group col-xs-1">
-        <button type=submit class="btn btn-primary">Tallenna</button>
-    </div>
+    {{forms.cancel_save("#{base_path}/kayttajat/omasivu")}}
+
 </form>
 
 {% endblock %}
