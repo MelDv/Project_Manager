@@ -39,10 +39,10 @@ class BaseModel {
             $errors[] = 'Nimen pitää olla vähintään neljä merkkiä pitkä.';
         }
 
-        $slug = '/^[a-öA-Ö0-9- ]+$/';
+        $slug = '/^[a-öA-Ö0-9-. ]+$/';
         $slug_match = preg_match($slug, $this->name);
         if (!$slug_match) {
-            $errors[] = 'Nimessä saa olla vain merkkejä a-ö, A-Ö, 0-9 välilyönti tai -';
+            $errors[] = 'Nimessä saa olla vain merkkejä a-ö, A-Ö, 0-9 välilyönti tai -.';
         }
 
         return $errors;

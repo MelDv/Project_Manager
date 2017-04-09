@@ -9,6 +9,16 @@
 <br>
 <h3>#Kaikki käyttäjät</h3>
 
+<nav>
+    <ul class="pagination">
+        <li class="{% if not prev_page %}disabled{% endif %}"><a href="{{base_path}}/kayttajat?page={{prev_page}}"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+        {% for page in 1..pages %}
+        <li class="{% if curr_page == page %}active{% endif %}"><a href="{{base_path}}/kayttajat?page={{page}}">{{page}}</a></li>
+        {% endfor %}
+        <li class="{% if not next_page %}disabled{% endif %}"><a href="{{base_path}}/kayttajat?page={{next_page}}"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+    </ul>
+</nav>
+
 <table class="table table-hover table-responsive">
     <thead>
         <tr>
@@ -36,7 +46,7 @@
             <td>{% if person.active %}
                 <a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>
                 {% elseif user_logged_in and user_logged_in.current_rights=="admin" %}
-                <form method="post" action="{{base_path}}/kayttajat/{{person.id}}/poista" >
+                <form method="post" action="{{base_path}}/kayttajat/{{person.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa henkilön {{person.name}}?'>
                     <button type=submit class="btn btn-danger">Poista</button>
                 </form>
                 {% endif %}
@@ -44,6 +54,6 @@
         </tr>
         {% endfor %}
     </tbody> 
-</table>
+</table>    
 
 {% endblock %}

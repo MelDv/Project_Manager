@@ -4,8 +4,23 @@ class PersonController extends BaseController {
 
     public static function index() {
         self::check_logged_in();
-        $persons = Person::all();
-        View::make('kayttaja/kayttajat.html', array('persons' => $persons));
+        $persons_count = Person::count();
+
+        $page_size = 10;
+        $pages = ceil($persons_count / $page_size);
+        $page = (isset($_GET['page']) AND (int) $_GET['page'] > 0) ? (int) $_GET['page'] : 1;
+        $prev_page = $page - 1;
+        $next_page = $page + 1;
+
+        if ($prev_page < 1) {
+            $prev_page = null;
+        } elseif ($next_page > $pages) {
+            $next_page = null;
+        }
+
+
+        $persons = Person::all($page, $page_size);
+        View::make('kayttaja/kayttajat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page, 'persons' => $persons));
     }
 
     public static function kirjaudu() {
@@ -67,7 +82,7 @@ class PersonController extends BaseController {
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
-        
+
         $person = new Person($attributes);
         $errors = $person->errors();
         if (count($errors) > 0) {

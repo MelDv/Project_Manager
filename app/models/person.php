@@ -66,10 +66,42 @@ class Person extends BaseModel {
         Kint::dump($row);
     }
 
-    public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Person ORDER BY active desc, name');
+//    public static function all() {
+//        $query = DB::connection()->prepare('SELECT * FROM Person ORDER BY active desc, name');
+//        $query->execute();
+//
+//        $rows = $query->fetchAll();
+//        $persons = array();
+//
+//        foreach ($rows as $row) {
+//            $persons[] = new Person(array(
+//                'id' => $row['id'],
+//                'name' => $row['name'],
+//                'password' => $row['password'],
+//                'email' => $row['email'],
+//                'description' => $row['description'],
+//                'active' => $row['active'],
+//                'current_rights' => $row['current_rights']
+//            ));
+//        }
+//        return $persons;
+//    }
+    public static function count() {
+        $query = DB::connection()->prepare('SELECT * FROM Person');
         $query->execute();
+        $rows = $query->fetchAll();
 
+        return count($rows);
+    }
+
+    public static function all($page, $page_size) {
+        if (!isset($page, $page_size)) {
+            $page_size = 20;
+            $page = 1;
+        }
+
+        $query = DB::connection()->prepare('SELECT * FROM Person ORDER BY active desc, name LIMIT :limit OFFSET :offset');
+        $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1)));
         $rows = $query->fetchAll();
         $persons = array();
 
