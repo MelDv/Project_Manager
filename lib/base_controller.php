@@ -15,7 +15,7 @@ class BaseController {
     public static function check_logged_in() {
         // Toteuta kirjautumisen tarkistus tähän.
         if (!isset($_SESSION['person'])) {
-            Redirect::to('/kayttaja/kirjaudu', array('message' => 'Kirjaudu ensin sisään!'));
+            Redirect::to('/kirjaudu', array('message' => 'Kirjaudu ensin sisään!'));
         }
         // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
     }

@@ -16,7 +16,7 @@ $routes->get('/projektit/:id', function($id) {
     HelloWorldController::projekti($id);
 });
 
-$routes->get('/tehtava', function() {
+$routes->get('/tehtava',  function() {
     HelloWorldController::tehtava();
 });
 

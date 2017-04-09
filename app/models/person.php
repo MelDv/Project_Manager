@@ -67,7 +67,7 @@ class Person extends BaseModel {
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Person');
+        $query = DB::connection()->prepare('SELECT * FROM Person ORDER BY active desc, name');
         $query->execute();
 
         $rows = $query->fetchAll();
@@ -120,7 +120,7 @@ class Person extends BaseModel {
     }
 
     public static function findByActivity($active) {
-        $query = DB::connection()->prepare('SELECT * FROM Person WHERE active = :active');
+        $query = DB::connection()->prepare('SELECT * FROM Person WHERE active = :active ORDER BY name');
         $query->bindValue(':active', $active, PDO::PARAM_BOOL);
         $query->execute();
         $rows = $query->fetchAll();

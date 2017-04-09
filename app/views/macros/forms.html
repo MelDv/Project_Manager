@@ -37,14 +37,12 @@
 <!--oikeudet -->
 {% macro rights(label, visitor, intern, worker, admin) %}
 <div class="form-group">
-    <div class="form-group">
-        <label for='rights'>{{label|default('Oikeudet')}}</label>
-        <select class='form-control' name='current_rights'>
-            <option value='visitor'>{{label|default('Vierailija')}}</option>
-            <option value='intern'>{{label|default('Harjoittelija')}}</option>
-            <option value='worker'>{{label|default('Työntekijä')}}</option>
-            <option value='admin'>{{label|default('Admin')}}</option>
-        </select>
-    </div>
+    <label for='rights'>{{label|default('Oikeudet')}}</label>
+    <select class='form-control' name='current_rights'>
+        <option value='visitor'>{{label|default('Vierailija')}}</option>
+        <option value='intern'>{{label|default('Harjoittelija')}}</option>
+        <option value='worker'>{{label|default('Työntekijä')}}</option>
+        <option value='admin'>{{label|default('Admin')}}</option>
+    </select>
 </div>
 {% endmacro %}

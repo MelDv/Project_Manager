@@ -3,6 +3,7 @@
 class PersonController extends BaseController {
 
     public static function index() {
+        self::check_logged_in();
         $persons = Person::all();
         View::make('kayttaja/kayttajat.html', array('persons' => $persons));
     }
@@ -28,11 +29,13 @@ class PersonController extends BaseController {
     }
 
     public static function omasivu() {
+        self::check_logged_in();
         View::make('kayttaja/omasivu.html');
     }
 
     //käyttäjän tietojen muokkaaminen
     public static function muokkaa_oma($id) {
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'id' => $id,
@@ -53,7 +56,9 @@ class PersonController extends BaseController {
     }
 
     public static function muokkaa_muita($id) {
+        self::check_logged_in();
         $params = $_POST;
+
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
@@ -62,6 +67,7 @@ class PersonController extends BaseController {
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
+        
         $person = new Person($attributes);
         $errors = $person->errors();
         if (count($errors) > 0) {
@@ -74,6 +80,7 @@ class PersonController extends BaseController {
 
     //uuden käyttäjän lisääminen
     public static function uusi() {
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'name' => $params['name'],
@@ -100,6 +107,7 @@ class PersonController extends BaseController {
 
     //käyttäjän poistaminen
     public static function poista_kayttaja($id) {
+        self::check_logged_in();
         $person = new Person(array('id' => $id));
         $nimi = Person::findName($id);
         $person->delete($id);
@@ -108,24 +116,28 @@ class PersonController extends BaseController {
 
     //lomakkeen näyttäminen
     public static function muokkaa_omasivu($id) {
+        self::check_logged_in();
         $person = Person::find($id);
         View::make('kayttaja/muokkaa_omasivu.html', array('person' => $person));
     }
 
     //lomakkeen näyttäminen - admin
     public static function muokkaa_hlotietoja($id) {
+        self::check_logged_in();
         $person = Person::find($id);
         View::make('kayttaja/muokkaa.html', array('person' => $person));
     }
 
     //käyttäjän esittelysivu
     public static function esittely($id) {
+        self::check_logged_in();
         $person = Person::find($id);
         View::make('kayttaja/esittely.html', array('person' => $person));
     }
 
     //lomakkeen näyttäminen
     public static function uusikayttaja() {
+        self::check_logged_in();
         View::make('kayttaja/muokkaa.html');
     }
 
