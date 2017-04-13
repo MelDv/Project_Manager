@@ -39,10 +39,12 @@
 <div class="form-group">
     <label for='rights'>{{label|default('Oikeudet')}}</label>
     <select class='form-control' name='current_rights'>
-        <option value='visitor'>{{label|default('Vierailija')}}</option>
-        <option value='intern'>{{label|default('Harjoittelija')}}</option>
-        <option value='worker'>{{label|default('Työntekijä')}}</option>
-        <option value='admin'>{{label|default('Admin')}}</option>
+        <option value='visitor'>{{visitor|default('Vierailija')}}</option>
+        <option value='intern'>{{intern|default('Harjoittelija')}}</option>
+        <option value='worker'>{{worker|default('Työntekijä')}}</option>
+        <option value='admin'>{{admin|default('Admin')}}</option>
     </select>
 </div>
 {% endmacro %}
+
+

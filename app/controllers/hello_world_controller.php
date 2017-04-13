@@ -42,20 +42,8 @@ class HelloWorldController extends BaseController {
 
     }
 
-    public static function etusivu() {
-        View::make('projektit/etusivu.html');
-    }
-
     public static function omatTehtavat() {
         View::make('kayttaja/omattehtavat.html');
-    }
-
-    public static function projektit() {
-        View::make('projektit/projektit.html');
-    }
-
-    public static function projekti() {
-        View::make('projektit/projekti.html');
     }
 
     public static function tehtava() {

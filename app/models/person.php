@@ -32,9 +32,13 @@ class Person extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Person (name, password, email, description, active, current_rights) VALUES (:name, :password, :email, :description, :active, :current_rights) RETURNING id');
+        $query = DB::connection()->prepare('INSERT INTO Person (name, password, email, '
+                . 'description, active, current_rights) VALUES (:name, :password, :email, '
+                . ':description, :active, :current_rights) RETURNING id');
 //        $this->password = crypt($this->password);
-        $query->execute(array('name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'description' => $this->description, 'active' => $this->active, 'current_rights' => $this->current_rights));
+        $query->execute(array('name' => $this->name, 'password' => $this->password, 
+            'email' => $this->email, 'description' => $this->description, 'active' => $this->active, 
+            'current_rights' => $this->current_rights));
         $row = $query->fetch();
 //        Kint::trace();
 //        Kint::dump($row);
@@ -43,8 +47,10 @@ class Person extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Person SET (name, email, password, description) = (:name, :email, :password, :description) WHERE id=:id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'password' => $this->password, 'description' => $this->description));
+        $query = DB::connection()->prepare('UPDATE Person SET (name, email, password, description) '
+                . '= (:name, :email, :password, :description) WHERE id=:id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 
+            'password' => $this->password, 'description' => $this->description));
         $row = $query->fetch();
 
         Kint::dump($row);
@@ -58,7 +64,7 @@ class Person extends BaseModel {
         Kint::dump($row);
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Person WHERE id=:id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -126,7 +132,7 @@ class Person extends BaseModel {
 
         if ($row) {
             $person = new Person(array(
-                'id' => $row['id'],
+                'id' => $id,
                 'name' => $row['name'],
                 'password' => $row['password'],
                 'email' => $row['email'],

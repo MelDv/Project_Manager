@@ -20,7 +20,8 @@ class PersonController extends BaseController {
 
 
         $persons = Person::all($page, $page_size);
-        View::make('kayttaja/kayttajat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page, 'persons' => $persons));
+        View::make('kayttaja/kayttajat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
+            'next_page' => $next_page, 'persons' => $persons));
     }
 
     public static function kirjaudu() {
@@ -125,7 +126,7 @@ class PersonController extends BaseController {
         self::check_logged_in();
         $person = new Person(array('id' => $id));
         $nimi = Person::findName($id);
-        $person->delete($id);
+        $person->destroy($id);
         Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
     }
 

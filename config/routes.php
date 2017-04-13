@@ -1,23 +1,28 @@
 <?php
 
-$routes->get('/', function() {
-    HelloWorldController::etusivu();
-});
-
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/projektit', function() {
-    HelloWorldController::projektit();
+$routes->get('/tehtava', function() {
+    HelloWorldController::tehtava();
+});
+
+//ProjectController
+$routes->get('/', function() {
+    ProjectController::etusivu();
+});
+
+$routes->get('/projektit/', function() {
+    ProjectController::index();
+});
+
+$routes->get('/uusi', function() {
+    ProjectController::lisaa();
 });
 
 $routes->get('/projektit/:id', function($id) {
-    HelloWorldController::projekti($id);
-});
-
-$routes->get('/tehtava',  function() {
-    HelloWorldController::tehtava();
+    ProjectController::projekti($id);
 });
 
 //PersonController

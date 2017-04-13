@@ -1,23 +1,6 @@
 # Tietokantasovelluksen esittelysivu
 
-### Huom! Nelosviikolle tehty...
-Testikäyttäjä Testi-Admin. Kirjautuminen sähköpostilla a@a ja salasanalla 1111111 (seitsemän ykköstä)
-
-Käyttäjiä voi päivittää ja poistaa. Huom! Oman sivun muokkauslomake on eri kuin adminille näkyvä muiden muokkauslomake.
-Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
-Virheilmoitukset ja viestit näkyy.
-
-  * Validointi
-    * Käyttäjänimi min 4 merkkiä, sallittujen merkkien testaus
-    * Salasana min 7 merkkiä ja sallitut merkit testataan
-    * Kuvaus max 2000 merkkiä
-    * Emailin muodon tarkastaminen suoraan bootstapista
-  * Muutokset kirjautumisen jälkeen
-    * Kirjautumislinkki vaihtuu uloskirjautumiseen
-    * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
-    * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
-    * Navigointilinkeihin tulee oma sivu ja omat tehtävät
-    * Vain admin voi lisätä käyttäjiä
+Sisäänkirjautuminen: käyttäjätunnus a@a salasana: 1111111 (seitsemän ykköstä)
 
 Yleisiä linkkejä:
 
