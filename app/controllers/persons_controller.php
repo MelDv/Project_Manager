@@ -21,7 +21,7 @@ class PersonController extends BaseController {
 
         $persons = Person::all($page, $page_size);
         View::make('kayttaja/kayttajat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
-            'next_page' => $next_page, 'persons' => $persons));
+            'next_page' => $next_page, 'page_size' => $page_size, 'persons' => $persons));
     }
 
     public static function kirjaudu() {

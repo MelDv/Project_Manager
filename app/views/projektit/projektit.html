@@ -8,7 +8,7 @@
 {% endif %}
 
 <br><br><br>
-<h2 style='color: #eea236'>Projektit</h2>
+<h2 id="project">Projektit</h2>
 <br><br>
 
 {% if pages > 1 %}
@@ -27,10 +27,10 @@
 </nav>
 {% endif %}
 
-<h3>#Aktiiviset projektit</h3>
 <table class="table table-hover">
     <thead>
         <tr>
+            <th></th>
             <th>Nimi</th>
             <th>Valmiina %</th>
             <th>Kuvaus</th>
@@ -41,24 +41,33 @@
     </thead>
 
     <tbody>
-        {% for project in projects %}
+        {% set name="test" %}
+        {{project.name}}
+        {% for project in projects if project.name!=name %}
+        {% set name=project.name %}
+        {{project.name}}      
         <!-- Projektit -->
-        <tr class="danger">
+        <tr>
+            <td id="index">{{loop.index + (page-1) * page_size}}</td>
             <td><a href="{{base_path}}/projektit/{{project.id}}">{{project.name}}</a></td>
             <td>33 %</td>
             <td>{{project.description}}</td>
             <th>
+                <!--Tehtävät-->
+                {% if project.task_name!=null %}
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" id="projektilista" data-toggle="dropdown">Tehtävät
                         <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="projektilissta">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/tsoha/tehtava"">HTML & CSS</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/tsoha/tehtava">Sisällöntuotanto</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/tsoha/tehtava">Nojailu</a></li>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
+                        {% for project in projects if project.name == name %}
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{base_path}}/projektit/{{project.id}}/tehtavat/{{project.task_id}}">{{project.task_name}}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
+                {% endif %}
             </th>
             <th>
+                <!--Tekijät-->
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" id="tekijalista" data-toggle="dropdown">Tekijät
                         <span class="caret"></span></button>

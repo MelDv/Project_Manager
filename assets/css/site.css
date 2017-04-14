@@ -7,6 +7,18 @@ body{
     margin: 0 0 100px;
 }
 
+h2#user {
+    color: #31708f;
+}
+
+h2#project {
+    color: #eea236;
+}
+
+#index {
+    color: grey;
+}
+
 #main-container{
     max-width: 1000px;
     margin: 0px auto;

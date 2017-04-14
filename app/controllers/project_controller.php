@@ -24,7 +24,7 @@ class ProjectController extends BaseController {
 
         $projects = Project::all($page, $page_size);
         View::make('projektit/projektit.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
-            'next_page' => $next_page, 'projects' => $projects));
+            'next_page' => $next_page, 'page_size' => $page_size, 'projects' => $projects));
     }
 
     public static function projekti($id) {

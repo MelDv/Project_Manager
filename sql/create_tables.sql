@@ -32,8 +32,8 @@ CREATE TABLE project(
 
 CREATE TABLE task(
     id SERIAL PRIMARY KEY,
-    project INTEGER REFERENCES project(id),
-    name varchar(50) NOT NULL UNIQUE,
+    project INTEGER REFERENCES project(id) NOT NULL,
+    name varchar(50) NOT NULL,
     current_status status DEFAULT 'pending',
     late BOOLEAN DEFAULT FALSE,
     description varchar(400),

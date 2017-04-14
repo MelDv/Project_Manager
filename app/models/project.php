@@ -56,13 +56,16 @@ class Project extends BaseModel {
             $page_size = 20;
             $page = 1;
         }
-        $query = DB::connection()->prepare('SELECT * FROM Project ORDER BY approved desc, deadline, name LIMIT :limit OFFSET :offset');
+        $query = DB::connection()->prepare('SELECT Project.*, '
+                . 'Task.id AS task_id, Task.name AS task_name FROM Project LEFT JOIN Task ON Project.id = Task.project '
+                . 'ORDER BY approved desc, deadline, name LIMIT :limit OFFSET :offset');
         $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1)));
         $rows = $query->fetchAll();
         $projects = array();
+        $tasks = array();
 
         foreach ($rows as $row) {
-            $projects[] = new Project(array(
+            $projects[] = array(
                 'id' => $row['id'],
                 'manager' => $row['manager'],
                 'name' => $row['name'],
@@ -71,8 +74,10 @@ class Project extends BaseModel {
                 'description' => $row['description'],
                 'start_date' => $row['start_date'],
                 'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
+                'approved' => $row['approved'],
+                'task_name' => $row['task_name'],
+                'task_id' => $row['task_id']
+            );
         }
 //        Kint::trace();
 //        Kint::dump($rows);
