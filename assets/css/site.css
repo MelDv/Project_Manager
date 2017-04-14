@@ -62,14 +62,18 @@ h2#project {
     text-align: center;   
 }
 
-.glyphicon-ok {
+.glyphicon-ok, .glyphicon-check {
     font-size: 1.3em;
     color: green;
 }
 
-.glyphicon-remove {
+.glyphicon-remove, .glyphicon-exclamation-sign {
     font-size: 1.3em;
     color: red;
+}
+
+.dropdown-menu {
+    width: 250px;
 }
 
 .footer {

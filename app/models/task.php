@@ -24,7 +24,7 @@ class Task extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Tas SET (project, name, current_status, late, '
+        $query = DB::connection()->prepare('UPDATE Task SET (project, name, current_status, late, '
                 . 'description, start_date, deadline, approved) = (:manager, :name, :current_status, '
                 . ':late, :description, :start_date, :deadline, :approved) WHERE id = :id');
         $query->execute(array('project' => $this->project, 'name' => $this->name, 'current_status' => $this->current_status,

@@ -42,10 +42,8 @@
 
     <tbody>
         {% set name="test" %}
-        {{project.name}}
         {% for project in projects if project.name!=name %}
-        {% set name=project.name %}
-        {{project.name}}      
+        {% set name=project.name %}    
         <!-- Projektit -->
         <tr>
             <td id="index">{{loop.index + (page-1) * page_size}}</td>
@@ -60,7 +58,10 @@
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
                         {% for project in projects if project.name == name %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{base_path}}/projektit/{{project.id}}/tehtavat/{{project.task_id}}">{{project.task_name}}</a></li>
+                        <li span.glyphicon><a href="{{base_path}}/projektit/{{project.id}}/tehtavat/{{project.task_id}}">{{project.task_name}}  
+                                {% if project.task_approved %}<span class="glyphicon glyphicon-check pull-right"></span>
+                                {% elseif project.task_late %}<span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+                                {% endif %}</a></li> 
                         {% endfor %}
                     </ul>
                 </div>

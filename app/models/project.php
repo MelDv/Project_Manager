@@ -56,7 +56,7 @@ class Project extends BaseModel {
             $page_size = 20;
             $page = 1;
         }
-        $query = DB::connection()->prepare('SELECT Project.*, '
+        $query = DB::connection()->prepare('SELECT Project.*, Task.late AS task_late, Task.approved AS task_approved, '
                 . 'Task.id AS task_id, Task.name AS task_name FROM Project LEFT JOIN Task ON Project.id = Task.project '
                 . 'ORDER BY approved desc, deadline, name LIMIT :limit OFFSET :offset');
         $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1)));
@@ -76,7 +76,9 @@ class Project extends BaseModel {
                 'deadline' => $row['deadline'],
                 'approved' => $row['approved'],
                 'task_name' => $row['task_name'],
-                'task_id' => $row['task_id']
+                'task_id' => $row['task_id'],
+                'task_late' => $row['task_late'],
+                'task_approved' => $row['task_approved']
             );
         }
 //        Kint::trace();
