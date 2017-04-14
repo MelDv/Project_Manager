@@ -50,19 +50,13 @@ class Project extends BaseModel {
 
         return count($rows);
     }
-
-    public static function all($page, $page_size) {
-        if (!isset($page, $page_size)) {
-            $page_size = 20;
-            $page = 1;
-        }
+  public static function allActive() {
         $query = DB::connection()->prepare('SELECT Project.*, Task.late AS task_late, Task.approved AS task_approved, '
                 . 'Task.id AS task_id, Task.name AS task_name FROM Project LEFT JOIN Task ON Project.id = Task.project '
-                . 'ORDER BY approved desc, deadline, name LIMIT :limit OFFSET :offset');
-        $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1)));
+                . 'WHERE Project.approved = FALSE ORDER BY approved desc, deadline, name, task_approved');
+        $query->execute();
         $rows = $query->fetchAll();
         $projects = array();
-        $tasks = array();
 
         foreach ($rows as $row) {
             $projects[] = array(
@@ -79,6 +73,27 @@ class Project extends BaseModel {
                 'task_id' => $row['task_id'],
                 'task_late' => $row['task_late'],
                 'task_approved' => $row['task_approved']
+            );
+        }
+//        Kint::trace();
+//        Kint::dump($rows);
+        return $projects;
+    }
+
+    public static function allClosed() {
+        $query = DB::connection()->prepare('SELECT Project.id, Project.manager, Project.name, Project.description, Project.start_date, Person.name AS person_name FROM Project LEFT JOIN Person ON Project.manager = Person.id WHERE approved = TRUE ORDER BY name');
+        $query->execute();
+        $rows = $query->fetchAll();
+        $projects = array();
+
+        foreach ($rows as $row) {
+            $projects[] = array(
+                'id' => $row['id'],
+                'manager' => $row['manager'],
+                'name' => $row['name'],
+                'description' => $row['description'],
+                'start_date' => $row['start_date'],
+                'person_name' => $row['person_name']
             );
         }
 //        Kint::trace();
@@ -111,30 +126,6 @@ class Project extends BaseModel {
     public static function findByStatus($status) {
         $query = DB::connection()->prepare('SELECT * FROM Project WHERE current_status = :status ORDER BY deadline, name');
         $query->execute(array('current_status' => $status));
-        $rows = $query->fetchAll();
-        $projects = array();
-
-        foreach ($rows as $row) {
-            $projects[] = new $projects(array(
-                'id' => $row['id'],
-                'manager' => $row['manager'],
-                'name' => $row['name'],
-                'current_status' => $row['current_status'],
-                'late' => $row['late'],
-                'description' => $row['description'],
-                'start_date' => $row['start_date'],
-                'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
-            return $projects;
-        }
-        return null;
-    }
-
-    public static function findByApproved($approved) {
-        $query = DB::connection()->prepare('SELECT * FROM Project WHERE approved = :approved ORDER BY current_status, name');
-        $query->bindValue(':approved', $approved, PDO::PARAM_BOOL);
-        $query->execute();
         $rows = $query->fetchAll();
         $projects = array();
 

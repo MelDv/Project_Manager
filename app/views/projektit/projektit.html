@@ -11,22 +11,6 @@
 <h2 id="project">Projektit</h2>
 <br><br>
 
-{% if pages > 1 %}
-<nav>
-    <ul class="pagination">
-        <li class="{% if not prev_page %}disabled{% endif %}"><a href="{{base_path}}/projektit?page={{prev_page}}">
-                <span  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span></a></li>
-        {% for page in 1..pages %}
-        <li class="{% if curr_page == page %}active{% endif %}"><a href="{{base_path}}/projektit?page={{page}}">{{page}}</a></li>
-        {% endfor %}
-        <li class="{% if not next_page %}disabled{% endif %}"><a href="{{base_path}}/projektit?page={{next_page}}">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span></a></li>
-    </ul>
-</nav>
-{% endif %}
-
 <table class="table table-hover">
     <thead>
         <tr>
@@ -46,7 +30,7 @@
         {% set name=project.name %}    
         <!-- Projektit -->
         <tr>
-            <td id="index">{{loop.index + (page-1) * page_size}}</td>
+            <td id="index">{{loop.index}}</td>
             <td><a href="{{base_path}}/projektit/{{project.id}}">{{project.name}}</a></td>
             <td>33 %</td>
             <td>{{project.description}}</td>
@@ -84,4 +68,47 @@
         {% endfor %}
     </tbody>
 </table>
+
+<br><br><br>
+<!-- Vanhat projektit -->
+{% if old_projects != null %}
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Valmiit projektit</a>
+            </h3>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <ul class="list-group">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nimi</th>
+                            <th>Kuvaus</th>
+                            <th>Projektipäällikkö</th>
+                            <th>Aloituspäivä</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>  
+                        {% for old_project in old_projects %}
+                        <tr>
+                            <td id="index">{{loop.index}}</td>
+                            <td><a href="{{base_path}}/projektit/{{old_project.id}}">{{old_project.name}}</a></td>
+                            <td>{{old_project.description}}</td>
+                            <td><a href="{{base_path}}/kayttajat/{{old_project.manager}}">{{old_project.person_name}}</a></td>
+                            <td>{{old_project.start_date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </ul>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

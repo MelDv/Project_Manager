@@ -18,7 +18,6 @@ class PersonController extends BaseController {
             $next_page = null;
         }
 
-
         $persons = Person::all($page, $page_size);
         View::make('kayttaja/kayttajat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
             'next_page' => $next_page, 'page_size' => $page_size, 'persons' => $persons));

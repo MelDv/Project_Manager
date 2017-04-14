@@ -14,7 +14,7 @@ class HelloWorldController extends BaseController {
         //
         //testausta:
         //project-luokka
-        $all = Project::all();
+        $all = Project::allActive();
         $findProject = Project::find(1);
 
         Kint::dump($all);

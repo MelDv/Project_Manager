@@ -72,26 +72,6 @@ class Person extends BaseModel {
         Kint::dump($row);
     }
 
-//    public static function all() {
-//        $query = DB::connection()->prepare('SELECT * FROM Person ORDER BY active desc, name');
-//        $query->execute();
-//
-//        $rows = $query->fetchAll();
-//        $persons = array();
-//
-//        foreach ($rows as $row) {
-//            $persons[] = new Person(array(
-//                'id' => $row['id'],
-//                'name' => $row['name'],
-//                'password' => $row['password'],
-//                'email' => $row['email'],
-//                'description' => $row['description'],
-//                'active' => $row['active'],
-//                'current_rights' => $row['current_rights']
-//            ));
-//        }
-//        return $persons;
-//    }
     public static function count() {
         $query = DB::connection()->prepare('SELECT * FROM Person');
         $query->execute();
