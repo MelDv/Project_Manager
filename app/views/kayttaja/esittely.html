@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HUOM!!! Muokkaa kaikki #:t! -->
-
-<br>
 <a href='{{base_path}}/kayttajat'>Käyttäjät</a>
 
 <h1>{{person.name}}</h1>
@@ -39,7 +36,7 @@
 </br></br></br></br>
 
 <!-- testaa onko admin tai oma sivu -->
-{% if user_logged_in.current_rights == "admin" %}
+{% if user_logged_in.current_rights == "admin" or user_logged_in.id == person.id %}
 <a href="{{base_path}}/kayttajat/{{person.id}}/muokkaa" class="btn btn-default" style='text-align: center'>Muokkaa</a>
 {% endif %}
 

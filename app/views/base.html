@@ -25,9 +25,7 @@
     </head>
 
     <body>
-
         <!-- NAVIGAATIO -->
-
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -61,7 +59,7 @@
                                 <li><a href="/{{base_path}}/projektit">Toinen proggis</a></li>
                             </ul>                       
                             {% if user_logged_in %}
-                        <li><a href="{{base_path}}/kayttajat/omasivu">Oma sivu</a></li>
+                        <li><a href="{{base_path}}/kayttajat/{{user_logged_in.id}}">Oma sivu</a></li>
                         <li><a href="{{base_path}}/projektit/omattehtavat">Omat tehtävät</a></li>
                         {% endif %}
                     </ul>
@@ -85,48 +83,11 @@
                             </div>
                         </div>
                     </form>
-
-                    <!-- MODAL KIRJAUTUMISPONNAHDUSIKKUNA ei toimi vielä -->
-                    <!--                    <div class="modal" id="kirjautumismodal" role="dialog">
-                                            <div class="modal-dialog">
-                    
-                                                 Modal content
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                                                        <h4 class="modal-title">Kirjaudu</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Käyttäjänimi</label>
-                                                                <input type="text" class="form-control" id="usrname" placeholder="Kirjoita sähköpostiosoitteesi">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Salasana</label>
-                                                                <input type="text" class="form-control" id="psw" placeholder="Kirjoita salasana">
-                                                            </div>
-                                                            <div class="checkbox">
-                                                                <label><input type="checkbox" value="" checked> Muista minut tällä laitteella</label>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Kirjaudu</button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Peruuta</button>
-                                                        <p>Unohditko salasanan? <a href="#">Uusi salasana sähköpostiin</a></p>
-                                                        <p>Ongelmia käyttäjätunnuksen kanssa? <a href="#">Ota yhteys tukeen</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
                 </div> 
             </div>
-
         </nav>
 
         <div id="main-container">
-            <!-- Dynaaminen sisältö tulee tähän -->
             <!-- Errorit ja messaget sivun ylälaitaan -->
             {% if errors %}
             <div class='alert alert-danger'>
@@ -142,18 +103,17 @@
                 {{message}}
             </div>
             {% endif %}
-            
+
+            <!-- Dynaaminen sisältö tulee tähän -->
             {% block content %}{% endblock %}
             </br></br></br>
         </div>
-
 
         <div class="footer" id="footer">
             {% block footer %}
             &dbkarow; <a href="https://github.com/MelDv/Tsoha-Bootstrap" class="text-muted">GitHub project</a>
             {% endblock %}
         </div>
-
 
         {% block body %}
         <!-- jQuery -->
