@@ -74,26 +74,16 @@ $routes->post('/uusikayttaja', function() {
 });
 
 //muokkaaminen
-$routes->post('/kayttajat/:id/muokkaa_omasivu', function($id) {
-    PersonController::muokkaa_oma($id);
-});
 $routes->post('/kayttajat/:id/muokkaa', function($id) {
-    PersonController::muokkaa_muita($id);
-});
-//muokkaussivujen näyttäminen
-$routes->get('/kayttajat/:id/muokkaa_omasivu', function($id) {
-    PersonController::muokkaa_omasivu($id);
+    PersonController::muokkaa_kayttaja($id);
 });
 
+//muokkaussivun näyttäminen
 $routes->get('/kayttajat/:id/muokkaa', function($id) {
-    PersonController::muokkaa_hlotietoja($id);
+    PersonController::muokkaa($id);
 });
 
-$routes->get('/kayttajat/omasivu', function() {
-    PersonController::omasivu();
-});
-
-//kunkin käyttäjän esittelysivu, josta linkki admin-muokkaussivulle
+//kunkin käyttäjän esittelysivu, josta linkki muokkaussivulle
 $routes->get('/kayttajat/:id', function($id) {
     PersonController::esittely($id);
 });
@@ -108,8 +98,4 @@ $routes->get('/uusikayttaja', function() {
 
 $routes->post('kayttajat/:id', function($id) {
     PersonController::muokkaa_oma($id);
-});
-
-$routes->get('/omattehtavat', function() {
-    HelloWorldController::omatTehtavat();
 });

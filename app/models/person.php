@@ -47,18 +47,9 @@ class Person extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Person SET (name, email, password, description) '
-                . '= (:name, :email, :password, :description) WHERE id=:id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email,
-            'password' => $this->password, 'description' => $this->description));
-        $row = $query->fetch();
-
-        Kint::dump($row);
-    }
-
-    public function updateRights() {
-        $query = DB::connection()->prepare('UPDATE Person SET (name, password, email, active, current_rights) = (:name, :password, :email, :active, :current_rights) WHERE id = :id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'active' => $this->active, 'current_rights' => $this->current_rights));
+        $query = DB::connection()->prepare('UPDATE Person SET (name, password, email, active, current_rights, description) '
+                . '= (:name, :password, :email, :active, :current_rights, :description) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'password' => $this->password, 'email' => $this->email, 'active' => $this->active, 'current_rights' => $this->current_rights, 'description' => $this->description));
         $row = $query->fetch();
 
         Kint::dump($row);

@@ -39,48 +39,21 @@ class PersonController extends BaseController {
             View::make('kayttaja/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'email' => $params['email']));
         } else {
             $_SESSION['person'] = $person->id;
-            Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $person->name . '!'));
+            Redirect::to('/projektit/omattehtavat', array('message' => 'Tervetuloa takaisin ' . $person->name . '!'));
         }
     }
 
-    public static function omasivu() {
-        self::check_logged_in();
-        View::make('kayttaja/omasivu.html');
-    }
-
-    //käyttäjän tietojen muokkaaminen
-    public static function muokkaa_oma($id) {
+    public static function muokkaa_kayttaja($id) {
         self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
-            'email' => $params['email'],
             'password' => $params['password'],
-            'description' => $params['description']
-        );
-//        Kint::dump($params);
-        $person = new Person($attributes);
-        $errors = $person->errors();
-        if (count($errors) > 0) {
-            View::make('kayttaja/muokkaa_omasivu.html', array('errors' => $errors, 'person' => $person));
-        } else {
-            $person->update();
-            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Tiedot on päivitetty'));
-        }
-    }
-
-    public static function muokkaa_muita($id) {
-        self::check_logged_in();
-        $params = $_POST;
-
-        $attributes = array(
-            'id' => $id,
-            'name' => $params['name'],
             'email' => $params['email'],
-            'password' => $params['password'],
             'active' => $params['active'],
-            'current_rights' => $params['current_rights']
+            'current_rights' => $params['current_rights'],
+            'description' => $params['description']
         );
 
         $person = new Person($attributes);
@@ -88,8 +61,8 @@ class PersonController extends BaseController {
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person));
         } else {
-            $person->updateRights();
-            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjän tiedot päivitettiin'));
+            $person->update();
+            Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjätiedot päivitettiin'));
         }
     }
 
@@ -129,15 +102,8 @@ class PersonController extends BaseController {
         Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
     }
 
-    //lomakkeen näyttäminen
-    public static function muokkaa_omasivu($id) {
-        self::check_logged_in();
-        $person = Person::find($id);
-        View::make('kayttaja/muokkaa_omasivu.html', array('person' => $person));
-    }
-
     //lomakkeen näyttäminen - admin
-    public static function muokkaa_hlotietoja($id) {
+    public static function muokkaa($id) {
         self::check_logged_in();
         $person = Person::find($id);
         View::make('kayttaja/muokkaa.html', array('person' => $person));
