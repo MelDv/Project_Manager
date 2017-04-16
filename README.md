@@ -15,8 +15,8 @@ Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
-  * [Oma sivu esimerkki](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
-  * [Omat tehtävät esimerkki](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
+  * [Käyttäjän oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
+  * [Omat tehtäväti](http://madufva.users.cs.helsinki.fi/tsoha/projektit/omattehtavat)
   * [Oman sivun muokkaus - huom! toimivalle muokkaussivulle pääsee vain kirjautuneena!](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
   * [Käyttäjälistaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
