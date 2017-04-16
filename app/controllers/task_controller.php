@@ -6,7 +6,7 @@ class TaskController extends BaseController {
         self::check_logged_in();
         $user = self::get_user_logged_in();
         $id = $user->id;
-        $task_count = Task::count();
+        $task_count = WorkersTasks::count($id);
 
         $page_size = 10;
         $pages = ceil($task_count / $page_size);
@@ -27,7 +27,7 @@ class TaskController extends BaseController {
 
     public static function tehtava($pid, $id) {
         self::check_logged_in();
-        $task = Task::find($id, $pid);
+        $task = Task::find($pid, $id);
         $workers = WorkersTasks::findWorkersByTask($id);
         $names = array();
 

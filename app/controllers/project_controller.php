@@ -16,7 +16,8 @@ class ProjectController extends BaseController {
     public static function projekti($id) {
         self::check_logged_in();
         $project = Project::find($id);
-        View::make('projektit/projekti.html', array('project' => $project));
+        $tasks = Task::findByProject($id);
+        View::make('projektit/projekti.html', array('project' => $project, 'tasks' => $tasks));
     }
 
     public static function lisaa() {

@@ -5,11 +5,11 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 //TaskController
-$routes->post('/projektit/:pid/tehtava/:id/poista', function($id) {
+$routes->post('/projektit/:pid/tehtava/:id/poista', function($pid, $id) {
     TaskController::poista($id);
 });
 
-$routes->post('/projektit/tehtava/:id/valmis', function($id) {
+$routes->post('/projektit/:pid/tehtava/:id/valmis', function($pid, $id) {
     TaskController::valmis($id);
 });
 
@@ -42,7 +42,7 @@ $routes->get('/projektit/', function() {
     ProjectController::index();
 });
 
-$routes->get('/uusi', function() {
+$routes->get('projektit/uusi', function() {
     ProjectController::lisaa();
 });
 

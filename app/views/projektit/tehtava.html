@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <h1>{{task.name}}</h1>
 
 {% if task.approved %}
@@ -22,9 +21,14 @@
 <button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
 <br><br><br>
 
+<strong>Deadline: {{task.deadline}}</strong>
+<br>
+<p>Aloituspäivä: {{task.start_date}}</p>
+
+
 <h3>Kuvaus</h3>
 
-<strong>{{task.description}}</strong>
+<p>{{task.description}}</p>
 <br><br>
 
 {% if user_logged_in.current_rights=="admin" %}

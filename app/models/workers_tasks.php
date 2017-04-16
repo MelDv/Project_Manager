@@ -54,4 +54,12 @@ class WorkersTasks extends BaseModel {
         return $workers;
     }
 
+    public static function count($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Workers_tasks WHERE worker = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+
+        return count($rows);
+    }
+
 }

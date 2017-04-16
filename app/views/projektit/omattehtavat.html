@@ -61,7 +61,7 @@
                 {% if task.current_status == "finished" %}
                 <h4><span class="label label-info">  Hyväksyttävänä</span></h4>
                 {% else %}
-                <form method="post" action="{{base_path}}/projektit/tehtava/{{task.id}}/valmis" data-confirm='Haluatko varmasti lähettää tehtävän {{task.name}} hyväksyttäväksi?'>
+                <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/valmis" data-confirm='Haluatko varmasti lähettää tehtävän {{task.name}} hyväksyttäväksi?'>
                     <button type=submit class="btn btn-success">Merkitse valmiiksi</button>
                 </form>
                 {% endif %}

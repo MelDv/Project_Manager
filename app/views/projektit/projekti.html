@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HUOM!!! Muokkaa kaikki #:t! Hae automaattisesti h1, h5, tehtävät -->
-<!-- toiminta nappeihin yhteydenotto, poista, muokkaa, lisää tekijä -->
-
-<h1>#Projektin nimi</h1>
+<h1>{{project.name}}</h1>
 
 <div class="progress">
     <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
@@ -18,40 +15,59 @@
     </div>
 </div>
 
-<h5>Projektipäällikkö Karianne</h5> 
-<button type="button" class="btn btn-success">#Lähetä viesti</button>
+<h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{project.manager}}">{{project.manager_name}}</a></h4>
+<button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
+<br><br><br>
 
-<h3>###Kuvaus</h3>
-<strong>Tässä on lyhyt kuvaus</strong>
-<p>Tarkka kuvaus</p>
-<button type="button" class="btn btn-default">Muokkaa</button>
+<h3>Kuvaus</h3>
 
-<h3>###Tehtävät</h3>
-<button type="button" class="btn btn-default">Lisää tehtävä</button>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Nimi</th>
-            <th>Kuvaus</th>
-            <th>Tekijät</th>
-            <th></th>
-        </tr>
-    </thead>
+<p>{{project.description}}</p>
+<br><br>
 
-    <tbody>
-        <!-- Projektin tehtävät -->
-        <tr class="danger">
-            <td><a href="/tsoha/tehtava">Sivupohjat</a></td>
-            <td>Tärkeimpien sivupohjien html5 ja css</td>
-            <th>Sanna ja Janna</th>
-            <th><a class="btn btn-success">Merkitse valmiiksi</a></th>
-        </tr>
-        <tr class="danger">
-            <td><a href="/tsoha/tehtava">Sisällöntuotanto</a></td>
-            <td>Reiska keksii sisältöä</td>
-            <th>Reiska</th>
-            <th><a class="btn btn-success">Merkitse valmiiksi</a></th>
-        </tr>
-    </tbody>
-</table>
-{% endblock %}
+{% if user_logged_in.current_rights=="admin" %}
+<form method="post" class="pull-right" action="{{base_path}}/projektit/{{project.id}}/muokkaa">
+    <button type="button" class="btn btn-default">Muokkaa</button>
+</form>
+{% endif %}
+<br><br>
+
+<div class="container">
+    <div class="col-md-6">
+        <!--panel-->
+        {% for task in tasks %}
+        {% if task.approved %}<div class="panel panel-success">{% elseif task.late %}<div class="panel panel-danger">{% else %}<div class="panel panel-default">{% endif %}
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {% if task.approved %}
+                                <label class="label label-success">Valmis</label>
+                                {% elseif task.late %}
+                                <label class="label label-danger">Myöhässä!</label>
+                                {% elseif task.current_status == "finished" %}
+                                <label class="label label-info">Hyväksyttävänä</label>
+                                {% elseif task.current_status == "underway" %}
+                                <label class="label label-primary">Työn alla</label>
+                                {% elseif task.current_status == "pending" %}
+                                <label class="label label-default">Työn alla</label>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9"><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{task.id}}"><strong>{{task.name}}</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2">Deadline: </div><div class="col-md-10">Kuvaus:</div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-2"><strong>{{task.deadline}} </strong></div><div class="col-md-10">{{task.description}}</div>
+                        </div> 
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-default">Lisää tehtävä</button>
+
+        {% endblock %}

@@ -65,11 +65,9 @@ class Task extends BaseModel {
             $page_size = 20;
             $page = 1;
         }
-        $underway = "underway";
-        $pending = "pending";
-        $query = DB::connection()->prepare('SELECT Task.*, Project.name AS project_name, Workers_tasks.worker  FROM Task '
-                . 'INNER JOIN Project ON Task.project = Project.id '
-                . 'INNER JOIN Workers_tasks ON Task.id = Workers_tasks.owner_task WHERE Workers_tasks.worker = :person '
+        $query = DB::connection()->prepare('SELECT Task.*, Workers_tasks.worker, Project.name AS project_name FROM Task '
+                . 'INNER JOIN Workers_tasks ON Task.id = Workers_tasks.owner_task '
+                . 'INNER JOIN Project ON Task.project = Project.id WHERE Workers_tasks.worker = :person '
                 . 'AND Task.approved = FALSE ORDER BY late desc  LIMIT :limit OFFSET :offset');
         $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1), 'person' => $person));
         $rows = $query->fetchAll();
@@ -118,9 +116,8 @@ class Task extends BaseModel {
             $pid = $task['manager'];
             $manager_name = Person::findName($pid);
             $task['manager_name'] = $manager_name;
-            
-            return $task;
 
+            return $task;
         }
         return null;
     }
@@ -152,10 +149,10 @@ class Task extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Task WHERE project = :project ORDER BY deadline, name');
         $query->execute(array('project' => $project));
         $rows = $query->fetchAll();
-        $projects = array();
+        $tasks = array();
 
         foreach ($rows as $row) {
-            $tasks[] = new $tasks(array(
+            $tasks[] = array(
                 'id' => $row['id'],
                 'project' => $row['project'],
                 'name' => $row['name'],
@@ -165,10 +162,9 @@ class Task extends BaseModel {
                 'start_date' => $row['start_date'],
                 'deadline' => $row['deadline'],
                 'approved' => $row['approved']
-            ));
-            return $tasks;
+            );
         }
-        return null;
+        return $tasks;
     }
 
     public static function findByManager($manager) {
@@ -243,4 +239,3 @@ class Task extends BaseModel {
     }
 
 }
-

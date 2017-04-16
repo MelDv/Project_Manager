@@ -108,12 +108,13 @@ class Project extends BaseModel {
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Project WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT Project.*, Person.name AS manager_name FROM Project '
+                . 'INNER JOIN Person ON Project.manager = Person.id WHERE Project.id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         if ($row) {
-            $project = new Project(array(
+            $project = array(
                 'id' => $id,
                 'manager' => $row['manager'],
                 'name' => $row['name'],
@@ -122,8 +123,9 @@ class Project extends BaseModel {
                 'description' => $row['description'],
                 'start_date' => $row['start_date'],
                 'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
+                'approved' => $row['approved'],
+                'manager_name' => $row['manager_name']
+            );
             return $project;
         }
         return null;
