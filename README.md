@@ -1,6 +1,15 @@
 # Tietokantasovelluksen esittelysivu
 
-Sisäänkirjautuminen: käyttäjätunnus a@a salasana: 1111111 (seitsemän ykköstä)
+Sisäänkirjautuminen: käyttäjätunnus a@a.fi salasana: 1111111 (seitsemän ykköstä)
+
+Viitosviikolle tehty:
+* Listaussivu projekteille
+* Esittelysivu projekteille
+* Listaussivu omille tehtäville
+* Esittelysivu tehtäville
+* Uloskirjautuminen, sivutus (näkyvillä käyttäjät-sivulla), poistamisen varmistus, kaikille sivuille ei pääse kirjautumatta jne.
+* Dokumentaatio
+* Lisenssi
 
 Yleisiä linkkejä:
 
@@ -34,3 +43,10 @@ Toimintoja:
 * Tehtävät voivat liittyä vain yhteen projektiin
 * Kun projektin tehtävät ovat valmiita, projekti tulee automaattisesti valmiiksi
 
+
+
+
+
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons -lisenssi" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Tämä teos, jonka tekijä on <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Maaret Dufva</span>, on lisensoitu <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Nimeä-EiKaupallinen-EiMuutoksia 4.0 Kansainvälinen  -lisenssillä</a>.
