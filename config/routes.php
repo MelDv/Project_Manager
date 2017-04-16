@@ -4,8 +4,33 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/tehtava', function() {
-    HelloWorldController::tehtava();
+//TaskController
+$routes->post('/projektit/:pid/tehtava/:id/poista', function($id) {
+    TaskController::poista($id);
+});
+
+$routes->post('/projektit/tehtava/:id/valmis', function($id) {
+    TaskController::valmis($id);
+});
+
+$routes->post('/projektit/tehtava/:id/muokkaa', function($id) {
+    TaskController::muokkaa($id);
+});
+
+$routes->post('/projektit/:id/uusitehtava', function(){
+    TaskController::lisaauusi();
+});
+
+$routes->get('/projektit/:id/uusitehtava', function() {
+    TaskController::lisaa();
+});
+
+$routes->get('/projektit/omattehtavat', function() {
+    TaskController::index();
+});
+
+$routes->get('/projektit/:pid/tehtava/:id', function($pid, $id) {
+    TaskController::tehtava($pid, $id);
 });
 
 //ProjectController

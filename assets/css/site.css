@@ -15,6 +15,10 @@ h2#project {
     color: #eea236;
 }
 
+h2#omattehtavat {
+    color: #269abc;
+}
+
 #index {
     color: grey;
 }
@@ -42,13 +46,13 @@ h2#project {
     font-size: 14px;
     float: none;
 }
-
+/*
 .modal-header, h4, .close {
     background-color: #5cb85c;
     color:white;
     text-align: center;
     font-size: 30px;
-}
+}*/
 
 .modal-footer {
     background-color: #f9f9f9;

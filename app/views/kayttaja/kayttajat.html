@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% import "macros/forms.html" as forms %}
-
 {% if user_logged_in.current_rights=="admin" %}
 <a class="btn btn-default" href="{{base_path}}/uusikayttaja">Uusi käyttäjä</a>
 {% endif %}

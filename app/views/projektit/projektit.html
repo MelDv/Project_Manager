@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% import "macros/forms.html" as forms %}
-
 {% if user_logged_in.current_rights=="admin" %}
 <a class="btn btn-default" href="{{base_path}}/uusi">Uusi projekti</a>
 {% endif %}
@@ -27,7 +25,9 @@
     <tbody>
         {% set name="test" %}
         {% for project in projects if project.name!=name %}
-        {% set name=project.name %}    
+        {% set name=project.name %} 
+        {% set taskArray = [] %}
+        {% set personArray = [] %}
         <!-- Projektit -->
         <tr>
             <td id="index">{{loop.index}}</td>
@@ -41,11 +41,14 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" id="projektilista" data-toggle="dropdown">Tehtävät
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
-                        {% for project in projects if project.name == name %}
-                        <li span.glyphicon><a href="{{base_path}}/projektit/{{project.id}}/tehtavat/{{project.task_id}}">{{project.task_name}}  
+                        {% for project in projects if project.name==name %}
+                        <!--{% if project.task_id not in taskArray %}-->
+                        <li span.glyphicon><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{project.task_id}}">{{project.task_name}}  
                                 {% if project.task_approved %}<span class="glyphicon glyphicon-check pull-right"></span>
                                 {% elseif project.task_late %}<span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
                                 {% endif %}</a></li> 
+                        <!--{% set taskArray = taskArray|merge([project.task_id]) %}-->
+                        <!--{% endif %}-->
                         {% endfor %}
                     </ul>
                 </div>
@@ -53,17 +56,24 @@
             </th>
             <th>
                 <!--Tekijät-->
+                {% if project.worker!=null %}
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" id="tekijalista" data-toggle="dropdown">Tekijät
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tekijalista">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jaana</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Saana</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Reiska</a></li>
+                        {% for project in projects if project.name==name %}
+                        {% if project.worker not in personArray %}
+                        <li><a href="{{base_path}}/kayttajat/{{project.worker}}">{{project.person_name}}</a></li>
+                        {% set personArray = personArray|merge([project.worker]) %}
+                        {% endif %}
+                        {% endfor %}
                     </ul>
                 </div>
+                {% endif %}
             </th>
-            <th><th><a class="btn btn-success">Lisää tehtävä</a></th>
+            {% if user_logged_in.current_rights=="admin" %}
+            <th><th><a method="get" action="{{base_path}}/projektit/{{project.id}}/uusitehtava" class="btn btn-success">Lisää tehtävä</a></th>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

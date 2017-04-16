@@ -50,10 +50,14 @@ class Project extends BaseModel {
 
         return count($rows);
     }
-  public static function allActive() {
+
+    public static function allActive() {
         $query = DB::connection()->prepare('SELECT Project.*, Task.late AS task_late, Task.approved AS task_approved, '
-                . 'Task.id AS task_id, Task.name AS task_name FROM Project LEFT JOIN Task ON Project.id = Task.project '
-                . 'WHERE Project.approved = FALSE ORDER BY approved desc, deadline, name, task_approved');
+                . 'Task.id AS task_id, Task.name AS task_name, Workers_tasks.worker, Person.name AS person_name '
+                . 'FROM Project LEFT JOIN Task ON Project.id = Task.project '
+                . 'LEFT JOIN Workers_tasks ON Task.id = Workers_tasks.owner_task '
+                . 'LEFT JOIN Person ON Workers_tasks.worker = Person.id WHERE Project.approved = FALSE '
+                . 'ORDER BY Project.name, person_name, task_late desc');
         $query->execute();
         $rows = $query->fetchAll();
         $projects = array();
@@ -72,7 +76,9 @@ class Project extends BaseModel {
                 'task_name' => $row['task_name'],
                 'task_id' => $row['task_id'],
                 'task_late' => $row['task_late'],
-                'task_approved' => $row['task_approved']
+                'task_approved' => $row['task_approved'],
+                'worker' => $row['worker'],
+                'person_name' => $row['person_name']
             );
         }
 //        Kint::trace();

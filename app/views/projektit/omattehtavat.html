@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+<br><br><br>
+<h2 id="owntasks">Keskeneräiset tehtävät</h2>
+<br><br>
+
+{% if pages > 1 %}
+<nav>
+    <ul class="pagination">
+        <li class="{% if not prev_page %}disabled{% endif %}"><a href="{{base_path}}/projektit/omattehtavat?page={{prev_page}}">
+                <span  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span></a></li>
+        {% for page in 1..pages %}
+        <li class="{% if curr_page == page %}active{% endif %}"><a href="{{base_path}}/projektit/omattehtavat?page={{page}}">{{page}}</a></li>
+        {% endfor %}
+        <li class="{% if not next_page %}disabled{% endif %}"><a href="{{base_path}}/projektit/omattehtavat?page={{next_page}}">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span></a></li>
+    </ul>
+</nav>
+{% endif %}
+
+
+<h2>Bootstrap-projekti</h2>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+        Valmiina
+    </div>
+    <div class="progress-bar progress-bar-warnin" role="progressbar" style="width:10%">
+        Työn alla
+    </div>
+    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+        Myöhässä
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Tehtävä</th>
+            <th>Deadline</th>
+            <th>Kuvaus</th>
+            <th>Projekti</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for task in tasks %}
+        <!-- Käyttäjän omat tehtavat tähän, keskeneräiset ylimmäksi -->        
+        <tr {% if task.late %} class="danger" {% endif %}>
+            <td id="index">{{loop.index + (page-1) * page_size}}</td>
+            <td><a href="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}">{{task.name}}</a></td>
+            <td>{{task.deadline}}</td>
+            <td>{{task.description}}</td>
+            <td><a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></td>
+            <td>
+                {% if task.current_status == "finished" %}
+                <h4><span class="label label-info">  Hyväksyttävänä</span></h4>
+                {% else %}
+                <form method="post" action="{{base_path}}/projektit/tehtava/{{task.id}}/valmis" data-confirm='Haluatko varmasti lähettää tehtävän {{task.name}} hyväksyttäväksi?'>
+                    <button type=submit class="btn btn-success">Merkitse valmiiksi</button>
+                </form>
+                {% endif %}
+            </td>
+            {% if user_logged_in.current_rights=="admin" %}
+            <td>
+                <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa tehtävän {{task.name}}?'>
+                    <button type=submit class="btn btn-danger">Poista</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

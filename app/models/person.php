@@ -9,7 +9,7 @@ class Person extends BaseModel {
         $this->validators = array('validate_name', 'validate_description', 'validate_password', 'validate_email');
     }
 
-    public function authenticate($email, $password) {
+    public static function authenticate($email, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Person WHERE email = :email AND password = :password LIMIT 1');
 
         $query->execute(array('email' => $email, 'password' => $password));
@@ -36,8 +36,8 @@ class Person extends BaseModel {
                 . 'description, active, current_rights) VALUES (:name, :password, :email, '
                 . ':description, :active, :current_rights) RETURNING id');
 //        $this->password = crypt($this->password);
-        $query->execute(array('name' => $this->name, 'password' => $this->password, 
-            'email' => $this->email, 'description' => $this->description, 'active' => $this->active, 
+        $query->execute(array('name' => $this->name, 'password' => $this->password,
+            'email' => $this->email, 'description' => $this->description, 'active' => $this->active,
             'current_rights' => $this->current_rights));
         $row = $query->fetch();
 //        Kint::trace();
@@ -49,7 +49,7 @@ class Person extends BaseModel {
     public function update() {
         $query = DB::connection()->prepare('UPDATE Person SET (name, email, password, description) '
                 . '= (:name, :email, :password, :description) WHERE id=:id');
-        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'email' => $this->email,
             'password' => $this->password, 'description' => $this->description));
         $row = $query->fetch();
 
@@ -127,7 +127,8 @@ class Person extends BaseModel {
 
     public static function findName($id) {
         $query = DB::connection()->prepare('SELECT name FROM Person WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
+        $query->bindValue(':id', $id, PDO::PARAM_STR);
+        $query->execute();
         $row = $query->fetch();
 
         if ($row) {
@@ -154,9 +155,8 @@ class Person extends BaseModel {
                 'active' => $row['active'],
                 'current_rights' => $row['current_rights']
             ));
-            return $persons;
         }
-        return null;
+        return $persons;
     }
 
     public static function emailExists($email) {

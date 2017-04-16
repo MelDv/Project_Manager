@@ -35,8 +35,17 @@ class Task extends BaseModel {
         Kint::dump($row);
     }
 
-    public function destroy() {
+    public function destroy($id) {
+        WorkersTasks::destroy($id);
         $query = DB::connection()->prepare('DELETE FROM Task WHERE id= :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public function ready($id) {
+        $query = DB::connection()->prepare('UPDATE Task SET current_status=\'finished\' WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
@@ -51,18 +60,23 @@ class Task extends BaseModel {
         return count($rows);
     }
 
-    public static function all($page, $page_size) {
+    public static function myActiveTasks($page, $page_size, $person) {
         if (!isset($page, $page_size)) {
             $page_size = 20;
             $page = 1;
         }
-        $query = DB::connection()->prepare('SELECT * FROM Task ORDER BY project, deadline, name LIMIT :limit OFFSET :offset');
-        $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1)));
+        $underway = "underway";
+        $pending = "pending";
+        $query = DB::connection()->prepare('SELECT Task.*, Project.name AS project_name, Workers_tasks.worker  FROM Task '
+                . 'INNER JOIN Project ON Task.project = Project.id '
+                . 'INNER JOIN Workers_tasks ON Task.id = Workers_tasks.owner_task WHERE Workers_tasks.worker = :person '
+                . 'AND Task.approved = FALSE ORDER BY late desc  LIMIT :limit OFFSET :offset');
+        $query->execute(array('limit' => $page_size, 'offset' => $page_size * ($page - 1), 'person' => $person));
         $rows = $query->fetchAll();
         $tasks = array();
 
         foreach ($rows as $row) {
-            $tasks[] = new Task(array(
+            $tasks[] = array(
                 'id' => $row['id'],
                 'project' => $row['project'],
                 'name' => $row['name'],
@@ -71,21 +85,24 @@ class Task extends BaseModel {
                 'description' => $row['description'],
                 'start_date' => $row['start_date'],
                 'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
+                'approved' => $row['approved'],
+                'project_name' => $row['project_name']
+            );
         }
 //        Kint::trace();
 //        Kint::dump($rows);
         return $tasks;
     }
 
-    public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Task WHERE id = :id LIMIT 1');
+    public static function find($pid, $id) {
+        $query = DB::connection()->prepare('SELECT Task.*, Project.name AS project_name, Project.manager, '
+                . 'Workers_tasks.* FROM Task LEFT JOIN Project ON Task.project = Project.id '
+                . 'LEFT JOIN Workers_tasks on Task.id = Workers_tasks.owner_task WHERE Task.id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         if ($row) {
-            $task = new Task(array(
+            $task = array(
                 'id' => $row['id'],
                 'project' => $row['project'],
                 'name' => $row['name'],
@@ -94,9 +111,16 @@ class Task extends BaseModel {
                 'description' => $row['description'],
                 'start_date' => $row['start_date'],
                 'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
+                'approved' => $row['approved'],
+                'project_name' => $row['project_name'],
+                'manager' => $row['manager']
+            );
+            $pid = $task['manager'];
+            $manager_name = Person::findName($pid);
+            $task['manager_name'] = $manager_name;
+            
             return $task;
+
         }
         return null;
     }
@@ -147,7 +171,7 @@ class Task extends BaseModel {
         return null;
     }
 
-    public static function findByStatus($manager) {
+    public static function findByManager($manager) {
         $query = DB::connection()->prepare('SELECT * FROM Task WHERE manager = :manager ORDER BY project, deadline, name');
         $query->execute(array('manager' => $manager));
         $rows = $query->fetchAll();
@@ -219,3 +243,4 @@ class Task extends BaseModel {
     }
 
 }
+

@@ -1,70 +1,76 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HUOM!!! Muokkaa kaikki #:t! Hae automaattisesti h1 + linkki, h5, tekijät tietoineen -->
-<!-- label autom. pois kun valmis, viesti tekijöille -->
-<!-- toiminta nappeihin yhteydenotto, poista, muokkaa, lisää tekijä -->
 
-<h1>#Tehtävän nimi</h1>
-<label class="label label-danger">#Kesken</label>
+<h1>{{task.name}}</h1>
 
-<a href="/tsoha/projektit/1">#Projektilinkki</a>
-<h5>Projektipäällikkö Karianne</h5> <button type="button" class="btn btn-success">#Lähetä viesti</button>
+{% if task.approved %}
+<label class="label label-success">Valmis</label>
+{% elseif task.late %}
+<label class="label label-danger">Myöhässä!</label>
+{% elseif task.current_status == "finished" %}
+<label class="label label-info">Hyväksyttävänä</label>
+{% elseif task.current_status == "underway" %}
+<label class="label label-primary">Työn alla</label>
+{% elseif task.current_status == "pending" %}
+<label class="label label-default">Työn alla</label>
+{% endif %}
+<br><br>
 
+<h4>Tämä tehtävä kuuluu projektiin <a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></h4>
+<h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{task.manager}}">{{task.manager_name}}</a></h4>
+<button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
+<br><br><br>
 
-<h3>###Kuvaus</h3>
-<strong>Tässä on lyhyt kuvaus</strong>
-<p>Tarkka kuvaus</p>
-<button type="button" class="btn btn-default">Muokkaa</button>
+<h3>Kuvaus</h3>
 
-<h3>###Tekijät</h3>
-<button type="button" class="btn btn-default">Lisää tekijä</button>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Nimi</th>
-            <th>Tehtävä</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
+<strong>{{task.description}}</strong>
+<br><br>
 
-    <tbody>
-        <!-- Projektin tekijät -->
-        <tr>
-            <td>Sanna</td>
-            <td>Sivupohjan tekeminen</td>
-            <th><a class="btn btn-danger">Poista</a></th>
+{% if user_logged_in.current_rights=="admin" %}
+<form method="post" class="pull-right" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
+    <button type="button" class="btn btn-default">Muokkaa</button>
+</form>
+{% endif %}
+<br><br>
 
-            <!-- Modal viestinlähetysnappi-->
+<h3>Tiimi</h3>
 
-            <!-- Trigger the modal with a button -->
-            <!-- Modal -->
-            <th>
-                <div id="viestimodal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Lähetä viesti käyttäjälle #Jaana</h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="text" class="form" id="viesti" placeholder="Kirjoita viesti">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Lähetä</button>
-                            </div>
-                        </div>
-                    </div>
-            </th>
-        </tr>
-        <tr>
-            <td>Nanna</td>
-            <td>CSS</td>
-            <th><a class="btn btn-danger">Poista</a></th>
-            <th><a class="btn btn-success">Lähetä viesti</a></th>
-        </tr>
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="col-lg-8">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nimi</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <div class="row">
+                <div class="col-lg-8"> 
+                    {% for name in names %}      
+                    <tbody>    
+                        <tr>
+                            <td><a href='{{base_path}}/kayttajat/{{name.person_id}}'>{{name.person_name}}</a></td>
+                            {% if user_logged_in.current_rights=="admin" %}
+                            <td><a class="btn btn-danger">Poista</a></td>
+                            {% endif %}
+                            <td><a class="btn btn-success">Lähetä viesti</a></td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </div>
+            </div>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            {% if user_logged_in.current_rights=="admin" %}
+            <form method="get"" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
+                <button type="button" class="btn btn-default pull-right">Lisää tekijä</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
