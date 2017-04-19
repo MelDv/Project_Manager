@@ -12,26 +12,71 @@
     <form method='post' action='{{base_path}}/kayttajat/{{person.id}}/muokkaa'>
         {% endif %}
 
-        <div class="form-group">
-            <label>Nimi</label>
-            <input type="text" name='name' class="form-control" value="{{person.name}}">
-        </div>
-        <div class="form-group">
-            <label>Salasana</label>
-            <input type="password" name='password' class="form-control" value="{{person.password}}">
-        </div>
-        <div class="form-group">
-            <label>Sähköposti</label>
-            <input type="email" name='email' class="form-control" value="{{person.email}}">
-        </div>
-        <div class="form-group">
-            <label>Kuvaus</label>
-            <textarea name='description' class="form-control" rows="5"> {{person.description}}</textarea>
-        </div>
+        {{forms.name(null, "#{person.name}")}}
+        {{forms.pssw(null, "#{person.password}")}}
+        {{forms.email(null, "#{person.email}")}} 
+        {{forms.desc(null, "#{person.description}")}} 
 
         {% if user_logged_in.current_rights == "admin" %}
-        {{forms.active()}}
-        {{forms.rights()}}
+
+        <div class="form-group">
+            <label for='rights'>{{label|default('Oikeudet')}}</label>
+            <select id="rts" class='form-control' name='current_rights'>
+                <script>
+                    var select = document.getElementById("rts");
+                    var visitor = document.createElement("option");
+                    var intern = document.createElement("option");
+                    var worker = document.createElement("option");
+                    var admin = document.createElement("option");
+                    visitor.textContent = "Vierailija";
+                    visitor.value = "visitor";
+                    intern.textContent = "Harjoittelija";
+                    intern.value = "intern";
+                    worker.textContent = "Työntekijä";
+                    worker.value = "worker";
+                    admin.textContent = "Admin";
+                    admin.value = "admin";
+                    if ('{{person.current_rights}}' === 'visitor') {
+                        visitor.selected = true;
+                    }
+                    if ('{{person.current_rights}}' === 'intern') {
+                        intern.selected = true;
+                    }
+                    if ('{{person.current_rights}}' === 'worker') {
+                        worker.selected = true;
+                    }
+                    if ('{{person.current_rights}}' === 'admin') {
+                        admin.selected = true;
+                    }
+                    select.appendChild(visitor);
+                    select.appendChild(intern);
+                    select.appendChild(worker);
+                    select.appendChild(admin);
+                </script>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Aktiivisuus</label>
+            <select  id="act" class='form-control' name="active">
+                <script>
+                    var select = document.getElementById("act");
+                    var el1 = document.createElement("option");
+                    var el2 = document.createElement("option");
+                    el1.textContent = "Käytettävissä";
+                    el1.value = "true";
+                    el2.textContent = "Ei käytettävissä";
+                    el2.value = "false";
+                    if ('{{person.active}}' == true) {
+                        el1.selected = true;
+                    } else {
+                        el2.selected = true;
+                    }
+                    select.appendChild(el1);
+                    select.appendChild(el2);
+                </script>
+            </select>
+        </div>
         {% endif %}
 
         {{forms.cancel_save("#{base_path}/kayttajat/#{person.id}")}}

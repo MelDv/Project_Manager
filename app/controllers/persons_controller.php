@@ -43,6 +43,7 @@ class PersonController extends BaseController {
         }
     }
 
+    //lomakkeen lähetys
     public static function muokkaa_kayttaja($id) {
         self::check_logged_in();
         $params = $_POST;
@@ -55,6 +56,12 @@ class PersonController extends BaseController {
             'current_rights' => $params['current_rights'],
             'description' => $params['description']
         );
+
+        if ($attributes['active'] == "") {
+            $temp = Person::find($id);
+            $attributes['active'] = $temp->active;
+            $attributes['current_rights'] = $temp->current_rights;
+        }
 
         $person = new Person($attributes);
         $errors = $person->errors();
@@ -70,13 +77,16 @@ class PersonController extends BaseController {
     public static function uusi() {
         self::check_logged_in();
         $params = $_POST;
+
         $attributes = array(
             'name' => $params['name'],
             'email' => $params['email'],
             'password' => $params['password'],
+            'description' => $params['description'],
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
+
 //        Kint::dump($params);
         $person = new Person($attributes);
         $errors = $person->errors();
@@ -93,6 +103,13 @@ class PersonController extends BaseController {
         }
     }
 
+    //lomakkeen näyttäminen
+    public static function muokkaa($id) {
+        self::check_logged_in();
+        $person = Person::find($id);
+        View::make('kayttaja/muokkaa.html', array('person' => $person));
+    }
+
     //käyttäjän poistaminen
     public static function poista_kayttaja($id) {
         self::check_logged_in();
@@ -100,13 +117,6 @@ class PersonController extends BaseController {
         $nimi = Person::findName($id);
         $person->destroy($id);
         Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
-    }
-
-    //lomakkeen näyttäminen - admin
-    public static function muokkaa($id) {
-        self::check_logged_in();
-        $person = Person::find($id);
-        View::make('kayttaja/muokkaa.html', array('person' => $person));
     }
 
     //käyttäjän esittelysivu

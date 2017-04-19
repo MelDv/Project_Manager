@@ -21,6 +21,12 @@
 {% endif %}
 
 
+{% if tasks|length < 1 %}
+<h2>Olet tehnyt kaikki tehtäväsi!</h2>
+<br>
+<h4 style="color: green">Voitontanssin aika!</h4>
+{% else %}
+
 <h2>Bootstrap-projekti</h2>
 <div class="progress">
     <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
@@ -76,4 +82,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}
