@@ -1,24 +1,31 @@
 # Tietokantasovelluksen esittelysivu
 
-Sisäänkirjautuminen: käyttäjätunnus a@a.fi salasana: 1111111 (seitsemän ykköstä)
+### Huom! Nelosviikolle tehty...
+Testikäyttäjä Testi-Admin. Kirjautuminen sähköpostilla a@a ja salasanalla 1111111 (seitsemän ykköstä)
 
-Viitosviikolle tehty:
-* Listaussivu projekteille
-* Esittelysivu projekteille
-* Listaussivu omille tehtäville
-* Esittelysivu tehtäville
-* Uloskirjautuminen, sivutus (näkyvillä käyttäjät-sivulla), poistamisen varmistus, kaikille sivuille ei pääse kirjautumatta jne.
-* Dokumentaatio
-* Lisenssi
-* Code review
+Käyttäjiä voi päivittää ja poistaa. Huom! Vain adminin oman sivun muokkaus toimii, ei muiden käyttäjien muokkaus vielä. (yläpalkista omalle sivulle) Muiden muokkauksessa muokattaisiin käyttöoikeuksia jne.
+Vain admin voi poistaa tai lisätä käyttäjiä (käyttäjien listaussivulla)
+Virheilmoitukset ja viestit näkyy.
+
+* Validointi
+  * Käyttäjänimi min 4 merkkiä, sallitut merkit testataan
+  * Salasana min 7 merkkiä ja sallitut merkit testataan
+  * Kuvaus max 2000 merkkiä
+  * Emailin muodon tarkastaminen suoraan bootstapista
+  * Muutokset kirjautumisen jälkeen
+    * Kirjautumislinkki vaihtuu uloskirjautumiseen
+    * Admin näkee muiden käyttäjien sivulla  muokkauslinkin
+    * Admin näkee käyttäjien listauksessa poistolinkin ei-aktiivisten kohdalla
+    * Navigointilinkeihin tulee oma sivu ja omat tehtävät
+  * Vain admin voi lisätä käyttäjiä
 
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
-  * [Käyttäjän oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
-  * [Omat tehtäväti](http://madufva.users.cs.helsinki.fi/tsoha/projektit/omattehtavat)
-  * [Oman sivun muokkaus - huom! toimivalle muokkaussivulle pääsee vain kirjautuneena!](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
+
+  * [Omat tehtävät](http://madufva.users.cs.helsinki.fi/tsoha/omattehtavat)
+  * [Oman sivun muokkaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
   * [Käyttäjälistaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
@@ -44,10 +51,3 @@ Toimintoja:
 * Tehtävät voivat liittyä vain yhteen projektiin
 * Kun projektin tehtävät ovat valmiita, projekti tulee automaattisesti valmiiksi
 
-
-
-
-
-
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons -lisenssi" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Tämä teos, jonka tekijä on <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Maaret Dufva</span>, on lisensoitu <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Nimeä-EiKaupallinen-EiMuutoksia 4.0 Kansainvälinen  -lisenssillä</a>.

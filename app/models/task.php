@@ -52,6 +52,22 @@ class Task extends BaseModel {
         Kint::dump($row);
     }
 
+    public function reassign($id) {
+        $query = DB::connection()->prepare('UPDATE Task SET current_status=\'pending\' WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
+    public function approve($id) {
+        $query = DB::connection()->prepare('UPDATE Task SET approved=TRUE WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        Kint::dump($row);
+    }
+
     public static function count() {
         $query = DB::connection()->prepare('SELECT * FROM Task');
         $query->execute();
@@ -101,7 +117,7 @@ class Task extends BaseModel {
 
         if ($row) {
             $task = array(
-                'id' => $row['id'],
+                'id' => $id,
                 'project' => $row['project'],
                 'name' => $row['name'],
                 'current_status' => $row['current_status'],
@@ -117,6 +133,28 @@ class Task extends BaseModel {
             $manager_name = Person::findName($pid);
             $task['manager_name'] = $manager_name;
 
+            return $task;
+        }
+        return null;
+    }
+
+    public static function findTask($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Task WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+            $task = new Task(array(
+                'id' => $row['id'],
+                'project' => $row['project'],
+                'name' => $row['name'],
+                'current_status' => $row['current_status'],
+                'late' => $row['late'],
+                'description' => $row['description'],
+                'start_date' => $row['start_date'],
+                'deadline' => $row['deadline'],
+                'approved' => $row['approved'],
+            ));
             return $task;
         }
         return null;

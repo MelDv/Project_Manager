@@ -9,6 +9,14 @@ $routes->post('/projektit/:pid/tehtava/:id/poista', function($pid, $id) {
     TaskController::poista($id);
 });
 
+$routes->post('/projektit/:pid/tehtava/:id/hyvaksy', function($pid, $id) {
+    TaskController::hyvaksy($pid, $id);
+});
+
+$routes->post('/projektit/:pid/tehtava/:id/hylkaa', function($pid, $id) {
+    TaskController::hylkaa($pid, $id);
+});
+
 $routes->post('/projektit/:pid/tehtava/:id/valmis', function($pid, $id) {
     TaskController::valmis($id);
 });
@@ -17,7 +25,7 @@ $routes->post('/projektit/tehtava/:id/muokkaa', function($id) {
     TaskController::muokkaa($id);
 });
 
-$routes->post('/projektit/:id/uusitehtava', function(){
+$routes->post('/projektit/:id/uusitehtava', function() {
     TaskController::lisaauusi();
 });
 

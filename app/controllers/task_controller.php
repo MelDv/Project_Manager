@@ -2,6 +2,7 @@
 
 class TaskController extends BaseController {
 
+    //omattehtavat listaussivu
     public static function index() {
         self::check_logged_in();
         $user = self::get_user_logged_in();
@@ -25,6 +26,7 @@ class TaskController extends BaseController {
             'next_page' => $next_page, 'page_size' => $page_size, 'tasks' => $tasks));
     }
 
+    //tehtava esittelysivu
     public static function tehtava($pid, $id) {
         self::check_logged_in();
         $task = Task::find($pid, $id);
@@ -70,6 +72,16 @@ class TaskController extends BaseController {
         $task = new Task(array('id' => $id));
         $task->ready($id);
         Redirect::to('/projektit/omattehtavat', array('message' => 'Tehtävä merkittiin valmiiksi'));
+    }
+
+    public static function hylkaa($pid, $id) {
+        Task::reassign($id);
+        Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => 'Tehtävä palautettiin keskeneräiseksi'));
+    }
+
+    public static function hyvaksy($pid, $id) {
+        Task::approve($id);
+        Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => 'Tehtävä on nyt hyväksytty'));
     }
 
 }

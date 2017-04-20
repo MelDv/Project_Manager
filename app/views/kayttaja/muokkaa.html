@@ -18,7 +18,6 @@
         {{forms.desc(null, "#{person.description}")}} 
 
         {% if user_logged_in.current_rights == "admin" %}
-
         <div class="form-group">
             <label for='rights'>{{label|default('Oikeudet')}}</label>
             <select id="rts" class='form-control' name='current_rights'>

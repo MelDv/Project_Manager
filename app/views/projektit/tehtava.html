@@ -1,45 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container-fluid">
+    <h1>{{task.name}}</h1>
 
-<h1>{{task.name}}</h1>
+    {% if task.approved %}
+    <label class="label label-success">Valmis</label>
+    {% elseif task.late %}
+    <label class="label label-danger">Myöhässä!</label>
+    {% elseif task.current_status == "finished" %}
+    <label class="label label-info">Hyväksyttävänä</label>
+    {% elseif task.current_status == "underway" %}
+    <label class="label label-primary">Työn alla</label>
+    {% elseif task.current_status == "pending" %}
+    <label class="label label-default">Työn alla</label>
+    {% endif %}
+    <br><br>
 
-{% if task.approved %}
-<label class="label label-success">Valmis</label>
-{% elseif task.late %}
-<label class="label label-danger">Myöhässä!</label>
-{% elseif task.current_status == "finished" %}
-<label class="label label-info">Hyväksyttävänä</label>
-{% elseif task.current_status == "underway" %}
-<label class="label label-primary">Työn alla</label>
-{% elseif task.current_status == "pending" %}
-<label class="label label-default">Työn alla</label>
-{% endif %}
-<br><br>
+    <h4>Tämä tehtävä kuuluu projektiin <a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></h4>
+    <h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{task.manager}}">{{task.manager_name}}</a></h4>
+    <button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
+    <br><br><br>
 
-<h4>Tämä tehtävä kuuluu projektiin <a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></h4>
-<h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{task.manager}}">{{task.manager_name}}</a></h4>
-<button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
-<br><br><br>
-
-<strong>Deadline: {{task.deadline}}</strong>
-<br>
-<p>Aloituspäivä: {{task.start_date}}</p>
+    <strong>Deadline: {{task.deadline}}</strong>
+    <br>
+    <p>Aloituspäivä: {{task.start_date}}</p>
 
 
-<h3>Kuvaus</h3>
+    <h3>Kuvaus</h3>
 
-<p>{{task.description}}</p>
-<br><br>
+    <p>{{task.description}}</p>
+    <br><br>
 
-{% if user_logged_in.current_rights=="admin" %}
-<form method="post" class="pull-right" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
-    <button type="button" class="btn btn-default">Muokkaa</button>
-</form>
-{% endif %}
-<br><br>
+    {% if user_logged_in.current_rights=="admin" %}
+    <form method="post" class="pull-right" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
+        <button type="button" class="btn btn-default">Muokkaa</button>
+    </form>
+    {% endif %}
+    <br><br>
 
-<h3>Tiimi</h3>
-
+    <h3>Tiimi</h3>
+</div>
 <div class="container-fluid">
     <div class="col-lg-8">
         <table class="table table-hover">
@@ -56,7 +56,7 @@
                     <tbody>    
                         <tr>
                             <td><a href='{{base_path}}/kayttajat/{{name.person_id}}'>{{name.person_name}}</a></td>
-                            {% if user_logged_in.current_rights=="admin" %}
+                            {% if user_logged_in.current_rights=="admin" and not task.current_status == 'finished' %}
                             <td><a class="btn btn-danger">Poista</a></td>
                             {% endif %}
                             <td><a class="btn btn-success">Lähetä viesti</a></td>
@@ -70,11 +70,24 @@
     <div class="row">
         <div class="col-lg-4">
             {% if user_logged_in.current_rights=="admin" %}
-            <form method="get"" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
+            <form method="get" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
                 <button type="button" class="btn btn-default pull-right">Lisää tekijä</button>
             </form>
             {% endif %}
         </div>
     </div>
 </div>
+
+{% if user_logged_in.current_rights == "admin" and task.current_status == "finished" and not task.project_approved %}
+<div class="form-group col-xs-1">
+    <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hyvaksy" class='delete-form' data-confirm='Haluatko varmasti hyväksyä tehtävän {{task.name}}?'>
+        <button type="submit" class="btn btn-success">Hyväksy</button>
+    </form>
+</div>
+<div class="form-group col-xs-1">
+    <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hylkaa" class='delete-form' data-confirm='Haluatko varmasti palauttaa tehtävän {{task.name}} keskeneräiseksi?'>
+        <button type="submit" class="btn btn-warning">Hylkää</button>
+    </form>
+</div>
+{% endif %}
 {% endblock %}

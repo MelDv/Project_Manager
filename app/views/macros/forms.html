@@ -35,8 +35,6 @@
 <div class="form-group">
     <label>{{desc_label|default('Kuvaus')}}</label>
     <textarea name='description' class="form-control" rows="5">{{desc_value}}</textarea>
-    <input type="hidden" name="active" value="{{person.active}}">
-    <input type="hidden" name="current_rights" value="{{person.rights}}">
 </div>
 {% endmacro %}
 
@@ -48,9 +46,6 @@
         <option id="t" value='true'>{{name_true|default('Käytettävissä')}}</option>
         <option id="f" value='false'>{{name_false|default('Ei käytettävissä')}}</option>
     </select>
-    <script>
-        var options = $('#act option');
-    </script>
 </div>
 {% endmacro %}
 
