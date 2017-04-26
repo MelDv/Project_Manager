@@ -2,23 +2,14 @@
 
 Sisäänkirjautuminen: käyttäjätunnus a@a.fi salasana: 1111111 (seitsemän ykköstä)
 
-Viitosviikolle tehty:
-* Listaussivu projekteille
-* Esittelysivu projekteille
-* Listaussivu omille tehtäville
-* Esittelysivu tehtäville
-* Uloskirjautuminen, sivutus (näkyvillä käyttäjät-sivulla), poistamisen varmistus, kaikille sivuille ei pääse kirjautumatta jne.
-* Dokumentaatio
-* Lisenssi
-* Code review
 
-Yleisiä linkkejä:
+Yleisiä linkkejä (huom! osalle sivuista pitää ensin kirjautua):
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
   * [Käyttäjän oma sivu](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1)
   * [Omat tehtäväti](http://madufva.users.cs.helsinki.fi/tsoha/projektit/omattehtavat)
-  * [Oman sivun muokkaus - huom! toimivalle muokkaussivulle pääsee vain kirjautuneena!](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
+  * [Oman sivun muokkaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat/1/muokkaa)
   * [Käyttäjälistaus](http://madufva.users.cs.helsinki.fi/tsoha/kayttajat)
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
@@ -27,6 +18,7 @@ Yleisiä linkkejä:
 Projektinhallintasovellus, jossa voidaan luoda projekteja ja niille tehtäviä, sekä seurata työn edistymistä.
 Tehtäville voidaan lisätä tekijöitä ja merkitä tehtäviä tehdyiksi. Kun kaikki projektin tehtävät ovat valmiita,
 projekti merkitään automaattisesti valmiiksi. Projektin tekijälistaus tulee automaattisesti sen tehtävistä.
+Projekteja ei voi poistaa, jos niissä on hyväksyttyjä tehtäviä. Projektin poistaminen poistaa myös kaikki sen tehtävät.
 
 Sovellusta voidaan käyttää monenlaisten työkokonaisuuksien hallintaan ja töiden jakamiseen. Kukin käyttäjä näkee 
 omien tehtäviensä tilan ja voi muuttaa sitä, sekä selailla kaikkia tehtäviä.
@@ -39,7 +31,7 @@ Toimintoja:
 * Kirjautuminen
 * Käyttäjien lisääminen, muokkaaminen ja poistaminen
 * Projektien lisääminen, muokkaaminen ja poistaminen
-* Tehtävien lisääminen, muokkaaminen, poistaminen ja yhdistäminen
+* Tehtävien lisääminen, muokkaaminen, poistaminen
 * Jokaisella projektilla tulee olla vähintään yksi tehtävä ja jokaisella tehtävällä vähintään yksi tekijä
 * Tehtävät voivat liittyä vain yhteen projektiin
 * Kun projektin tehtävät ovat valmiita, projekti tulee automaattisesti valmiiksi
