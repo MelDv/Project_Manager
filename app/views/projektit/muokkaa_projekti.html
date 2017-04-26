@@ -1,16 +1,60 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+
+{% import "macros/forms.html" as forms %}
+
+{% if project.id==null %}
+<h1>Lisää uusi projekti</h1>
+<form method='post' action='{{base_path}}/projektit/uusiprojekti'>
+    {% else %}
+    <h1>Muokkaa projektin {{project.name}} tietoja</h1>
+    <form method='post' action='{{base_path}}/projektit/{{project.id}}/muokkaa'>
+        {% endif %}
+        <br>
+
+        {% if project.late %}
+        <label class="label label-danger">Myöhässä</label>
+        {% endif %}
+
+        <div class="form-group">
+            <label>Nimi</label>
+            <input type="text" name='name' class="form-control" value="{{project.name}}">
+        </div>
+        <div class="form-group">
+            <label>Kuvaus</label>
+            <input type="text" name='description' class="form-control" value="{{project.description}}">
+        </div>
+
+        <div class="form-group">
+            <label>projektipäällikkö</label>
+            <select  id="mangr" class='form-control' name="manager">
+                <script>
+                    var select = document.getElementById("mangr");
+                </script>
+                {% for manager in managers %}
+                <script>
+                    var manager = document.createElement("option");
+                    manager.textContent = '{{manager.name}}';
+                    manager.value = '{{manager.id}}';
+                    if ('{{project.manager}}' === '{{manager.id}}') {
+                    manager.selected = true;
+                    }
+                    select.appendChild(manager);
+                </script>
+                {% endfor %}
+            </select>
+        </div>     
+
+        <div class="form-group">
+            <label>Aloituspäivä</label><br>
+            <input type="date" name='start_date' class="form-group-sm" value="{{project.start_date}}">
+        </div>
+        <div class="form-group">
+            <label>Deadline</label><br>
+            <input type="date" name='deadline' class="form-group-sm" value="{{project.deadline}}">
+        </div>
+
+        {{forms.cancel_save("#{base_path}/projektit/")}}
+
+    </form>
+    {% endblock %}

@@ -45,19 +45,7 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="/tsoha/projektit">Projektit
-                                <span class="caret"></span>
-                            </a>
-
-                            <!-- DROPDOWN-MENU PROJEKTEILLE -->
-
-                            <ul class="dropdown-menu">
-                                <li><a href="{{base_path}}/projektit">Projektilistaus</a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li><a href="{{base_path}}/projektit/1">Joku proggis</a></li>
-                                <li><a href="{{base_path}}/projektit/4">Toinen proggis</a></li>
-                            </ul>                       
+                        <li><a href="{{base_path}}/projektit">Projektit</a>  </li>  
                             {% if user_logged_in %}
                         <li><a href="{{base_path}}/kayttajat/{{user_logged_in.id}}">Oma sivu</a></li>
                         <li><a href="{{base_path}}/projektit/omattehtavat">Omat tehtävät</a></li>

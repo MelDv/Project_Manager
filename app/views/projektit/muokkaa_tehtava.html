@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% import "macros/forms.html" as forms %}
+
+{% if task.id==null %}
+<h1>Lisää uusi tehtävä projektille {{project_name}}</h1>
+<form method='post' action='{{base_path}}/projektit/{{pid}}/uusitehtava'>
+    {% else %}
+    <h1>Muokkaa tehtävän {{task.name}} tietoja</h1>
+    <form method='post' action='{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa'>
+        {% endif %}
+        <br>
+
+        {% if task.late %}
+        <label class="label label-danger">Myöhässä</label>
+        {% endif %}
+
+        <div class="form-group">
+            <label>Nimi</label>
+            <input type="text" name='name' class="form-control" value="{{task.name}}">
+        </div>
+        <div class="form-group">
+            <label>Kuvaus</label>
+            <input type="text" name='description' class="form-control" value="{{task.description}}">
+        </div>
+
+        {% if task.id!=null %}
+        <div class="form-group">
+            <label>Tehtävän tila</label>
+            <select  id="stat" class='form-control' name="current_status">
+                <script>
+                    var select = document.getElementById("stat");
+                    var pend = document.createElement("option");
+                    var und = document.createElement("option");
+                    var fin = document.createElement("option");
+                    pend.textContent = "Odottaa";
+                    pend.value = "pending";
+                    und.textContent = "Työn alla";
+                    und.value = "underway";
+                    fin.textContent = "Valmis";
+                    fin.value = "finished";
+                    if ('{{task.current_status}}' === 'pending') {
+                        pend.selected = true;
+                    } else if ('{{task.current_status}}' === 'underway') {
+                        und.selected = true;
+                    } else {
+                        fin.selected = true;
+                    }
+                    select.appendChild(pend);
+                    select.appendChild(und);
+                    select.appendChild(fin);
+                </script>
+            </select>
+        </div>     
+        {% endif %}
+
+        <div class="form-group">
+            <label>Aloituspäivä</label><br>
+            <input type="date" name='start_date' class="form-group-sm" value="{{task.start_date}}">
+        </div>
+        <div class="form-group">
+            <label>Deadline</label><br>
+            <input type="date" name='deadline' class="form-group-sm" value="{{task.deadline}}">
+        </div>
+
+        {{forms.cancel_save("#{base_path}/projektit/#{pid}")}}
+
+    </form>
+    {% endblock %}

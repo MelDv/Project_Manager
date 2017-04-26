@@ -7,6 +7,12 @@ body{
     margin: 0 0 100px;
 }
 
+.btn-space {
+    width: 5px;
+    height: auto;
+    display: inline-block;
+}
+
 h2#user {
     color: #31708f;
 }
@@ -33,10 +39,8 @@ h2#omattehtavat {
     margin: 0px auto;
 }
 
-.vertical-align {
+.table tbody>tr>td.vert-align {
     vertical-align: middle;
-    letter-spacing: -4px;
-    font-size: 0;
 }
 
 .vertical-align .col-xs-6 {

@@ -26,9 +26,13 @@
 <br><br>
 
 {% if user_logged_in.current_rights=="admin" %}
-<form method="post" class="pull-right" action="{{base_path}}/projektit/{{project.id}}/muokkaa">
-    <button type="button" class="btn btn-default">Muokkaa</button>
+{% if approved_tasks == 0 %}
+<form method="post" action="{{base_path}}/projektit/{{project.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa projektin {{project.name}}? Samalla poistuvat kaikki projektin tehtävät. Tätä toimintoa ei voi perua!'>
+    <button type=submit class="pull-right btn btn-danger">Poista</button>
 </form>
+<div  class="btn btn-space pull-right"></div>
+{% endif %}
+<A href="{{base_path}}/projektit/{{project.id}}/muokkaa"  class="pull-right btn btn-default">Muokkaa</a>
 {% endif %}
 <br><br>
 
@@ -58,10 +62,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-2">Deadline: </div><div class="col-md-10">Kuvaus:</div>
+                            <div class="col-md-3">Deadline: </div><div class="col-md-9">Kuvaus:</div>
                         </div> 
                         <div class="row">
-                            <div class="col-md-2"><strong>{{task.deadline}} </strong></div><div class="col-md-10">{{task.description}}</div>
+                            <div class="col-md-3"><strong>{{task.deadline}} </strong></div><div class="col-md-9">{{task.description}}</div>
                         </div> 
                     </div>
                 </div>
@@ -69,6 +73,6 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-default">Lisää tehtävä</button>
+        <a href="{{base_path}}/projektit/{{project.id}}/uusitehtava" class="btn btn-default">Lisää tehtävä</a>
 
         {% endblock %}

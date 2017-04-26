@@ -24,12 +24,12 @@ class Task extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Task SET (project, name, current_status, late, '
-                . 'description, start_date, deadline, approved) = (:manager, :name, :current_status, '
-                . ':late, :description, :start_date, :deadline, :approved) WHERE id = :id');
-        $query->execute(array('project' => $this->project, 'name' => $this->name, 'current_status' => $this->current_status,
-            'late' => $this->late, 'description' => $this->description, 'start_date' => $this->start_date,
-            'deadline' => $this->deadline, 'approved' => $this->approved));
+        $query = DB::connection()->prepare('UPDATE Task SET (project, name, current_status, '
+                . 'description, start_date, deadline) = (:project, :name, :current_status, '
+                . ':description, :start_date, :deadline) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'project' => $this->project, 'name' => $this->name, 'current_status' => $this->current_status,
+            'description' => $this->description, 'start_date' => $this->start_date,
+            'deadline' => $this->deadline));
         $row = $query->fetch();
 
         Kint::dump($row);
@@ -110,7 +110,7 @@ class Task extends BaseModel {
 
     public static function find($pid, $id) {
         $query = DB::connection()->prepare('SELECT Task.*, Project.name AS project_name, Project.manager, '
-                . 'Workers_tasks.* FROM Task LEFT JOIN Project ON Task.project = Project.id '
+                . 'Workers_tasks.worker FROM Task LEFT JOIN Project ON Task.project = Project.id '
                 . 'LEFT JOIN Workers_tasks on Task.id = Workers_tasks.owner_task WHERE Task.id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -133,6 +133,8 @@ class Task extends BaseModel {
             $manager_name = Person::findName($pid);
             $task['manager_name'] = $manager_name;
 
+//            Kint::trace();
+//            Kint::dump($row);
             return $task;
         }
         return null;
@@ -272,6 +274,18 @@ class Task extends BaseModel {
                 'approved' => $row['approved']
             ));
             return $projects;
+        }
+        return null;
+    }
+
+    public static function findName($id) {
+        $query = DB::connection()->prepare('SELECT Name FROM Task WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+            $name = $row['name'];
+            return $name;
         }
         return null;
     }

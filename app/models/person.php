@@ -150,6 +150,21 @@ class Person extends BaseModel {
         return $persons;
     }
 
+    public static function findManagers() {
+        $query = DB::connection()->prepare('SELECT id, name FROM Person WHERE current_rights = :admin OR current_rights = :worker ORDER BY name');
+        $query->execute(array('admin' => "admin", 'worker' => "worker"));
+        $rows = $query->fetchAll();
+        $persons = array();
+
+        foreach ($rows as $row) {
+            $persons[] = array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+            );
+        }
+        return $persons;
+    }
+
     public static function emailExists($email) {
         $query = DB::connection()->prepare('SELECT * FROM Person WHERE email = :email');
         $query->bindValue(':email', $email, PDO::PARAM_BOOL);

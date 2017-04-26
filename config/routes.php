@@ -6,7 +6,7 @@ $routes->get('/hiekkalaatikko', function() {
 
 //TaskController
 $routes->post('/projektit/:pid/tehtava/:id/poista', function($pid, $id) {
-    TaskController::poista($id);
+    TaskController::poista($pid, $id);
 });
 
 $routes->post('/projektit/:pid/tehtava/:id/hyvaksy', function($pid, $id) {
@@ -21,16 +21,20 @@ $routes->post('/projektit/:pid/tehtava/:id/valmis', function($pid, $id) {
     TaskController::valmis($id);
 });
 
-$routes->post('/projektit/tehtava/:id/muokkaa', function($id) {
-    TaskController::muokkaa($id);
+$routes->post('/projektit/:pid/tehtava/:id/muokkaa', function($pid, $id) {
+    TaskController::muokkaatehtava($pid, $id);
 });
 
-$routes->post('/projektit/:id/uusitehtava', function() {
-    TaskController::lisaauusi();
+$routes->post('/projektit/:pid/uusitehtava', function($pid) {
+    TaskController::lisaauusi($pid);
 });
 
-$routes->get('/projektit/:id/uusitehtava', function() {
-    TaskController::lisaa();
+$routes->get('/projektit/:pid/tehtava/:id/muokkaa', function($pid, $id) {
+    TaskController::muokkaa($pid, $id);
+});
+
+$routes->get('/projektit/:pid/uusitehtava', function($pid) {
+    TaskController::lisaa($pid);
 });
 
 $routes->get('/projektit/omattehtavat', function() {
@@ -50,7 +54,23 @@ $routes->get('/projektit/', function() {
     ProjectController::index();
 });
 
-$routes->get('projektit/uusi', function() {
+$routes->post('/projektit/:pid/poista', function($pid) {
+    ProjectController::poista($pid);
+});
+
+$routes->post('/projektit/:pid/muokkaa', function($pid) {
+    ProjectController::muokkaaprojekti($pid);
+});
+
+$routes->get('/projektit/:pid/muokkaa', function($pid) {
+    ProjectController::muokkaa($pid);
+});
+
+$routes->post('/projektit/uusiprojekti', function() {
+    ProjectController::lisaauusi();
+});
+
+$routes->get('/projektit/uusi', function() {
     ProjectController::lisaa();
 });
 

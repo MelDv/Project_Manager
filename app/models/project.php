@@ -15,7 +15,7 @@ class Project extends BaseModel {
                 . ':late, :description, :start_date, :deadline, :approved) RETURNING id');
         $query->execute(array('manager' => $this->manager, 'name' => $this->name, 'current_status' => $this->current_status,
             'late' => $this->late, 'description' => $this->description, 'start_date' => $this->start_date,
-            'deadline' => $this->deadline, 'approved' => $this->approved));
+            'deadline' => $this->deadline, 'approved' => "FALSE"));
         $row = $query->fetch();
 //        Kint::trace();
 //        Kint::dump($row);
@@ -24,18 +24,21 @@ class Project extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Project SET (manager, name, current_status, late, '
-                . 'description, start_date, deadline, approved) = (:manager, :name, :current_status, '
-                . ':late, :description, :start_date, :deadline, :approved) WHERE id = :id');
-        $query->execute(array('manager' => $this->manager, 'name' => $this->name, 'current_status' => $this->current_status,
-            'late' => $this->late, 'description' => $this->description, 'start_date' => $this->start_date,
-            'deadline' => $this->deadline, 'approved' => $this->approved));
+        $query = DB::connection()->prepare('UPDATE Project SET (manager, name,  '
+                . 'description, start_date, deadline) = (:manager, :name, '
+                . ':description, :start_date, :deadline) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'manager' => $this->manager, 'name' => $this->name,
+            'description' => $this->description, 'start_date' => $this->start_date, 'deadline' => $this->deadline));
         $row = $query->fetch();
 
         Kint::dump($row);
     }
 
-    public function destroy() {
+    public function destroy($id) {
+        $tasks = Task::findByProject($id);
+        foreach ($tasks as $task) {
+            Task::destroy($task['id']);
+        }
         $query = DB::connection()->prepare('DELETE FROM Project WHERE id= :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -57,7 +60,7 @@ class Project extends BaseModel {
                 . 'FROM Project LEFT JOIN Task ON Project.id = Task.project '
                 . 'LEFT JOIN Workers_tasks ON Task.id = Workers_tasks.owner_task '
                 . 'LEFT JOIN Person ON Workers_tasks.worker = Person.id WHERE Project.approved = FALSE '
-                . 'ORDER BY Project.name, person_name, task_late desc');
+                . 'ORDER BY Project.name');
         $query->execute();
         $rows = $query->fetchAll();
         $projects = array();
@@ -174,6 +177,19 @@ class Project extends BaseModel {
                 'approved' => $row['approved']
             ));
             return $projects;
+        }
+        return null;
+    }
+
+    public static function findName($id) {
+        $query = DB::connection()->prepare('SELECT name FROM Project WHERE id = :id');
+        $query->bindValue(':id', $id, PDO::PARAM_STR);
+        $query->execute();
+        $row = $query->fetch();
+
+        if ($row) {
+            $name = $row['name'];
+            return $name;
         }
         return null;
     }

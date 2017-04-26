@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if user_logged_in.current_rights=="admin" %}
-<a class="btn btn-default" href="{{base_path}}/uusi">Uusi projekti</a>
+<a class="btn btn-default" href="{{base_path}}/projektit/uusi">Uusi projekti</a>
 {% endif %}
 
 <br><br><br>
@@ -72,7 +72,7 @@
                 {% endif %}
             </th>
             {% if user_logged_in.current_rights=="admin" %}
-            <th><th><a method="get" action="{{base_path}}/projektit/{{project.id}}/uusitehtava" class="btn btn-success">Lisää tehtävä</a></th>
+            <th><a href="{{base_path}}/projektit/{{project.id}}/uusitehtava" class="btn btn-success">Lisää tehtävä</a></th>
             {% endif %}
         </tr>
         {% endfor %}

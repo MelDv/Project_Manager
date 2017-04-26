@@ -22,7 +22,7 @@ class TaskController extends BaseController {
         }
 
         $tasks = Task::myActiveTasks($page, $page_size, $id);
-        View::make('projektit/omattehtavat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
+        View::make('/projektit/omattehtavat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
             'next_page' => $next_page, 'page_size' => $page_size, 'tasks' => $tasks));
     }
 
@@ -41,31 +41,79 @@ class TaskController extends BaseController {
                 'person_name' => $person_name);
         }
 
-        View::make('projektit/tehtava.html', array('task' => $task, 'names' => $names));
+        View::make('/projektit/tehtava.html', array('task' => $task, 'names' => $names));
     }
 
-    public static function lisaauusi() {
+    //post
+    public static function lisaauusi($pid) {
         self::check_logged_in();
-        $pid = (isset($_GET['project']) AND (int) $_GET['project'] > 0) ? (int) $_GET['project'] : 1;
-        View::make('projektit/uusitehtava.html', array('project_id' => $pid));
+        $params = $_POST;
+        $attributes = array(
+            'project' => $pid,
+            'name' => $params['name'],
+            'description' => $params['description'],
+            'start_date' => $params['start_date'],
+            'deadline' => $params['deadline'],
+            'current_status' => 'pending'
+        );
+
+//        Kint::dump($params);
+        $task = new Task($attributes);
+        $errors = $task->errors();
+        if (count($errors) == 0) {
+            $task->save();
+            Redirect::to('/projektit/' . $pid . '/tehtava/' . $task->id, array('message' => 'Tehtävän ' . $task->name . ' lisääminen onnistui.'));
+        } else {
+            array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
+            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task));
+        }
     }
 
-    public static function lisaa() {
+    //get
+    public static function lisaa($pid) {
         self::check_logged_in();
-        $pid = (isset($_GET['project']) AND (int) $_GET['project'] > 0) ? (int) $_GET['project'] : 1;
-        View::make('projektit/uusitehtava.html', array('project_id' => $pid));
+        $project_name = Project::findName($pid);
+        View::make('/projektit/muokkaa_tehtava.html', array('pid' => $pid, 'project_name' => $project_name));
     }
 
-    public static function muokkaa($id) {
+    //get
+    public static function muokkaa($pid, $id) {
         self::check_logged_in();
-        View::make('projektit/muokkaatehtava.html');
+        $task = Task::find($pid, $id);
+        View::make('projektit/muokkaa_tehtava.html', array('pid' => $pid, 'task' => $task));
     }
 
-    public static function poista($id) {
+    //post
+    public static function muokkaatehtava($pid, $id) {
         self::check_logged_in();
+        $params = $_POST;
+        $attributes = array(
+            'id' => $id,
+            'project' => $pid,
+            'name' => $params['name'],
+            'current_status' => $params['current_status'],
+            'description' => $params['description'],
+            'start_date' => $params['start_date'],
+            'deadline' => $params['deadline']
+        );
+
+        $task = new Task($attributes);
+        $errors = $task->errors();
+        if (count($errors) == 0) {
+            $task->update();
+            Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => 'Tehtävän ' . $task->name . ' tiedot päivitettiin.'));
+        } else {
+            array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
+            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task));
+        }
+    }
+
+    public static function poista($pid, $id) {
+        self::check_logged_in();
+        $name = Task::findName($id);
         $task = new Task(array('id' => $id));
         $task->destroy($id);
-        Redirect::to('/projektit/omattehtavat', array('message' => 'Tehtävä on poistettu'));
+        Redirect::to('/projektit/' . $pid, array('message' => 'Tehtävä ' . $name . ' poistettiin'));
     }
 
     public static function valmis($id) {
