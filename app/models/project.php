@@ -55,7 +55,7 @@ class Project extends BaseModel {
     }
 
     public static function activeNames() {
-        $query = DB::connection()->prepare('SELECT id, name, deadline FROM Project WHERE approved = FALSE ORDER BY deadline DESC ');
+        $query = DB::connection()->prepare('SELECT id, name, deadline FROM Project WHERE approved = FALSE ORDER BY deadline');
         $query->execute();
         $rows = $query->fetchAll();
         $projects = array();
