@@ -17,10 +17,6 @@
 
         <!-- Oma tyylitiedostomme -->
         <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
-
-        <!-- kuvat -->
-
-
         {% endblock %}
     </head>
 
@@ -37,6 +33,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                     <!-- Sovelluksen nimi -->
                     <a class="navbar-brand" href="{{base_path}}">Projektityökalu</a>
@@ -45,8 +42,9 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="{{base_path}}/projektit">Projektit</a>  </li>  
-                            {% if user_logged_in %}
+                        <li><a href="{{base_path}}/projektit">Projektit</a></li>  
+                        {% if user_logged_in %}
+                        <li><a href="{{base_path}}/kayttajat">Käyttäjät</a></li> 
                         <li><a href="{{base_path}}/kayttajat/{{user_logged_in.id}}">Oma sivu</a></li>
                         <li><a href="{{base_path}}/projektit/omattehtavat">Omat tehtävät</a></li>
                         {% endif %}

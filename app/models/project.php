@@ -54,6 +54,23 @@ class Project extends BaseModel {
         return count($rows);
     }
 
+    public static function activeNames() {
+        $query = DB::connection()->prepare('SELECT id, name, deadline FROM Project WHERE approved = FALSE ORDER BY deadline DESC ');
+        $query->execute();
+        $rows = $query->fetchAll();
+        $projects = array();
+
+        foreach ($rows as $row) {
+            $projects[] = array(
+                'id' => $row['id'],
+                'name' => $row['name']
+            );
+        }
+//        Kint::trace();
+//        Kint::dump($rows);
+        return $projects;
+    }
+
     public static function allActive() {
         $query = DB::connection()->prepare('SELECT Project.*, Task.late AS task_late, Task.approved AS task_approved, '
                 . 'Task.id AS task_id, Task.name AS task_name, Workers_tasks.worker, Person.name AS person_name '
@@ -190,6 +207,29 @@ class Project extends BaseModel {
         if ($row) {
             $name = $row['name'];
             return $name;
+        }
+        return null;
+    }
+
+    public static function findByManager($manager) {
+        $query = DB::connection()->prepare('SELECT * FROM Project WHERE manager = :manager ORDER BY name');
+        $query->execute(array('manager' => $manager));
+        $rows = $query->fetchAll();
+        $projects = array();
+
+        foreach ($rows as $row) {
+            $projects[] = new Project(array(
+                'id' => $row['id'],
+                'manager' => $row['manager'],
+                'name' => $row['name'],
+                'current_status' => $row['current_status'],
+                'late' => $row['late'],
+                'description' => $row['description'],
+                'start_date' => $row['start_date'],
+                'deadline' => $row['deadline'],
+                'approved' => $row['approved']
+            ));
+            return $projects;
         }
         return null;
     }

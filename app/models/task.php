@@ -185,6 +185,14 @@ class Task extends BaseModel {
         return null;
     }
 
+    public static function countByStatus($pid, $current_status) {
+        $query = DB::connection()->prepare('SELECT name FROM Task WHERE project = :pid AND current_status = :current_status');
+        $query->execute(array('pid' => $pid, 'current_status' => $current_status));
+        $rows = $query->fetchAll();
+
+        return count($rows);
+    }
+
     public static function findByProject($project) {
         $query = DB::connection()->prepare('SELECT * FROM Task WHERE project = :project ORDER BY deadline, name');
         $query->execute(array('project' => $project));
@@ -205,29 +213,6 @@ class Task extends BaseModel {
             );
         }
         return $tasks;
-    }
-
-    public static function findByManager($manager) {
-        $query = DB::connection()->prepare('SELECT * FROM Task WHERE manager = :manager ORDER BY project, deadline, name');
-        $query->execute(array('manager' => $manager));
-        $rows = $query->fetchAll();
-        $projects = array();
-
-        foreach ($rows as $row) {
-            $tasks[] = new $tasks(array(
-                'id' => $row['id'],
-                'project' => $row['project'],
-                'name' => $row['name'],
-                'current_status' => $row['current_status'],
-                'late' => $row['late'],
-                'description' => $row['description'],
-                'start_date' => $row['start_date'],
-                'deadline' => $row['deadline'],
-                'approved' => $row['approved']
-            ));
-            return $tasks;
-        }
-        return null;
     }
 
     public static function findByApproved($approved) {

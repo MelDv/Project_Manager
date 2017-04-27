@@ -53,7 +53,7 @@
                                 {% elseif task.current_status == "underway" %}
                                 <label class="label label-primary">Työn alla</label>
                                 {% elseif task.current_status == "pending" %}
-                                <label class="label label-default">Työn alla</label>
+                                <label class="label label-default">Odottaa</label>
                                 {% endif %}
                             </div>
                             <div class="col-md-9"><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{task.id}}"><strong>{{task.name}}</strong></a>

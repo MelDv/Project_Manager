@@ -3,7 +3,55 @@
 class ProjectController extends BaseController {
 
     public static function etusivu() {
-        View::make('projektit/etusivu.html');
+        $temps = Project::activeNames();
+        array_splice($temps, 3);
+        $projects = array();
+        global $late;
+        global $underway;
+        global $finished;
+        global $pending;
+        global $tasks;
+
+        foreach ($temps as $temp) {
+            $late = 0;
+            $underway = 0;
+            $finished = 0;
+            $tasks = Task::findByProject($temp['id']);
+            foreach ($tasks as $task) {
+                if ($task['current_status'] == 'finished') {
+                    $finished++;
+                } elseif ($task['late'] == TRUE) {
+                    $late++;
+                } elseif ($task['current_status'] == 'underway') {
+                    $underway++;
+                } elseif ($task['current_status'] == 'pending') {
+                    $pending++;
+                }
+            }
+            $tasks = count($tasks);
+            if ($late > 0) {
+                $late = ($late / $tasks * 100);
+            }
+            if ($underway > 0) {
+                $underway = round($underway / $tasks * 100);
+            }
+            if ($finished > 0) {
+                $finished = round($finished / $tasks * 100);
+            }
+            if ($pending > 0) {
+                $pending = round($pending / $tasks * 100);
+            }
+            $projects[] = array(
+                'id' => $temp['id'],
+                'name' => $temp['name'],
+                'late' => $late,
+                'underway' => $underway,
+                'finished' => $finished,
+                'pending' => $pending
+            );
+        }
+//        Kint::dump($projects);
+        View::make('projektit/etusivu.html', array('projects' => $projects));
     }
 
     public static function index() {
@@ -26,7 +74,7 @@ class ProjectController extends BaseController {
         View::make('projektit/projekti.html', array('project' => $project, 'tasks' => $tasks, 'approved_tasks' => $approved_tasks));
     }
 
-    //get
+//get
     public static function lisaa() {
         self::check_logged_in();
         $managers = Person::findManagers();
@@ -39,7 +87,7 @@ class ProjectController extends BaseController {
         Redirect::to('/projektit/', array('message' => 'Projekti ' . $name . ' ja kaikki sen tehtävät poistettiin.'));
     }
 
-    //post
+//post
     public static function lisaauusi() {
         self::check_logged_in();
         $params = $_POST;
@@ -63,7 +111,7 @@ class ProjectController extends BaseController {
         }
     }
 
-    //get
+//get
     public static function muokkaa($pid) {
         self::check_logged_in();
         $project = Project::find($pid);
@@ -71,7 +119,7 @@ class ProjectController extends BaseController {
         View::make('projektit/muokkaa_projekti.html', array('project' => $project, 'managers' => $managers));
     }
 
-    //post
+//post
     public static function muokkaaprojekti($id) {
         self::check_logged_in();
         $params = $_POST;

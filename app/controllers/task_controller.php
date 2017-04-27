@@ -21,8 +21,10 @@ class TaskController extends BaseController {
             $next_page = null;
         }
 
+        $own_projects = Project::findByManager($id);
+
         $tasks = Task::myActiveTasks($page, $page_size, $id);
-        View::make('/projektit/omattehtavat.html', array('pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
+        View::make('/projektit/omattehtavat.html', array('own_projects' => $own_projects, 'pages' => $pages, 'page' => $page, 'prev_page' => $prev_page,
             'next_page' => $next_page, 'page_size' => $page_size, 'tasks' => $tasks));
     }
 
@@ -65,7 +67,7 @@ class TaskController extends BaseController {
             Redirect::to('/projektit/' . $pid . '/tehtava/' . $task->id, array('message' => 'Tehtävän ' . $task->name . ' lisääminen onnistui.'));
         } else {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
-            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task));
+            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task, 'pid' => $pid));
         }
     }
 
