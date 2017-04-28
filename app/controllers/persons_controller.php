@@ -115,6 +115,11 @@ class PersonController extends BaseController {
         self::check_logged_in();
         $person = new Person(array('id' => $id));
         $nimi = Person::findName($id);
+        if (WorkersTasks::findTasksByWorker($id) != null || (Project::findByManager($id) != null)) {
+            $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hänellä on aktiivisia tehtäviä tai projekteja';
+            Redirect::to('/kayttajat', array('errors' => $errors));
+        }
+
         $person->destroy($id);
         Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
     }
@@ -123,6 +128,7 @@ class PersonController extends BaseController {
     public static function esittely($id) {
         self::check_logged_in();
         $person = Person::find($id);
+//        $groups = WorkersGroups::findGroupsByPerson($id);
         View::make('kayttaja/esittely.html', array('person' => $person));
     }
 

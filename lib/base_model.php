@@ -95,5 +95,27 @@ class BaseModel {
 
         return $errors;
     }
-  
+
+    public function validate_date() {
+        $errors = array();
+
+//           date_default_timezone_set('UTC');
+//    $date = DateTime::createFromFormat($format, $dateStr);
+//    return $date && ($date->format($format) === $dateStr);
+    
+         $tempDate = explode('-', $this->start_date);
+        
+         if (!checkdate($tempDate[1], $tempDate[2], $tempDate[0])){
+             $errors[] = 'Tarkista päivämäärän muoto: pp/kk/vvvv';
+         }
+
+        if ($this->start_date > $this->deadline) {
+            $errors[] = 'Deadline ei voi olla ennen aloituspäivää!';
+        }
+
+        return $errors;
+    }
+
 }
+
+//!validateDate($this->start_date, 'd/m/Y') || !validatedate($this->deadline, 'd/m/Y'

@@ -18,6 +18,9 @@
 
 <h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{project.manager}}">{{project.manager_name}}</a></h4>
 <button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
+<br><br>
+<strong>Deadline: {{project.deadline|date("d.m.Y")}}</strong>
+<p>Alkamispäivä: {{project.start_date|date("d.m.Y")}}</p>
 <br><br><br>
 
 <h3>Kuvaus</h3>

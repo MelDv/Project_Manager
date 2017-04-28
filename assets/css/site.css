@@ -84,6 +84,14 @@ h2#omattehtavat {
     width: 250px;
 }
 
+.glyphicon-check, .glyphicon-exclamation-sign {
+    align-items: flex-end;
+}
+
+dropdown-link-text {
+    display: inline-block;
+    align-content: flex-start;
+}
 .footer {
     background-color: #444;
     position: absolute;

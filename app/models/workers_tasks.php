@@ -36,7 +36,7 @@ class WorkersTasks extends BaseModel {
         foreach ($rows as $row) {
             $tasks[] = $row['owner_task'];
         }
-        Kint::dump($rows);
+//        Kint::dump($rows);
         return $tasks;
     }
 

@@ -21,9 +21,8 @@
     <button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
     <br><br><br>
 
-    <strong>Deadline: {{task.deadline}}</strong>
-    <br>
-    <p>Aloituspäivä: {{task.start_date}}</p>
+    <strong>Deadline: {{task.deadline|date("d.m.Y")}}</strong>
+    <p>Aloituspäivä: {{task.start_date|date("d.m.Y")}}</p>
 
 
     <h3>Kuvaus</h3>

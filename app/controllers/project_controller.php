@@ -96,7 +96,8 @@ class ProjectController extends BaseController {
             'name' => $params['name'],
             'current_status' => 'pending',
             'description' => $params['description'],
-            'start_date' => $params['start_date']
+            'start_date' => $params['start_date'],
+            'deadline' => $params['deadline']
         );
 
         $managers = Person::findManagers();
@@ -133,13 +134,14 @@ class ProjectController extends BaseController {
         );
 
         $project = new Project($attributes);
+        $managers = Person::findManagers();
         $errors = $project->errors();
         if (count($errors) == 0) {
             $project->update();
             Redirect::to('/projektit/' . $project->id, array('message' => 'Projektin ' . $project->name . ' tiedot päivitetiin.'));
         } else {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
-            View::make('/projektit/muokkaa_projekti.html', array('errors' => $errors, 'project' => $project));
+            View::make('/projektit/muokkaa_projekti.html', array('errors' => $errors, 'project' => $project, 'managers' => $managers));
         }
     }
 

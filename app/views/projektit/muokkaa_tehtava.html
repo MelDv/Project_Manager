@@ -15,6 +15,7 @@
         {% if task.late %}
         <label class="label label-danger">Myöhässä</label>
         {% endif %}
+        <br><br>
 
         <div class="form-group">
             <label>Nimi</label>
@@ -54,14 +55,32 @@
             </select>
         </div>     
         {% endif %}
-
+        
+        <!--Koska Firefox ei tunne date-tyyppiä:-->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script> 
+        <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+        <script>
+                    webshims.setOptions('forms-ext', {types: 'date'});
+                    webshims.polyfill('forms forms-ext');
+                    $.webshims.formcfg = {
+                        en: {
+                            dFormat: '/',
+                            dateSigns: '/',
+                            orientation: "auto",
+                            patterns: {
+                                d: "dd/mm/yyyy"
+                            }
+                        }
+                    };
+        </script>
+        
         <div class="form-group">
             <label>Aloituspäivä</label><br>
-            <input type="date" name='start_date' class="form-group-sm" value="{{task.start_date}}">
+            <input type="date" name='start_date' class="form-group-sm dropup" value="{{task.start_date}}"  placeholder='dd/mm/yyyy'>
         </div>
         <div class="form-group">
             <label>Deadline</label><br>
-            <input type="date" name='deadline' class="form-group-sm" value="{{task.deadline}}">
+            <input type="date" name='deadline' class="form-group-sm dropup" value="{{task.deadline}}"  placeholder='dd/mm/yyyy'>
         </div>
 
         {{forms.cancel_save("#{base_path}/projektit/#{pid}")}}

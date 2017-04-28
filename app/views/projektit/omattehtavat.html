@@ -19,12 +19,12 @@
     </thead>
 
     <tbody> 
-        {% for own_project in own_projects %}
+        {% for own_project in own_projects if own_project.approved==false %}
         <tr>
             <td id="index">{{loop.index}}</td>
             <td><a href="{{base_path}}/projektit/{{own_project.id}}">{{own_project.name}}</a></td>
-            <td>{{own_project.start_date}}</td>
-            <td>{{own_project.deadline}}</td>
+            <td>{{own_project.start_date|date("d.m.Y")}}</td>
+            <td>{{own_project.deadline|date("d.m.Y")}}</td>
             <td>{{own_project.description}}</td>
         </tr>  
         {% endfor %}

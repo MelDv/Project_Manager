@@ -43,10 +43,11 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
                         {% for project in projects if project.name==name %}
                         <!--{% if project.task_id not in taskArray %}-->
-                        <li span.glyphicon><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{project.task_id}}">{{project.task_name}}  
-                                {% if project.task_approved %}<span class="glyphicon glyphicon-check pull-right"></span>
-                                {% elseif project.task_late %}<span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
-                                {% endif %}</a></li> 
+                       <li><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{project.task_id}} ">
+                                {% if project.task_approved %}<span class="glyphicon glyphicon-check pull-right "></span>
+                                {% elseif project.task_late %}<span class="glyphicon glyphicon-exclamation-sign pull-right "></span>
+                                {% endif %}
+                               <span class="dropdown-link-text">{{project.task_name}} </a></li> 
                         <!--{% set taskArray = taskArray|merge([project.task_id]) %}-->
                         <!--{% endif %}-->
                         {% endfor %}
