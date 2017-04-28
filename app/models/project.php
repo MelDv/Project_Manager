@@ -83,9 +83,11 @@ class Project extends BaseModel {
         $projects = array();
 
         foreach ($rows as $row) {
+            $manager_name = Person::findName($row['manager']);
             $projects[] = array(
                 'id' => $row['id'],
                 'manager' => $row['manager'],
+                'manager_name' => $manager_name,
                 'name' => $row['name'],
                 'current_status' => $row['current_status'],
                 'late' => $row['late'],
@@ -229,9 +231,20 @@ class Project extends BaseModel {
                 'deadline' => $row['deadline'],
                 'approved' => $row['approved']
             ));
-            return $projects;
         }
-        return null;
+         return $projects;
+    }
+
+    public static function nameExists($name) {
+        $query = DB::connection()->prepare('SELECT * FROM Person WHERE name = :name');
+        $query->bindValue(':name', $name, PDO::PARAM_STR);
+        $query->execute();
+        $rows = $query->fetchAll();
+
+        if ($rows == null) {
+            return false;
+        }
+        return true;
     }
 
 }

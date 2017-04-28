@@ -114,22 +114,36 @@ class PersonController extends BaseController {
     public static function poista_kayttaja($id) {
         self::check_logged_in();
         $person = new Person(array('id' => $id));
+        $errors = array();
+
         $nimi = Person::findName($id);
-        if (WorkersTasks::findTasksByWorker($id) != null || (Project::findByManager($id) != null)) {
-            $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hänellä on aktiivisia tehtäviä tai projekteja';
-            Redirect::to('/kayttajat', array('errors' => $errors));
+        $temp = Project::findByManager($id);
+        if (Project::findByManager($id) != null) {
+            $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hän johtaa aktiivisia projekteja (ks. sivu "Projektit")';
+        }
+        if (WorkersTasks::findTasksByWorker($id) != null) {
+            $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hän on yksin vastuussa joistain tehtävistä. Näet käyttäjän tehtävät hänen omalta sivultaan.';
         }
 
-        $person->destroy($id);
-        Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
+        if (count($errors) == 0) {
+            $person->destroy($id);
+            Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
+        } else {
+            Redirect::to('/kayttajat', array('errors' => $errors));
+        }
     }
 
     //käyttäjän esittelysivu
     public static function esittely($id) {
         self::check_logged_in();
         $person = Person::find($id);
-//        $groups = WorkersGroups::findGroupsByPerson($id);
-        View::make('kayttaja/esittely.html', array('person' => $person));
+        $groups = WorkersGroups::findGroupsByPerson($id);
+        $task_ids = WorkersTasks::findTasksByWorker($id);
+        $tasks = array();
+        foreach ($task_ids as $task_id) {
+            $tasks[] = Task::findTask($task_id);
+        }
+        View::make('kayttaja/esittely.html', array('person' => $person, 'groups' => $groups, 'tasks' => $tasks));
     }
 
     //lomakkeen näyttäminen

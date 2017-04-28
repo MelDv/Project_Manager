@@ -11,7 +11,6 @@ class Person extends BaseModel {
 
     public static function authenticate($email, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Person WHERE email = :email AND password = :password LIMIT 1');
-
         $query->execute(array('email' => $email, 'password' => $password));
         $row = $query->fetch();
         if ($row) {
@@ -35,6 +34,7 @@ class Person extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Person (name, password, email, '
                 . 'description, active, current_rights) VALUES (:name, :password, :email, '
                 . ':description, :active, :current_rights) RETURNING id');
+//        lisättävä kryptaus
 //        $this->password = crypt($this->password);
         $query->execute(array('name' => $this->name, 'password' => $this->password,
             'email' => $this->email, 'description' => $this->description, 'active' => $this->active,
@@ -56,6 +56,9 @@ class Person extends BaseModel {
     }
 
     public function destroy($id) {
+        WorkersGroups::destroy($id);
+        WorkersTasks::destroy($id);
+        
         $query = DB::connection()->prepare('DELETE FROM Person WHERE id=:id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();

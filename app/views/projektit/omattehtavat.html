@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
+<br>
 <h2 id="owntasks">Keskeneräiset projektit ja tehtävät</h2>
 <br><br>
 
-{% if own_projects is not null %}
+{% if own_projects.id is not null %}
 <h4>Vastuuprojektit</h4>
 
 <table class="table table-hover">
@@ -81,7 +82,7 @@
             <td>{{task.deadline}}</td>
             <td>{{task.description}}</td>
             <td><a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></td>
-            <td>
+            <td style='text-align: center'>
                 {% if task.current_status == "finished" %}
                 <h4><span class="label label-info">  Hyväksyttävänä</span></h4>
                 {% else %}
@@ -91,7 +92,7 @@
                 {% endif %}
             </td>
             {% if user_logged_in.current_rights=="admin" %}
-            <td>
+            <td style='text-align: center'>
                 <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa tehtävän {{task.name}}?'>
                     <button type=submit class="btn btn-danger">Poista</button>
                 </form>

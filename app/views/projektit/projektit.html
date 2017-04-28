@@ -18,7 +18,7 @@
             <th>Kuvaus</th>
             <th>Tehtävät</th>
             <th>Tekijät</th>
-            <th></th>
+            <th>Projektipäällikkö</th>
         </tr>
     </thead>
 
@@ -59,7 +59,7 @@
                 <!--Tekijät-->
                 {% if project.worker!=null %}
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary dropdown-toggle" id="tekijalista" data-toggle="dropdown">Tekijät
+                    <button type="button" class="btn btn-success dropdown-toggle" id="tekijalista" data-toggle="dropdown">Tekijät
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tekijalista">
                         {% for project in projects if project.name==name %}
@@ -72,9 +72,7 @@
                 </div>
                 {% endif %}
             </th>
-            {% if user_logged_in.current_rights=="admin" %}
-            <th><a href="{{base_path}}/projektit/{{project.id}}/uusitehtava" class="btn btn-success">Lisää tehtävä</a></th>
-            {% endif %}
+            <th style="text-align: left"><a href="{{base_path}}/kayttajat/{{project.manager}}" >{{project.manager_name}}</a></th>
         </tr>
         {% endfor %}
     </tbody>

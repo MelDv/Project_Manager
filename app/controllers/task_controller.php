@@ -62,6 +62,9 @@ class TaskController extends BaseController {
 //        Kint::dump($params);
         $task = new Task($attributes);
         $errors = $task->errors();
+        if (Task::nameExists($params['name'])) {
+            $errors[] = 'Nimi on jo käytössä. Valitse uusi nimi.';
+        }
         if (count($errors) == 0) {
             $task->save();
             Redirect::to('/projektit/' . $pid . '/tehtava/' . $task->id, array('message' => 'Tehtävän ' . $task->name . ' lisääminen onnistui.'));

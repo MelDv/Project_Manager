@@ -275,4 +275,16 @@ class Task extends BaseModel {
         return null;
     }
 
+    public static function nameExists($name) {
+        $query = DB::connection()->prepare('SELECT * FROM Task WHERE name = :name');
+        $query->bindValue(':name', $name, PDO::PARAM_STR);
+        $query->execute();
+        $rows = $query->fetchAll();
+
+        if ($rows == null) {
+            return false;
+        }
+        return true;
+    }
+
 }

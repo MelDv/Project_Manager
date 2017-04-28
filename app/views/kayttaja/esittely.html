@@ -11,7 +11,7 @@
             <th>Sähköposti</th>
             <th>Käytettävissä</th>
             <th>Luokitus</th>
-            <th></th>
+            <th>Ryhmät</th>
         </tr>
     </thead>
 
@@ -26,6 +26,7 @@
                 {% endif %}
             </td>
             <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
+            <td style='text-align: center'> {% if groups.id is not null %} {% for group in groups %}, {% endfor %} {% else %} <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="No groups"></label> {% endif %}</td>
         </tr>
     </tbody> 
 </table>
@@ -33,7 +34,15 @@
 
 <strong>Kuvaus:</strong>
 <p>{{person.description}}</p>
-</br></br></br></br>
+</br></br>
+
+<h4>Tehtävät:</h4>
+{% for task in tasks %}
+<ul>
+    <li><a href="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}">{{task.name}}</a></li>
+</ul>
+{% endfor %}
+</br></br>
 
 <!-- testaa onko admin tai oma sivu -->
 {% if user_logged_in.current_rights == "admin" or user_logged_in.id == person.id %}

@@ -1,6 +1,6 @@
 <?php
 
-class Group extends BaseModel {
+class WorkGroup extends BaseModel {
 
     public $id, $name, $description;
 
@@ -10,7 +10,7 @@ class Group extends BaseModel {
 
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT * FROM Work_group WHERE id = :id');
-        $query->execute(array('id' => $this->id));
+        $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         if ($row) {

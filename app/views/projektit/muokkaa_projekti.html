@@ -57,9 +57,6 @@
                             dFormat: '/',
                             dateSigns: '/',
                             orientation: "auto",
-                            patterns: {
-                                d: "dd/mm/yyyy"
-                            }
                         }
                     };
         </script>
@@ -68,7 +65,6 @@
             <label>Aloituspäivä</label><br>
             <input type="date" name='start_date' class="form-group-sm" value="{{project.start_date}}"  placeholder='dd/mm/yyyy'>
         </div>
-        {{project.start_date}}
         <div class="form-group">
             <label>Deadline</label><br>
             <input type="date" name='deadline' class="form-group-sm" value="{{project.deadline}}"  placeholder='dd/mm/yyyy'>

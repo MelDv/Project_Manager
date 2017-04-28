@@ -55,7 +55,7 @@
             </select>
         </div>     
         {% endif %}
-        
+
         <!--Koska Firefox ei tunne date-tyyppiä:-->
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script> 
         <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
@@ -67,13 +67,10 @@
                             dFormat: '/',
                             dateSigns: '/',
                             orientation: "auto",
-                            patterns: {
-                                d: "dd/mm/yyyy"
-                            }
                         }
                     };
         </script>
-        
+
         <div class="form-group">
             <label>Aloituspäivä</label><br>
             <input type="date" name='start_date' class="form-group-sm dropup" value="{{task.start_date}}"  placeholder='dd/mm/yyyy'>

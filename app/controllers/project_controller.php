@@ -103,6 +103,9 @@ class ProjectController extends BaseController {
         $managers = Person::findManagers();
         $project = new Project($attributes);
         $errors = $project->errors();
+        if (Project::nameExists($params['name'])) {
+            $errors[] = 'Nimi on jo käytössä. Valitse uusi nimi.';
+        }
         if (count($errors) == 0) {
             $project->save();
             Redirect::to('/projektit/' . $project->id, array('message' => 'Projektin ' . $project->name . ' lisääminen onnistui.'));
