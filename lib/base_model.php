@@ -106,7 +106,7 @@ class BaseModel {
          $tempDate = explode('-', $this->start_date);
         
          if (!checkdate($tempDate[1], $tempDate[2], $tempDate[0])){
-             $errors[] = 'Tarkista päivämäärän muoto: pp/kk/vvvv';
+             $errors[] = 'Tarkista päivämäärän muoto: vvvv-kk-pp';
          }
 
         if ($this->start_date > $this->deadline) {
