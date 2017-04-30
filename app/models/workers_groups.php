@@ -12,36 +12,30 @@ class WorkersGroups extends BaseModel {
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Workers_groups (owner_person, owner_group) '
-                . 'VALUES (:owner_person, owner_group) RETURNING id');
+                . 'VALUES (:owner_person, :owner_group) RETURNING id');
         $query->execute(array('owner_person' => $this->owner_person, 'owner_group' => $this->owner_group));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
-    public function destroy($id) {
-        $query = DB::connection()->prepare('DELETE FROM Workers_groups WHERE id= :id');
-        $query->execute(array('id' => $id));
+    public function destroyByWorker($owner_person) {
+        $query = DB::connection()->prepare('DELETE FROM Workers_groups WHERE owner_person= :owner_person');
+        $query->execute(array('owner_person' => $owner_person));
         $row = $query->fetchAll();
     }
 
     public static function findGroupsByPerson($owner_person) {
-        $query = DB::connection()->prepare('SELECT Workers_groups.owner_group, Work_group.* FROM Workers_groups '
-                . 'LEFT JOIN Work_group ON Workers_groups.owner_group = Work_group.id WHERE owner_person = :owner_person');
+        $query = DB::connection()->prepare('SELECT Workers_groups.owner_group FROM Workers_groups '
+                . 'WHERE owner_person = :owner_person');
         $query->execute(array('owner_person' => $owner_person));
         $rows = $query->fetchAll();
         $groups = array();
 
         foreach ($rows as $row) {
-            $groups[] = array(
-                'owner_group' => $row['owner_group'],
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'description' => $row['description']
-            );
-            return $groups;
+            $groups[] = $row['owner_group'];
         }
-
-        return null;
+//            Kint::dump($rows);
+        return $groups;
     }
 
     public static function findPersonsByGroup($owner_group) {

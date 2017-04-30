@@ -15,7 +15,7 @@ class Task extends BaseModel {
                 . ':late, :description, :start_date, :deadline, :approved) RETURNING id');
         $query->execute(array('project' => $this->project, 'name' => $this->name, 'current_status' => $this->current_status,
             'late' => $this->late, 'description' => $this->description, 'start_date' => $this->start_date,
-            'deadline' => $this->deadline, 'approved' => $this->approved));
+            'deadline' => $this->deadline, 'approved' => "FALSE"));
         $row = $query->fetch();
 //        Kint::trace();
 //        Kint::dump($row);
@@ -61,11 +61,25 @@ class Task extends BaseModel {
     }
 
     public function approve($id) {
-        $query = DB::connection()->prepare('UPDATE Task SET approved=TRUE WHERE id = :id');
+        self::ready($id);
+        $query = DB::connection()->prepare('UPDATE Task SET current_status=\'finished\', approved=TRUE WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         Kint::dump($row);
+    }
+
+    public function late($id) {
+        $task = self::findTask($id);
+        if (!$task->approved && date('Y-m-d') > $task->deadline) {
+            $query = DB::connection()->prepare('UPDATE Task SET late = TRUE WHERE id= :id');
+            $query->execute(array('id' => $id));
+            $row = $query->fetch();
+        } elseif (date('Y-m-d') < $task->deadline) {
+            $query = DB::connection()->prepare('UPDATE Task SET late = FALSE WHERE id= :id');
+            $query->execute(array('id' => $id));
+            $row = $query->fetch();
+        }
     }
 
     public static function count() {

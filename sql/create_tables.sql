@@ -25,8 +25,8 @@ CREATE TABLE project(
     current_status status DEFAULT 'pending',
     late BOOLEAN DEFAULT FALSE,
     description varchar(400),
-    start_date DATE,
-    deadline DATE,
+    start_date DATE NOT NULL,
+    deadline DATE NOT NULL,
     approved BOOLEAN DEFAULT FALSE
 );
 
@@ -37,8 +37,8 @@ CREATE TABLE task(
     current_status status DEFAULT 'pending',
     late BOOLEAN DEFAULT FALSE,
     description varchar(400),
-    start_date DATE,
-    deadline DATE,
+    start_date DATE NOT NULL,
+    deadline DATE NOT NULL,
     approved BOOLEAN DEFAULT FALSE
 );
 

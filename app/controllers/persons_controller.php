@@ -63,10 +63,13 @@ class PersonController extends BaseController {
             $attributes['current_rights'] = $temp->current_rights;
         }
 
+        $groups = $params['groups'];
         $person = new Person($attributes);
+        self::saveGroups($person->id, $groups);
+
         $errors = $person->errors();
         if (count($errors) > 0) {
-            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person));
+            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person, 'groups' => $groups));
         } else {
             $person->update();
             Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjätiedot päivitettiin'));
@@ -77,7 +80,6 @@ class PersonController extends BaseController {
     public static function uusi() {
         self::check_logged_in();
         $params = $_POST;
-
         $attributes = array(
             'name' => $params['name'],
             'email' => $params['email'],
@@ -86,9 +88,10 @@ class PersonController extends BaseController {
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
-
-//        Kint::dump($params);
+        $groups = $params['groups'];
         $person = new Person($attributes);
+        self::saveGroups($person->id, $groups);
+
         $errors = $person->errors();
 
         if (Person::emailExists($params['email'])) {
@@ -107,7 +110,9 @@ class PersonController extends BaseController {
     public static function muokkaa($id) {
         self::check_logged_in();
         $person = Person::find($id);
-        View::make('kayttaja/muokkaa.html', array('person' => $person));
+        $groups = WorkGroup::all();
+        $own_groups = WorkersGroups::findGroupsByPerson($person->id);
+        View::make('kayttaja/muokkaa.html', array('person' => $person, 'groups' => $groups, 'own_groups' => $own_groups));
     }
 
     //käyttäjän poistaminen
@@ -121,10 +126,13 @@ class PersonController extends BaseController {
         if (Project::findByManager($id) != null) {
             $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hän johtaa aktiivisia projekteja (ks. sivu "Projektit")';
         }
-        if (WorkersTasks::findTasksByWorker($id) != null) {
-            $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hän on yksin vastuussa joistain tehtävistä. Näet käyttäjän tehtävät hänen omalta sivultaan.';
+        $own_tasks = WorkersTasks::findTasksByWorker($id);
+        foreach ($own_tasks as $ot) {
+            if (WorkersTasks::countTasksWorkers($ot) < 2) {
+                $errors[] = 'Käyttäjää ' . $nimi . ' ei voida poistaa, koska hän on yksin vastuussa joistain tehtävistä. Näet käyttäjän tehtävät hänen omalta sivultaan.';
+                continue;
+            }
         }
-
         if (count($errors) == 0) {
             $person->destroy($id);
             Redirect::to('/kayttajat', array('message' => 'Käyttäjä ' . $nimi . ' on poistettu'));
@@ -137,7 +145,11 @@ class PersonController extends BaseController {
     public static function esittely($id) {
         self::check_logged_in();
         $person = Person::find($id);
-        $groups = WorkersGroups::findGroupsByPerson($id);
+        $groups = array();
+        $groups_temp = WorkersGroups::findGroupsByPerson($id);
+        foreach ($groups_temp as $gt) {
+            $groups[] = WorkGroup::find($gt);
+        }
         $task_ids = WorkersTasks::findTasksByWorker($id);
         $tasks = array();
         foreach ($task_ids as $task_id) {
@@ -149,7 +161,19 @@ class PersonController extends BaseController {
     //lomakkeen näyttäminen
     public static function uusikayttaja() {
         self::check_logged_in();
-        View::make('kayttaja/muokkaa.html');
+        $groups = WorkGroup::all();
+        View::make('kayttaja/muokkaa.html', array('groups' => $groups));
+    }
+
+    private static function saveGroups($id, $groups) {
+        foreach ($groups as $group) {
+            $group_params = array(
+                'owner_person' => $id,
+                'owner_group' => $group
+            );
+            $wg = new WorkersGroups($group_params);
+            $wg->save();
+        }
     }
 
 }

@@ -26,7 +26,7 @@
                 {% endif %}
             </td>
             <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
-            <td style='text-align: center'> {% if groups.id is not null %} {% for group in groups %}, {% endfor %} {% else %} <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="No groups"></label> {% endif %}</td>
+            <td style='text-align: center'> {% if groups is not empty %} {% for group in groups %}| {{group.name}} {% endfor %} |{% else %} <label class="glyphicon glyphicon-remove" aria-hidden="true" aria-label="No groups"></label> {% endif %}</td>
         </tr>
     </tbody> 
 </table>

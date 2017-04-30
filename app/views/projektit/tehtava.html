@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block content %}
 <div class="container-fluid">
@@ -41,8 +42,9 @@
 
     <h3>Tiimi</h3>
 </div>
+
 <div class="container-fluid">
-    <div class="col-lg-8">
+    <div class="col-xs-8">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -52,47 +54,68 @@
                 </tr>
             </thead>
             <div class="row">
-                <div class="col-lg-8"> 
+                <div class="col-xs-8"> 
                     {% for name in names %}      
-                    <tbody>    
-                        <tr>
-                            <td><a href='{{base_path}}/kayttajat/{{name.person_id}}'>{{name.person_name}}</a></td>
-                            {% if user_logged_in.current_rights=="admin" and not task.current_status == 'finished' %}
-                            <td><a class="btn btn-danger">Poista</a></td>
-                            {% endif %}
-                            <td><a class="btn btn-success">Lähetä viesti</a></td>
-                        </tr>
+                    <tbody>                           
+                    <td><a href='{{base_path}}/kayttajat/{{name.person_id}}'>{{name.person_name}}</a></td>
+                    {% if user_logged_in.current_rights=="admin" and task.current_status != 'finished' %}
+                    <td>  
+                        <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/poistatekija" class='delete-form' data-confirm='Haluatko varmasti poistaa henkilön {{name.person_name}} tiimistä?'>
+                            <div class="form-group">
+                                <input type='hidden' value="{{name.person_id}}" name='person_id' >
+                                <input type='hidden' value="{{name.person_name}}" name='person_name' >
+                                <button type=submit class="btn btn-danger">Poista</button>
+                            </div>
+                        </form>
+                    </td>
+                    {% endif %}
                     </tbody>
                     {% endfor %}
                 </div>
             </div>
-        </table>
     </div>
-    <div class="row">
-        <div class="col-lg-4">
-            {% if user_logged_in.current_rights=="admin" and not task.approved %}
-            <form method="get" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/muokkaa">
-                <button type="button" class="btn btn-default pull-right">Lisää tekijä</button>
-            </form>
-            {% endif %}
-        </div>
+</div>
+</table>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        {% if user_logged_in.current_rights=="admin" and not task.approved %}
+        <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/lisaatekija">
+            <div class="form-group">
+                <div class="btn-group">
+                    <label>Valitse uusi tiimiläinen</label>
+                    {% if persons is empty %} <select id="teamselect" class="form-control" disabled></select>
+                    {% else %}<select id="teamselect" class="form-control" name="person">{% endif %}
+                        {% for person in persons %}
+                        <option name="person" value="{{person.id}}">{{person.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <button name="id" type="submit" class="btn btn-default pull-right">Lisää</button>
+            </div>
+        </form>  
     </div>
+    {% endif %}
+</div>
+</div>
 
-    {% if user_logged_in.current_rights == "admin" and task.current_status == "finished" and not task.project_approved %}
-    <br>
-    <h4>Tehtävä on merkitty valmiiksi. Hyväksytkö palautuksen?</h4>
-    <br>
-    <div class="form-group col-xs-1">
-        <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hylkaa" class='delete-form' data-confirm='Haluatko varmasti palauttaa tehtävän {{task.name}} keskeneräiseksi?'>
-            <button type="submit" class="btn btn-warning">Hylkää</button>
-        </form>
-    </div>
-    <div  class="btn btn-space pull-right"></div>
-    <div class="form-group col-xs-1">
-        <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hyvaksy" class='delete-form' data-confirm='Haluatko varmasti hyväksyä tehtävän {{task.name}}?'>
-            <button type="submit" class="btn btn-success">Hyväksy</button>
-        </form>
-    </div>
+{% if user_logged_in.current_rights == "admin" and task.current_status == "finished" and not task.approved %}
+<br>
+<h4>Tehtävä on merkitty valmiiksi. Hyväksytkö palautuksen?</h4>
+<br>
+<div class="form-group col-xs-1">
+    <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hylkaa" class='delete-form' data-confirm='Haluatko varmasti palauttaa tehtävän {{task.name}} keskeneräiseksi?'>
+        <button type="submit" class="btn btn-warning">Hylkää</button>
+    </form>
+</div>
+<div  class="btn btn-space pull-right"></div>
+<div class="form-group col-xs-1">
+    <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/hyvaksy" class='delete-form' data-confirm='Haluatko varmasti hyväksyä tehtävän {{task.name}}?'>
+        <button type="submit" class="btn btn-success">Hyväksy</button>
+    </form>
+</div>
 </div>
 {% endif %}
 {% endblock %}

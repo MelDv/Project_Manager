@@ -3,54 +3,9 @@
 class ProjectController extends BaseController {
 
     public static function etusivu() {
-        $temps = Project::activeNames();
-        array_splice($temps, 3);
-        $projects = array();
-        global $late;
-        global $underway;
-        global $finished;
-        global $pending;
-        global $tasks;
-
-        foreach ($temps as $temp) {
-            $late = 0;
-            $underway = 0;
-            $finished = 0;
-            $tasks = Task::findByProject($temp['id']);
-            foreach ($tasks as $task) {
-                if ($task['current_status'] == 'finished') {
-                    $finished++;
-                } elseif ($task['late'] == TRUE) {
-                    $late++;
-                } elseif ($task['current_status'] == 'underway') {
-                    $underway++;
-                } elseif ($task['current_status'] == 'pending') {
-                    $pending++;
-                }
-            }
-            $tasks = count($tasks);
-            if ($late > 0) {
-                $late = ($late / $tasks * 100);
-            }
-            if ($underway > 0) {
-                $underway = round($underway / $tasks * 100);
-            }
-            if ($finished > 0) {
-                $finished = round($finished / $tasks * 100);
-            }
-            if ($pending > 0) {
-                $pending = round($pending / $tasks * 100);
-            }
-            $projects[] = array(
-                'id' => $temp['id'],
-                'name' => $temp['name'],
-                'late' => $late,
-                'underway' => $underway,
-                'finished' => $finished,
-                'pending' => $pending
-            );
-        }
-//        Kint::dump($projects);
+        $projects = Project::activeNames();
+        array_splice($projects, 3);
+        $projects = self::laskeProgressBarOsiot($projects);
         View::make('projektit/etusivu.html', array('projects' => $projects));
     }
 
@@ -61,16 +16,18 @@ class ProjectController extends BaseController {
         View::make('projektit/projektit.html', array('projects' => $projects, 'old_projects' => $old_projects));
     }
 
-    public static function projekti($id) {
+    public static function projekti($pid) {
         self::check_logged_in();
-        $project = Project::find($id);
-        $tasks = Task::findByProject($id);
+        Project::late($pid);
+        $project = Project::find($pid);
+        $tasks = Task::findByProject($pid);
         $approved_tasks = 0;
         foreach ($tasks as $task) {
             if ($task['approved'] == TRUE) {
                 $approved_tasks++;
             }
         }
+
         View::make('projektit/projekti.html', array('project' => $project, 'tasks' => $tasks, 'approved_tasks' => $approved_tasks));
     }
 
@@ -118,6 +75,7 @@ class ProjectController extends BaseController {
 //get
     public static function muokkaa($pid) {
         self::check_logged_in();
+        Project::late($pid);
         $project = Project::find($pid);
         $managers = Person::findManagers();
         View::make('projektit/muokkaa_projekti.html', array('project' => $project, 'managers' => $managers));
@@ -146,6 +104,56 @@ class ProjectController extends BaseController {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
             View::make('/projektit/muokkaa_projekti.html', array('errors' => $errors, 'project' => $project, 'managers' => $managers));
         }
+    }
+
+    private function laskeProgressBarOsiot($projects) {
+        $results = array();
+        global $late;
+        global $underway;
+        global $finished;
+        global $pending;
+        global $tasks;
+
+        foreach ($projects as $project) {
+            $late = 0;
+            $underway = 0;
+            $finished = 0;
+            $tasks = Task::findByProject($project['id']);
+            foreach ($tasks as $task) {
+                Task::late($task['id']);
+                if ($task['current_status'] == 'finished') {
+                    $finished++;
+                } elseif ($task['late'] == TRUE) {
+                    $late++;
+                } elseif ($task['current_status'] == 'underway') {
+                    $underway++;
+                } elseif ($task['current_status'] == 'pending') {
+                    $pending++;
+                }
+            }
+            $tasks = count($tasks);
+            if ($late > 0) {
+                $late = ($late / $tasks * 100);
+            }
+            if ($underway > 0) {
+                $underway = ($underway / $tasks * 100);
+            }
+            if ($finished > 0) {
+                $finished = ($finished / $tasks * 100);
+            }
+            if ($pending > 0) {
+                $pending = ($pending / $tasks * 100);
+            }
+            $results[] = array(
+                'id' => $project['id'],
+                'name' => $project['name'],
+                'late' => $late,
+                'underway' => $underway,
+                'finished' => $finished,
+                'pending' => $pending
+            );
+        }
+        return $results;
     }
 
 }

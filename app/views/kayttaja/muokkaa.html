@@ -17,6 +17,37 @@
         {{forms.email(null, "#{person.email}")}} 
         {{forms.desc(null, "#{person.description}")}} 
 
+        <div class="form-group form-inline">
+            <label>Ryhmät</label><br>
+            <div class="checkbox">
+                <label class='checkbox' id='chb' for="chb" style="word-break: break-all"></label><br>
+                <script>
+                    var parent = document.getElementById("chb");
+                </script>
+                {% if person.id is not empty %}
+                {% for group in groups %}
+                <script>
+                    var check_groups = document.createElement("input");
+                    check_groups.type = "checkbox";
+                    check_groups.name = "groups[]";
+                    check_groups.value = "{{group.id}}";
+
+                    var label = document.createElement('label');
+                    label.textContent = "{{group.name}}";
+                    
+                    parent.appendChild(check_groups);
+                    parent.appendChild(label);
+                </script>
+            
+            {% endfor %}
+            {% else %}
+            {% for group in groups %}
+            <label class='checkbox-inline'><input type="checkbox" name="groups[]" value="{{group.id}}">{{group.name}}   </label>
+            {% endfor %}
+            {% endif %}
+</div>
+        </div>
+
         {% if user_logged_in.current_rights == "admin" %}
         <div class="form-group">
             <label for='rights'>{{label|default('Oikeudet')}}</label>

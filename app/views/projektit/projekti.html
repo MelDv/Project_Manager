@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if project.approved %}
+<label class="label label-success">Valmis</label>
+{% elseif project.late %}
+<label class="label label-danger">Myöhässä!</label>
+{% endif %}
+
 <br>
 <h1>{{project.name}}</h1>
 
@@ -49,10 +55,10 @@
                             <div class="col-md-3">
                                 {% if task.approved %}
                                 <label class="label label-success">Valmis</label>
-                                {% elseif task.late %}
-                                <label class="label label-danger">Myöhässä!</label>
                                 {% elseif task.current_status == "finished" %}
                                 <label class="label label-info">Hyväksyttävänä</label>
+                                {% elseif task.late %}
+                                <label class="label label-danger">Myöhässä!</label>
                                 {% elseif task.current_status == "underway" %}
                                 <label class="label label-primary">Työn alla</label>
                                 {% elseif task.current_status == "pending" %}
@@ -68,7 +74,7 @@
                             <div class="col-md-3">Deadline: </div><div class="col-md-9">Kuvaus:</div>
                         </div> 
                         <div class="row">
-                            <div class="col-md-3"><strong>{{task.deadline}} </strong></div><div class="col-md-9">{{task.description}}</div>
+                            <div class="col-md-3"><strong>{{task.deadline|date("d.m.Y")}} </strong></div><div class="col-md-9">{{task.description}}</div>
                         </div> 
                     </div>
                 </div>

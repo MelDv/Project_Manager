@@ -5,6 +5,14 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 //TaskController
+$routes->post('/projektit/:pid/tehtava/:id/lisaatekija', function($pid, $id) {
+    TaskController::lisaatekija($pid, $id);
+});
+
+$routes->post('/projektit/:pid/tehtava/:id/poistatekija', function($pid, $id){
+    TaskController::poistatekija($pid, $id);
+});
+
 $routes->post('/projektit/:pid/tehtava/:id/poista', function($pid, $id) {
     TaskController::poista($pid, $id);
 });

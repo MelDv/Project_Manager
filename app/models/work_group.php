@@ -14,7 +14,7 @@ class WorkGroup extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $group = new Worker_group(array(
+            $group = new WorkGroup(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
                 'description' => $row['description']
@@ -31,14 +31,14 @@ class WorkGroup extends BaseModel {
         $groups = array();
 
         foreach ($rows as $row) {
-            $groups[] = new Worker_group(array(
+            $groups[] = new WorkGroup(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
                 'description' => $row['description']
             ));
         }
-        Kint::trace();
-        Kitn::dump();
+//        Kint::trace();
+//        Kint::dump();
         return $groups;
     }
 

@@ -7,7 +7,7 @@ class TaskController extends BaseController {
         self::check_logged_in();
         $user = self::get_user_logged_in();
         $id = $user->id;
-        $task_count = WorkersTasks::count($id);
+        $task_count = WorkersTasks::countWorkersTasks($id);
 
         $page_size = 10;
         $pages = ceil($task_count / $page_size);
@@ -31,9 +31,14 @@ class TaskController extends BaseController {
     //tehtava esittelysivu
     public static function tehtava($pid, $id) {
         self::check_logged_in();
+        Task::late($id);
         $task = Task::find($pid, $id);
         $workers = WorkersTasks::findWorkersByTask($id);
         $names = array();
+        //etsi aktiiviset työntekijät
+        $person_temp = Person::findByActivity(TRUE);
+        //poista listasta ne, jotka on jo kiinnitetty tähän tehtävään
+        $persons = self::poistaTiimi($id, $person_temp);
 
         for ($x = 0; $x < count($workers); $x++) {
             $person_id = $workers[$x];
@@ -43,7 +48,7 @@ class TaskController extends BaseController {
                 'person_name' => $person_name);
         }
 
-        View::make('/projektit/tehtava.html', array('task' => $task, 'names' => $names));
+        View::make('/projektit/tehtava.html', array('task' => $task, 'names' => $names, 'persons' => $persons));
     }
 
     //post
@@ -61,16 +66,18 @@ class TaskController extends BaseController {
 
 //        Kint::dump($params);
         $task = new Task($attributes);
+        $persons = Person::findByActivity(TRUE);
         $errors = $task->errors();
         if (Task::nameExists($params['name'])) {
             $errors[] = 'Nimi on jo käytössä. Valitse uusi nimi.';
         }
         if (count($errors) == 0) {
             $task->save();
+            self::luoWorkersTasks($task->id, $params['person']);
             Redirect::to('/projektit/' . $pid . '/tehtava/' . $task->id, array('message' => 'Tehtävän ' . $task->name . ' lisääminen onnistui.'));
         } else {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
-            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task, 'pid' => $pid));
+            View::make('/projektit/muokkaa_tehtava.html', array('errors' => $errors, 'task' => $task, 'pid' => $pid, 'persons' => $persons));
         }
     }
 
@@ -78,14 +85,40 @@ class TaskController extends BaseController {
     public static function lisaa($pid) {
         self::check_logged_in();
         $project_name = Project::findName($pid);
-        View::make('/projektit/muokkaa_tehtava.html', array('pid' => $pid, 'project_name' => $project_name));
+        $persons = Person::findByActivity(TRUE);
+        View::make('/projektit/muokkaa_tehtava.html', array('pid' => $pid, 'project_name' => $project_name, 'persons' => $persons));
     }
 
     //get
     public static function muokkaa($pid, $id) {
         self::check_logged_in();
+        Task::late($id);
         $task = Task::find($pid, $id);
         View::make('projektit/muokkaa_tehtava.html', array('pid' => $pid, 'task' => $task));
+    }
+
+    public static function lisaatekija($pid, $id) {
+        $params = $_POST;
+        self::luoWorkersTasks($id, $params['person']);
+        Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => 'Tiimiin lisättiin uusi jäsen!'));
+    }
+
+    public static function poistatekija($pid, $id) {
+        $params = $_POST;
+        $person_id = $params['person_id'];
+        $person_name = $params['person_name'];
+        $errors = array();
+        if (WorkersTasks::countTasksWorkers($id) < 2) {
+            $errors[] = 'Poistaminen ei onnistunut. Tehtävällä täytyy olla vähintään yksi tekijä.';
+            Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('errors' => $errors));
+        }
+        $attributes = array(
+            'worker' => $person_id,
+            'owner_task' => $id
+        );
+        $wt = new WorkersTasks($attributes);
+        $wt->destroyOne($id, $person_id);
+        Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => $person_name . ' poistettiin tiimistä.'));
     }
 
     //post
@@ -135,6 +168,27 @@ class TaskController extends BaseController {
     public static function hyvaksy($pid, $id) {
         Task::approve($id);
         Redirect::to('/projektit/' . $pid . '/tehtava/' . $id, array('message' => 'Tehtävä on nyt hyväksytty'));
+    }
+
+    private function poistaTiimi($id, $persons) {
+        $team = WorkersTasks::findWorkersByTask($id);
+        $i = 0;
+        foreach ($persons as $person) {
+            if (in_array($person->id, $team)) {
+                unset($persons[$i]);
+            }
+            $i++;
+        }
+        return $persons;
+    }
+
+    private function luoWorkersTasks($task, $worker) {
+        $attributes = array(
+            'worker' => $worker,
+            'owner_task' => $task
+        );
+        $wt = new WorkersTasks($attributes);
+        $wt->save();
     }
 
 }

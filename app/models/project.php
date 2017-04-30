@@ -46,6 +46,19 @@ class Project extends BaseModel {
         Kint::dump($row);
     }
 
+    public function late($id) {
+        $project = self::find($id);
+        if (!$project['approved'] && date('Y-m-d') > $project['deadline']) {
+            $query = DB::connection()->prepare('UPDATE Project SET late = TRUE WHERE id= :id');
+            $query->execute(array('id' => $id));
+            $row = $query->fetch();
+        } elseif (date('Y-m-d') < $project['deadline']) {
+            $query = DB::connection()->prepare('UPDATE Project SET late = FALSE WHERE id= :id');
+            $query->execute(array('id' => $id));
+            $row = $query->fetch();
+        }
+    }
+
     public static function count() {
         $query = DB::connection()->prepare('SELECT * FROM Project');
         $query->execute();
@@ -232,7 +245,7 @@ class Project extends BaseModel {
                 'approved' => $row['approved']
             ));
         }
-         return $projects;
+        return $projects;
     }
 
     public static function nameExists($name) {

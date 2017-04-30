@@ -107,6 +107,10 @@ dropdown-link-text {
     width: 700px;
 }
 
+#teamselect{
+    width: 300px;
+}
+
 .form-select{
     width: 250px;
 }
@@ -114,4 +118,14 @@ dropdown-link-text {
 .table-responsive{
     overflow-x: auto;
     overflow-y: hidden;
+}
+.checkbox-inline-own{
+    display: inline-block;
+    margin-left: 0px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+form-inline {
+    position: absolute;
 }

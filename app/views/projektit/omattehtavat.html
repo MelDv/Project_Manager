@@ -79,7 +79,7 @@
         <tr {% if task.late %} class="danger" {% endif %}>
             <td id="index">{{loop.index + (page-1) * page_size}}</td>
             <td><a href="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}">{{task.name}}</a></td>
-            <td>{{task.deadline}}</td>
+            <td>{{task.deadline|date("d.m.Y")}}</td>
             <td>{{task.description}}</td>
             <td><a href="{{base_path}}/projektit/{{task.project}}">{{task.project_name}}</a></td>
             <td style='text-align: center'>
@@ -93,8 +93,10 @@
             </td>
             {% if user_logged_in.current_rights=="admin" %}
             <td style='text-align: center'>
-                <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa tehtävän {{task.name}}?'>
-                    <button type=submit class="btn btn-danger">Poista</button>
+                <form method="post" action="{{base_path}}/projektit/{{task.project}}/tehtava/{{task.id}}/poistatekija" class='delete-form' data-confirm='Haluatko varmasti poistaa tehtävän {{task.name}} tehtävälistastasi?'>
+                    <input type='hidden' value="{{user_logged_in.id}}" name='person_id' >
+                    <input type='hidden' value="{{user_logged_in.name}}" name='person_name' >
+                    <button type=submit class="btn btn-danger">Poista omista tehtävistä</button>
                 </form>
             </td>
             {% endif %}

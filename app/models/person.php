@@ -56,8 +56,8 @@ class Person extends BaseModel {
     }
 
     public function destroy($id) {
-        WorkersGroups::destroy($id);
-        WorkersTasks::destroy($id);
+        WorkersGroups::destroyByWorker($id);
+        WorkersTasks::destroyAllByWorker($id);
         
         $query = DB::connection()->prepare('DELETE FROM Person WHERE id=:id');
         $query->execute(array('id' => $id));
