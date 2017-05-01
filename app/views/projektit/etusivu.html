@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% import "macros/forms.html" as forms %}
+
 <div class="container-fluid">
     <!-- KATSEENVANGITSIJA -->  
     <div class="jumbotron">
@@ -13,20 +15,9 @@
     <br>
     <!-- PROJEKTIEN EDISTYMISKUVAAJAT -->
     {% for project in projects %}
-    <h3><a href='{{base_path}}/projektit/{{project.id}}'>{{project.name}}</a></h3>
-    <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{project.finished}}%" aria-valuemin="0" aria-valuemax="100">
-            Valmiina
-        </div>
-        <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{project.underway}}%"  aria-valuemin="0" aria-valuemax="100">
-            Työn alla
-        </div>
-        <!--        <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{project.pending}}%">
-                    Odottaa
-                </div>-->
-        <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{project.late}}%"  aria-valuemin="0" aria-valuemax="100">
-            Myöhässä
-        </div>
-    </div>
+    {% set subcategories = project.sub %}
+    {% for sub in project %}
+    {{forms.progresbar("#{base_path}", "#{sub.id}", "#{sub.name}", "#{sub.finished}", "#{sub.underway}", "#{sub.late}")}}
+    {% endfor %}
     {% endfor %}
     {% endblock %}

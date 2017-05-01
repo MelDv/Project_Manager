@@ -52,7 +52,7 @@
             </td>
             <td style='text-align: center'> {% filter upper %}{{person.current_rights}}{% endfilter %}</td>
             <td>{% if person.active %}
-                <a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>
+                <!--<a href="#" class="btn btn-success" style='text-align: center'>Lähetä viesti</a>-->
                 {% elseif user_logged_in and user_logged_in.current_rights=="admin" %}
                 <form method="post" action="{{base_path}}/kayttajat/{{person.id}}/poista" class='delete-form' data-confirm='Haluatko varmasti poistaa henkilön {{person.name}}?'>
                     <button type=submit class="btn btn-danger">Poista</button>

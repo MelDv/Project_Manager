@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% import "macros/forms.html" as forms %}
+
 {% if project.approved %}
 <label class="label label-success">Valmis</label>
 {% elseif project.late %}
@@ -10,20 +12,13 @@
 <br>
 <h1>{{project.name}}</h1>
 
-<div class="progress">
-    <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
-        Valmiina
-    </div>
-    <div class="progress-bar progress-bar-warnin" role="progressbar" style="width:13%">
-        Työn alla
-    </div>
-    <div class="progress-bar progress-bar-danger" role="progressbar" style="width:56%">
-        Myöhässä
-    </div>
-</div>
+{% set subcategories = progres.sub %}
+{% for sub in progres %}
+{{forms.progresbar(null, null, null, "#{sub.finished}", "#{sub.underway}", "#{sub.late}")}}
+{% endfor %}
 
 <h4>Projektipäällikkö: <a href="{{base_path}}/kayttajat/{{project.manager}}">{{project.manager_name}}</a></h4>
-<button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>
+<!--<button type="button" class="btn btn-success btn-sm">Lähetä viesti</button>-->
 <br><br>
 <strong>Deadline: {{project.deadline|date("d.m.Y")}}</strong>
 <p>Alkamispäivä: {{project.start_date|date("d.m.Y")}}</p>

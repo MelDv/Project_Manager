@@ -14,7 +14,7 @@
         <tr>
             <th></th>
             <th>Nimi</th>
-            <th>Valmiina %</th>
+            <th>Tila</th>
             <th>Kuvaus</th>
             <th>Tehtävät</th>
             <th>Tekijät</th>
@@ -32,7 +32,15 @@
         <tr>
             <td id="index">{{loop.index}}</td>
             <td><a href="{{base_path}}/projektit/{{project.id}}">{{project.name}}</a></td>
-            <td>33 %</td>
+            <td>
+                {% if project.approved %}
+                <label class="label label-success">Valmis</label>
+                {% elseif project.late %}
+                <label class="label label-danger">Myöhässä!</label>
+                {% else %}
+                <label class="label label-primary">Työn alla</label>
+                {% endif %}
+            </td>
             <td>{{project.description}}</td>
             <th>
                 <!--Tehtävät-->
@@ -43,11 +51,11 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="tehtavalista">
                         {% for project in projects if project.name==name %}
                         <!--{% if project.task_id not in taskArray %}-->
-                       <li><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{project.task_id}} ">
+                        <li><a href="{{base_path}}/projektit/{{project.id}}/tehtava/{{project.task_id}} ">
                                 {% if project.task_approved %}<span class="glyphicon glyphicon-check pull-right "></span>
                                 {% elseif project.task_late %}<span class="glyphicon glyphicon-exclamation-sign pull-right "></span>
                                 {% endif %}
-                               <span class="dropdown-link-text">{{project.task_name}} </a></li> 
+                                <span class="dropdown-link-text">{{project.task_name}} </a></li> 
                         <!--{% set taskArray = taskArray|merge([project.task_id]) %}-->
                         <!--{% endif %}-->
                         {% endfor %}
@@ -109,7 +117,7 @@
                             <td><a href="{{base_path}}/projektit/{{old_project.id}}">{{old_project.name}}</a></td>
                             <td>{{old_project.description}}</td>
                             <td><a href="{{base_path}}/kayttajat/{{old_project.manager}}">{{old_project.person_name}}</a></td>
-                            <td>{{old_project.start_date}}</td>
+                            <td>{{old_project.start_date|date("d.m.Y")}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

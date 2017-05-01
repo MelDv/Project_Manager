@@ -3,9 +3,13 @@
 class ProjectController extends BaseController {
 
     public static function etusivu() {
-        $projects = Project::activeNames();
-        array_splice($projects, 3);
-        $projects = self::laskeProgressBarOsiot($projects);
+        $temp_projects = Project::activeNames();
+        array_splice($temp_projects, 3);
+        $projects = array();
+        foreach ($temp_projects as $temp_project) {
+            $projects[] = self::laskeProgressBarOsiot($temp_project);
+        }
+//        Kint::dump($projects);
         View::make('projektit/etusivu.html', array('projects' => $projects));
     }
 
@@ -20,15 +24,17 @@ class ProjectController extends BaseController {
         self::check_logged_in();
         Project::late($pid);
         $project = Project::find($pid);
+        $progres = self::laskeProgressBarOsiot($project);
         $tasks = Task::findByProject($pid);
         $approved_tasks = 0;
         foreach ($tasks as $task) {
+            Task::late($task['id']);
             if ($task['approved'] == TRUE) {
                 $approved_tasks++;
             }
         }
-
-        View::make('projektit/projekti.html', array('project' => $project, 'tasks' => $tasks, 'approved_tasks' => $approved_tasks));
+//        Kint::dump($progres);
+        View::make('projektit/projekti.html', array('project' => $project, 'tasks' => $tasks, 'approved_tasks' => $approved_tasks, 'progres' => $progres));
     }
 
 //get
@@ -106,53 +112,48 @@ class ProjectController extends BaseController {
         }
     }
 
-    private function laskeProgressBarOsiot($projects) {
+    private function laskeProgressBarOsiot($project) {
         $results = array();
-        global $late;
-        global $underway;
-        global $finished;
-        global $pending;
-        global $tasks;
+        $late = 0;
+        $underway = 0;
+        $finished = 0;
+        $pending = 0;
 
-        foreach ($projects as $project) {
-            $late = 0;
-            $underway = 0;
-            $finished = 0;
-            $tasks = Task::findByProject($project['id']);
-            foreach ($tasks as $task) {
-                Task::late($task['id']);
-                if ($task['current_status'] == 'finished') {
-                    $finished++;
-                } elseif ($task['late'] == TRUE) {
-                    $late++;
-                } elseif ($task['current_status'] == 'underway') {
-                    $underway++;
-                } elseif ($task['current_status'] == 'pending') {
-                    $pending++;
-                }
+        $tasks = Task::findByProject($project['id']);
+        foreach ($tasks as $task) {
+            Task::late($task['id']);
+            if ($task['current_status'] == 'finished') {
+                $finished++;
+            } elseif ($task['late'] == TRUE) {
+                $late++;
+            } elseif ($task['current_status'] == 'underway') {
+                $underway++;
+            } elseif ($task['current_status'] == 'pending') {
+                $pending++;
             }
-            $tasks = count($tasks);
-            if ($late > 0) {
-                $late = ($late / $tasks * 100);
-            }
-            if ($underway > 0) {
-                $underway = ($underway / $tasks * 100);
-            }
-            if ($finished > 0) {
-                $finished = ($finished / $tasks * 100);
-            }
-            if ($pending > 0) {
-                $pending = ($pending / $tasks * 100);
-            }
-            $results[] = array(
-                'id' => $project['id'],
-                'name' => $project['name'],
-                'late' => $late,
-                'underway' => $underway,
-                'finished' => $finished,
-                'pending' => $pending
-            );
         }
+        $tasks = count($tasks);
+        if ($late > 0) {
+            $late = ($late / $tasks * 100);
+        }
+        if ($underway > 0) {
+            $underway = ($underway / $tasks * 100);
+        }
+        if ($finished > 0) {
+            $finished = ($finished / $tasks * 100);
+        }
+        if ($pending > 0) {
+            $pending = ($pending / $tasks * 100);
+        }
+        $results[] = array(
+            'id' => $project['id'],
+            'name' => $project['name'],
+            'late' => $late,
+            'underway' => $underway,
+            'finished' => $finished,
+            'pending' => $pending
+        );
+
         return $results;
     }
 

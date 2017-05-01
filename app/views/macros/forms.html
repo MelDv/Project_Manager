@@ -1,3 +1,21 @@
+<!--progress bar-->
+{% macro progresbar(base_path, id, name, fin, underway, late) %}
+<h3><a href='{{base_path}}/projektit/{{id}}'>{{name}}</a></h3>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{fin}}%" aria-valuemin="0" aria-valuemax="100">
+        Valmiina
+    </div>
+    <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{underway}}%"  aria-valuemin="0" aria-valuemax="100">
+        Työn alla
+    </div>
+    <!--        <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{sub.pending}}%">
+                Odottaa
+            </div>-->
+    <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{late}}%"  aria-valuemin="0" aria-valuemax="100">
+        Myöhässä
+    </div>
+</div>
+{% endmacro %}
 
 <!-- buttons -->
 <!-- peruuta ja tallenna -->
