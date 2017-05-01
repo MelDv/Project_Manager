@@ -63,15 +63,18 @@ class PersonController extends BaseController {
             $attributes['current_rights'] = $temp->current_rights;
         }
 
-        $groups = $params['groups'];
         $person = new Person($attributes);
-        self::saveGroups($person->id, $groups);
-
         $errors = $person->errors();
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'person' => $person, 'groups' => $groups));
         } else {
             $person->update();
+            if (isset($params['groups'])) {
+                $groups = $params['groups'];
+                self::saveGroups($person->id, $groups);
+            } else {
+                WorkersGroups::destroyByWorker($id);
+            }
             Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjätiedot päivitettiin'));
         }
     }
@@ -88,10 +91,8 @@ class PersonController extends BaseController {
             'active' => $params['active'],
             'current_rights' => $params['current_rights']
         );
-        $groups = $params['groups'];
-        $person = new Person($attributes);
-        self::saveGroups($person->id, $groups);
 
+        $person = new Person($attributes);
         $errors = $person->errors();
 
         if (Person::emailExists($params['email'])) {
@@ -99,6 +100,10 @@ class PersonController extends BaseController {
         }
         if (count($errors) == 0) {
             $person->save();
+            if (isset($params['groups'])) {
+                $groups = $params['groups'];
+                self::saveGroups($person->id, $groups);
+            }
             Redirect::to('/kayttajat/' . $person->id, array('message' => 'Käyttäjä lisättiin tietokantaan'));
         } else {
             array_unshift($errors, 'Antamissasi tiedoissa oli virheitä. ');
@@ -166,14 +171,32 @@ class PersonController extends BaseController {
     }
 
     private static function saveGroups($id, $groups) {
-        foreach ($groups as $group) {
-            $group_params = array(
-                'owner_person' => $id,
-                'owner_group' => $group
-            );
-            $wg = new WorkersGroups($group_params);
-            $wg->save();
+        $groups = self::findExistingGroups($id, $groups);
+        if (count($groups) > 0) {
+            foreach ($groups as $group) {
+                $group_params = array(
+                    'owner_person' => $id,
+                    'owner_group' => $group
+                );
+                $wg = new WorkersGroups($group_params);
+                $wg->save();
+            }
         }
+    }
+
+    private static function findExistingGroups($id, $groups) {
+        $old_groups = WorkersGroups::findGroupsByPerson($id);
+        foreach ($old_groups as $og) {
+            $i = 0;
+            $index = array_search($og, $groups, true);
+            if ($index !== false) {
+                unset($groups[$index]);
+            } else {
+                WorkersGroups::destroyOne($id, $og);
+            }
+            $i++;
+        }
+        return $groups;
     }
 
 }

@@ -24,7 +24,6 @@
                 <script>
                     var parent = document.getElementById("chb");
                 </script>
-                {% if person.id is not empty %}
                 {% for group in groups %}
                 <script>
                     var check_groups = document.createElement("input");
@@ -34,18 +33,19 @@
 
                     var label = document.createElement('label');
                     label.textContent = "{{group.name}}";
-                    
+
                     parent.appendChild(check_groups);
                     parent.appendChild(label);
                 </script>
-            
-            {% endfor %}
-            {% else %}
-            {% for group in groups %}
-            <label class='checkbox-inline'><input type="checkbox" name="groups[]" value="{{group.id}}">{{group.name}}   </label>
-            {% endfor %}
-            {% endif %}
-</div>
+                {% for own_group in own_groups %}
+                <script>
+                    if ('{{own_group}}' === '{{group.id}}') {
+                        check_groups.checked = true;
+                    }
+                </script>
+                {% endfor %}
+                {% endfor %}
+            </div>
         </div>
 
         {% if user_logged_in.current_rights == "admin" %}

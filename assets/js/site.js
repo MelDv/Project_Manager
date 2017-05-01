@@ -17,18 +17,4 @@ $(document).ready(function () {
         }
     });
 });
-//Koska Firefox ei tunne date-tyyppiä:
 
-function date() {
-    webshims.setOptions('forms-ext', {types: 'date'});
-    webshims.polyfill('forms forms-ext');
-    $.webshims.formcfg = {
-        en: {
-            dFormat: '/',
-            dateSigns: '/',
-            patterns: {
-                d: "dd/mm/yyyy"
-            }
-        }
-    };
-}

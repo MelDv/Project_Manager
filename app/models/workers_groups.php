@@ -24,6 +24,12 @@ class WorkersGroups extends BaseModel {
         $row = $query->fetchAll();
     }
 
+    public function destroyOne($owner_person, $owner_group) {
+        $query = DB::connection()->prepare('DELETE FROM Workers_groups WHERE owner_person= :owner_person AND owner_group = :owner_group');
+        $query->execute(array('owner_person' => $owner_person, 'owner_group' => $owner_group));
+        $row = $query->fetch();
+    }
+
     public static function findGroupsByPerson($owner_person) {
         $query = DB::connection()->prepare('SELECT Workers_groups.owner_group FROM Workers_groups '
                 . 'WHERE owner_person = :owner_person');
