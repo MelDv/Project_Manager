@@ -2,8 +2,25 @@
 
 Sisäänkirjautuminen: käyttäjätunnus a@a.fi salasana: 1111111 (seitsemän ykköstä)
 
+Lopulliseen palautukseen tehty:
 
-Yleisiä linkkejä (huom! osalle sivuista pitää ensin kirjautua):
+* Kirjautuminen ja uloskirjautuminen
+* Suurin osa sivuista edellyttää kirjautumista
+* Adminille näkyy toimintoja, joita muut eivät voi tehdä
+* Tietokohteet:
+  * Person - CRUD-nelikko toimii (Huom! Poistaminen edellyttää, että admin on laittanut käyttäjälle available=false ja ettei hän ole aktiivisen projektin projektipäällikkönä, tai minkään tehtävän ainoa tekijä
+  * Project - CRUD-nelikko toimii (Huom! Vain adminille)
+  * Task - CRUD-nelikko toimii
+  * Work_Group - Ei CRUD-nelikkoa. Ryhmiä on kolme. Käyttäjät voidaan liittää tai poistaa ryhmistä
+  * 2 liitostaulua (ks. alla)
+* Monesta moneen -yhteydet
+  * Task - Person (liitostaulu Workers_tasks)
+  * Work_group - Person (liitostaulu Workers_groups)
+* Dokumentaatio
+* Create_tables.sql, drop_tables.sql ja add_test_data.sql
+
+
+###Yleisiä linkkejä (huom! osalle sivuista pitää ensin kirjautua):
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
