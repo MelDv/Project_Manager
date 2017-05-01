@@ -20,7 +20,7 @@ Lopulliseen palautukseen tehty:
 * Create_tables.sql, drop_tables.sql ja add_test_data.sql
 
 
-###Yleisiä linkkejä (huom! osalle sivuista pitää ensin kirjautua):
+### Yleisiä linkkejä (huom! osalle sivuista pitää ensin kirjautua):
 
 * [Linkki sovellukseeni](http://madufva.users.cs.helsinki.fi/tsoha)
   * [Projektilistaus](http://madufva.users.cs.helsinki.fi/tsoha/projektit)
@@ -37,21 +37,22 @@ Tehtäville voidaan lisätä tekijöitä ja merkitä tehtäviä tehdyiksi. Kun k
 projekti merkitään automaattisesti valmiiksi. Projektin tekijälistaus tulee automaattisesti sen tehtävistä.
 Projekteja ei voi poistaa, jos niissä on hyväksyttyjä tehtäviä. Projektin poistaminen poistaa myös kaikki sen tehtävät.
 
-Sovellusta voidaan käyttää monenlaisten työkokonaisuuksien hallintaan ja töiden jakamiseen. Kukin käyttäjä näkee 
-omien tehtäviensä tilan ja voi muuttaa sitä, sekä selailla kaikkia tehtäviä.
+Tehtävillä ja projekteilla on alkamis- ja loppumispäivä. Jos tehtävää ei ole merkitty valmiiksi ennen deadlinea, se menee tilaan "myöhässä". Myöhästymisten seuraaminen on mahdollista myös projektin valmistumisen jälkeen, sillä sekä tehtävillä että projekteilla on raportointia ja tilastoja varten erikseen tallentuva boolean-arvo late.
 
-Käyttäjiä voidaan lisätä Käyttäjät-sivulta käsin. Tässä kohtaa ei täytetä kaikkia taulun kenttiä. Ajatuksena on, että adminit luovat käyttäjät ja kutsuvat heidät käyttäjiksi. He voivat muokata omia tietojaan ja tässä vaiheessa lisätä puuttuvat tiedot.
+Sovellusta voidaan käyttää monenlaisten työkokonaisuuksien hallintaan ja töiden jakamiseen. Kaikki käyttäjät näkevät projektit ja tehtävät ja voivat tehdä muokkauksia. Osa toiminnoista on vain adminien tehtävissä (esim. projektien luominen)
 
-Käyttäjät kuuluvat yhteen tai useampaan ryhmään (esim. ohjelmointi, asiakaspalvelu...) Ryhmissä on monta käyttäjää ja käyttäjillä voi olla monta ryhmää. Käyttäjillä on myös useita tehtäviä ja tehtävillä useita käyttäjiä.
+Käyttäjiä voidaan lisätä Käyttäjät-sivulta käsin. Adminit luovat käyttäjät ja kutsuvat heidät käyttäjiksi. Käyttäjät voivat muokata omia tietojaan, mutta vain adminit voivat muokata oikeuksia tai asettaa käyttäjän tilan (available true tai false).
 
-Toimintoja:
+Käyttäjät kuuluvat yhteen tai useampaan ryhmään (esim. ohjelmointi, asiakaspalvelu...) Ryhmissä on monta käyttäjää ja käyttäjillä voi olla monta ryhmää.
+
+Joitain sovelluksen toimintoja:
 * Kirjautuminen
 * Käyttäjien lisääminen, muokkaaminen ja poistaminen
 * Projektien lisääminen, muokkaaminen ja poistaminen
 * Tehtävien lisääminen, muokkaaminen, poistaminen
-* Jokaisella projektilla tulee olla vähintään yksi tehtävä ja jokaisella tehtävällä vähintään yksi tekijä
-* Tehtävät voivat liittyä vain yhteen projektiin
-* Kun projektin tehtävät ovat valmiita, projekti tulee automaattisesti valmiiksi
+* Jokaisella tehtävällä täytyy olla vähintään yksi tekijä
+* Tehtävät voivat liittyä vain yhteen projektiin, mutta niillä voi olla monta tekijää
+
 
 
 
