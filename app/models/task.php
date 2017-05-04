@@ -36,7 +36,7 @@ class Task extends BaseModel {
     }
 
     public function destroy($id) {
-        WorkersTasks::destroy($id);
+        WorkersTasks::destroyAllByTask($id);
         $query = DB::connection()->prepare('DELETE FROM Task WHERE id= :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
