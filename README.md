@@ -1,3 +1,5 @@
+(yliopisto sulki palvelimet, joilla sovellus oli, joten se ei toimi tällä hetkellä)
+
 # Tietokantasovelluksen esittelysivu
 
 Sisäänkirjautuminen: käyttäjätunnus a@a.fi salasana: 1111111 (seitsemän ykköstä)
