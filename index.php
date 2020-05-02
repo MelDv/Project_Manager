@@ -31,8 +31,8 @@ if (session_id() == '') {
 header('Content-Type: text/html; charset=utf-8');
 
 // Otetaan Composer käyttöön
-// require 'vendor/autoload.php';
-require __DIR__ . '/../vendor/autoload.php';
+require 'vendor/autoload.php';
+// require __DIR__ . '/../vendor/autoload.php';
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
