@@ -26,14 +26,16 @@ if (session_id() == '') {
 header('Content-Type: text/html; charset=utf-8');
 
 // Otetaan Composer käyttöön
-
+require 'vendor/autoload.php';
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 use \Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
 use \Slim\Slim;
-require 'vendor/autoload.php';
+
 $routes = new \Slim\Slim();
 $routes->add(new WhoopsMiddleware());
-$routes->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware);
 
 $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
@@ -41,5 +43,6 @@ $routes->get('/tietokantayhteys', function() {
 
 // Otetaan reitit käyttöön
 require 'config/routes.php';
+require 'kint.phar';
 
 $routes->run();

@@ -31,7 +31,7 @@ echo "Asetetaan käyttöoikeudet ja asennetaan Composer..."
 ssh $USERNAME@users.cs.helsinki.fi "
 chmod -R a+rX htdocs
 cd htdocs/$PROJECT_FOLDER
-wget https://getcomposer.org/download/1.2.4/composer.phar
+wget https://getcomposer.org/download/1.10.5/composer.phar
 php composer.phar install
 exit"
 

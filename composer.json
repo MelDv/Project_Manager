@@ -10,8 +10,13 @@
     "require": {
         "slim/slim": "4.5.*",
         "twig/twig": "^2.0",
-        "raveren/kint": "v0.9",
+        "kint-php/kint": "3.3",
         "zeuxisoo/slim-whoops": "0.7.2",
-        "franzl/whoops-middleware": "^1.2"
+        "franzl/whoops-middleware": "1.2",
+        "filp/whoops": "^2.7",
+        "laminas/laminas-diactoros": "^2.3"
+    },
+    "require-dev": {
+        "kint-php/kint": "^3.3"
     }
 }
