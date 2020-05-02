@@ -11,6 +11,7 @@
         "slim/slim": "4.5.*",
         "twig/twig": "^2.0",
         "raveren/kint": "v0.9",
-        "zeuxisoo/slim-whoops": "0.7.2"
+        "zeuxisoo/slim-whoops": "0.7.2",
+        "franzl/whoops-middleware": "^1.2"
     }
 }
