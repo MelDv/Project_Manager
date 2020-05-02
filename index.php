@@ -1,4 +1,9 @@
 <?php
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Factory\AppFactory;
+use \Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
+use \Slim\Slim;
 
 // Laitetaan virheilmoitukset näkymään
 error_reporting(E_ALL);
@@ -26,21 +31,20 @@ if (session_id() == '') {
 header('Content-Type: text/html; charset=utf-8');
 
 // Otetaan Composer käyttöön
-require 'vendor/autoload.php';
+// require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
+
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
-use \Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
-use \Slim\Slim;
-
-$routes = new \Slim\App();
+// $routes = new \Slim\App();
+$routes = AppFactory::create();
 $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
 });
 $routes->add(new WhoopsMiddleware());
 // Otetaan reitit käyttöön
 require 'config/routes.php';
-require 'kint.phar';
 
 $routes->run();
