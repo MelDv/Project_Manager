@@ -29,6 +29,7 @@ header('Content-Type: text/html; charset=utf-8');
 require 'vendor/autoload.php';
 
 use Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
+use \Slim\Slim;
 
 $routes = new Slim\Slim();
 $routes->add(new WhoopsMiddleware());
