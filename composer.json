@@ -8,6 +8,7 @@
         ]
     },
     "require": {
+        "php": "7.4.*",
         "slim/slim": "4.5.*",
         "twig/twig": "^2.0",
         "kint-php/kint": "3.3",
