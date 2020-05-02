@@ -35,12 +35,10 @@ use \Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
 use \Slim\Slim;
 
 $routes = new \Slim\App();
-$routes->add(new WhoopsMiddleware());
-
 $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
 });
-
+$routes->add(new WhoopsMiddleware());
 // Otetaan reitit käyttöön
 require 'config/routes.php';
 require 'kint.phar';
