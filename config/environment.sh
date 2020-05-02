@@ -8,4 +8,4 @@ DB_CONNECTION=pgsql
 DB_PORT=5432
 DB_DATABASE=default
 DB_PASSWORD=1234
-DB_HOST=postgres
+HOST=postgres

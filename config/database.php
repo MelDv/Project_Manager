@@ -14,6 +14,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
+    'host' => $cleardb_server,
     'dsn' => '',
     'hostname' => $cleardb_server,
     'username' => $cleardb_username,
