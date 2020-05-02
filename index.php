@@ -34,7 +34,7 @@ $whoops->register();
 use \Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
 use \Slim\Slim;
 
-$routes = new \Slim\Slim();
+$routes = new \Slim\app();
 $routes->add(new WhoopsMiddleware());
 
 $routes->get('/tietokantayhteys', function() {
