@@ -8,9 +8,9 @@
         ]
     },
     "require": {
-        "slim/slim": "4.3.*",
+        "slim/slim": "4.5.0",
         "twig/twig": "~1.5",
         "raveren/kint": "v0.9",
-        "zeuxisoo/slim-whoops": "0.7.*"
+        "zeuxisoo/slim-whoops": "0.7.2"
     }
 }
