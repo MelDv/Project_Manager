@@ -44,10 +44,12 @@ $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
 });
 $routes->add(new WhoopsMiddleware());
-$routes->get('/cowsay', function() use($routes) {
-    $routes['monolog']->addDebug('cowsay');
-    return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
-});
+$routes->add(new \Slim\Middleware\JwtAuthentication([
+    "secret" => "supersecretkeyyoushouldnotcommittogithub",
+    "callback" => function ($request, $response, $arguments) use ($routes) {
+        $routes->jwt = $arguments["decoded"];
+    }
+]));
 // Otetaan reitit käyttöön
 require 'config/routes.php';
 
