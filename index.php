@@ -38,10 +38,10 @@ $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
-$routes = new \Slim\App();
-//$routes = AppFactory::create();
-$routes->get('/tietokantayhteys', function() {
-    DB::test_connection();
+$routes = AppFactory::create();
+$routes->get('/', function (Request $request, Response $response, $args) {
+    $response->getBody()->write("Hello world!");
+    return $response;
 });
 $routes->add(new WhoopsMiddleware());
 $routes->add(new \Slim\Middleware\JwtAuthentication([
