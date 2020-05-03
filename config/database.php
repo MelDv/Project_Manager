@@ -1,10 +1,6 @@
 <?php
 
-$db = parse_url(getenv("DATABASE_URL"));
-$db["path"] = ltrim($db["path"], "/");
 
-$active_group = 'default';
-$query_builder = TRUE;
 
 class DatabaseConfig
 {
