@@ -44,8 +44,8 @@ $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
 });
 $routes->add(new WhoopsMiddleware());
-$routes->get('/cowsay', function() use($app) {
-    $app['monolog']->addDebug('cowsay');
+$routes->get('/cowsay', function() use($routes) {
+    $routes['monolog']->addDebug('cowsay');
     return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
 });
 // Otetaan reitit käyttöön
