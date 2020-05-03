@@ -38,8 +38,8 @@ $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
-// $routes = new \Slim\App();
-$routes = AppFactory::create();
+$routes = new \Slim\App();
+//$routes = AppFactory::create();
 $routes->get('/tietokantayhteys', function() {
     DB::test_connection();
 });
