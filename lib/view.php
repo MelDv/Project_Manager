@@ -32,9 +32,9 @@ class View
     private static function get_twig()
     {
         $loader = new \Twig\Loader\FilesystemLoader('app/views');
-        $twig = new\Twig\Environment($loader,  ['debug' => true]);
+        $twig = new\Twig\Environment($loader, ['debug' => true]);
 
-        return new $twig;
+        return new Twig_Environment($twig);
     }
 
     private static function set_flash_message(&$content)
