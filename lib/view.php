@@ -34,7 +34,7 @@ class View
         $loader = new \Twig\Loader\FilesystemLoader('app/views');
         $twig = new\Twig\Environment($loader, ['debug' => true]);
 
-        return new Twig_Environment($twig);
+        return $twig;
     }
 
     private static function set_flash_message(&$content)
