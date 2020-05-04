@@ -21,7 +21,7 @@ if ($explode[1] == 'index.php') {
 }
 
 // Määritetään sovelluksen juuripolulle vakio BASE_PATH
-define('BASE_PATH', 'http://webprojectmanager.herokuapp.com/' . $base_folder);
+define('BASE_PATH', 'http://webprojectmanager.herokuapp.com' . $base_folder);
 
 // Luodaan uusi tai palautetaan olemassaoleva sessio
 if (session_id() == '') {
