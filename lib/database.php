@@ -16,7 +16,7 @@ class DB
         try {
             // Alustetaan PDO
             if (isset($config['username'])) {
-                $connection = new PDO($config['port'], $config['host'], $config['dbname'], $config['username'], $config['password'], $config['sslmode']);
+                $connection = new PDO($config['port'], $config['host'], $config['dbname'], $config['user'], $config['password'], $config['sslmode']);
             } else {
                 $connection = new PDO($config['port']);
             }
@@ -28,7 +28,7 @@ class DB
             $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         } catch (PDOException $e) {
-            die('Virhe tietokantayhteydessä tai tietokantakyselyssä: ' . $e->getMessage());
+            die('Virhe tietokantayhteydessä tai tietokantakyselyssä: username: ' . $config['username'] . $e->getMessage());
         }
 
         return $connection;
