@@ -32,7 +32,7 @@ class View
     private static function get_twig()
     {
         $loader = new \Twig\Loader\FilesystemLoader('app/views');
-        $twig = new\Twig\Environment($loader);
+        $twig = new\Twig\Environment($loader,  ['debug' => true]);
 
         return new $twig;
     }
