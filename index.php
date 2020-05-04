@@ -38,8 +38,7 @@ require 'vendor/autoload.php';
 
 $routes = AppFactory::create();
 $errorMiddleware = $routes->addErrorMiddleware(true, true, true);
-// Add Routing Middleware
-$methodOverridingMiddleware = new MethodOverrideMiddleware();
+
 $routes->addRoutingMiddleware();
 $contentLengthMiddleware = new ContentLengthMiddleware();
 $routes->add($contentLengthMiddleware);
