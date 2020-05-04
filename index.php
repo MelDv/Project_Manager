@@ -34,18 +34,17 @@ header('Content-Type: text/html; charset=utf-8');
 // Otetaan Composer käyttöön
 require 'vendor/autoload.php';
 
-//use Slim\Factory\AppFactory;
-
 //require __DIR__ . '/../vendor/autoload.php';
 
 $routes = AppFactory::create();
-
-$container = new \DI\Container();
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 AppFactory::setContainer($container);
 // Add Routing Middleware
+$methodOverridingMiddleware = new MethodOverrideMiddleware();
 $routes->addRoutingMiddleware();
-
+$contentLengthMiddleware = new ContentLengthMiddleware();
+$app->add($contentLengthMiddleware);
 $container = $routes->getContainer();
 $container->set('view', function (\Psr\Container\ContainerInterface $container) {
     return new \Slim\Views\Twig('');
