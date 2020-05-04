@@ -7,7 +7,6 @@ $query_builder = TRUE;
 
 class DB
 {
-
     public static function connection()
     {
         // Haetaan tietokantakonfiguraatio
@@ -17,9 +16,9 @@ class DB
         try {
             // Alustetaan PDO
             if (isset($config['username'])) {
-                $connection = new PDO($config['resource'], $config['username'], $config['password']);
+                $connection = new PDO($config['port'], $config['host'], $config['dbname'], $config['username'], $config['password'], $config['sslmode']);
             } else {
-                $connection = new PDO($config['resource']);
+                $connection = new PDO($config['port']);
             }
             // Asetetaan tietokannan kenttien koodaukseksi utf8
             $connection->exec('SET NAMES UTF8');
@@ -38,7 +37,6 @@ class DB
     public static function test_connection()
     {
         require 'vendor/ConnectionTest/connection_test.php';
-
         exit();
     }
 }
