@@ -4,6 +4,7 @@ $db["path"] = ltrim($db["path"], "/");
 
 $active_group = 'default';
 $query_builder = TRUE;
+
 class DB
 {
 
@@ -40,5 +41,4 @@ class DB
 
         exit();
     }
-
 }
