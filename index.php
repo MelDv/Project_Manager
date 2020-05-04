@@ -33,20 +33,24 @@ header('Content-Type: text/html; charset=utf-8');
 
 // Otetaan Composer käyttöön
 require 'vendor/autoload.php';
-// require __DIR__ . '/../vendor/autoload.php';
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
+//use Slim\Factory\AppFactory;
 
-// $routes = new \Slim\App();
+require __DIR__ . '/../vendor/autoload.php';
+
 $routes = AppFactory::create();
 
-$routes->add(new WhoopsMiddleware());
-$routes->get('/cowsay', function () use ($routes) {
-    $routes['monolog']->addDebug('cowsay');
-    return "<pre>" . \Cowsayphp\Cow::say("Cool beans") . "</pre>";
+$container = new \DI\Container();
+
+AppFactory::setContainer($container);
+// Add Routing Middleware
+$routes->addRoutingMiddleware();
+
+$container = $routes->getContainer();
+$container->set('view', function (\Psr\Container\ContainerInterface $container) {
+    return new \Slim\Views\Twig('');
 });
+$routes->setBasePath('http://webprojectmanager.herokuapp.com');
 // Otetaan reitit käyttöön
 require 'config/routes.php';
 
