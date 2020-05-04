@@ -1,4 +1,5 @@
 <?php
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -42,9 +43,9 @@ $whoops->register();
 $routes = AppFactory::create();
 
 $routes->add(new WhoopsMiddleware());
-$routes->get('/cowsay', function() use($routes) {
+$routes->get('/cowsay', function () use ($routes) {
     $routes['monolog']->addDebug('cowsay');
-    return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
+    return "<pre>" . \Cowsayphp\Cow::say("Cool beans") . "</pre>";
 });
 // Otetaan reitit käyttöön
 require 'config/routes.php';
