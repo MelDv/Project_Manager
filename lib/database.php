@@ -7,6 +7,8 @@ $query_builder = TRUE;
 
 class DB
 {
+    private $username = 'unset';
+
     public static function connection()
     {
         // Haetaan tietokantakonfiguraatio
@@ -18,6 +20,7 @@ class DB
             if (isset($config['username'])) {
                 $connection = new PDO($config['port'], $config['host'], $config['dbname'], $config['user'], $config['password'], $config['sslmode']);
             } else {
+                $username = $config['username'];
                 $connection = new PDO($config['port']);
             }
             // Asetetaan tietokannan kenttien koodaukseksi utf8
@@ -28,7 +31,7 @@ class DB
             $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         } catch (PDOException $e) {
-            die('Virhe tietokantayhteydessä tai tietokantakyselyssä: username: ' . $config['username'] . $e->getMessage());
+            die('Virhe tietokantayhteydessä tai tietokantakyselyssä: username: ' . $username . $e->getMessage());
         }
 
         return $connection;
