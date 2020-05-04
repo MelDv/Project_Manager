@@ -6,7 +6,7 @@ class DatabaseConfig {
     private static $use_database = 'psql';
     private static $connection_config = array(
         'psql' => array(
-            'resource' => 'pgsql:'
+            'port' => 'pgsql:'
         ),
         'mysql' => array(
             'port' => 5432,
