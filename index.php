@@ -42,7 +42,6 @@ $routes->get('/cowsay', function () use ($routes) {
     $routes['monolog']->addDebug('cowsay');
     return "<pre>" . \Cowsayphp\Cow::say("Cool beans") . "</pre>";
 });
-$routes->setBasePath('http://webprojectmanager.herokuapp.com');
 // Otetaan reitit käyttöön
 require 'config/routes.php';
 
