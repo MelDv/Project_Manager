@@ -9,7 +9,7 @@ class DatabaseConfig {
             'resource' => 'pgsql:'
         ),
         'mysql' => array(
-            'port' => '5432',
+            'port' => 5432,
             'host'=> 'ec2-54-210-128-153.compute-1.amazonaws.com',
             'dbname' => 'svzldcojgyipsi',
             'username' => 'svzldcojgyipsi',
