@@ -37,7 +37,7 @@ require 'vendor/autoload.php';
 //require __DIR__ . '/../vendor/autoload.php';
 
 $routes = AppFactory::create();
-$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $routes->addErrorMiddleware(true, true, true);
 
 AppFactory::setContainer($container);
 // Add Routing Middleware
