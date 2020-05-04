@@ -18,7 +18,8 @@
         "franzl/whoops-middleware": "1.2",
         "filp/whoops": "^2.7",
         "laminas/laminas-diactoros": "^2.3",
-        "alrik11es/cowsayphp": "^1.2"
+        "alrik11es/cowsayphp": "^1.2",
+        "twbs/bootstrap": "4.4.1"
     },
     "require-dev": {
         "kint-php/kint": "^3.3",
