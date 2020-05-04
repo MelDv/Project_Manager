@@ -31,11 +31,10 @@ class View
 
     private static function get_twig()
     {
-        Twig_Autoloader::register();
+        $loader = new \Twig\Loader\FilesystemLoader('app/views');
+        $twig = new\Twig\Environment($loader, ['debug' => true]);
 
-        $twig_loader = new Twig_Loader_Filesystem('app/views');
-
-        return new Twig_Environment($twig_loader);
+        return new Twig_Environment($twig);
     }
 
     private static function set_flash_message(&$content)
