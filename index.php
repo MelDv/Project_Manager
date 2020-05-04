@@ -38,17 +38,12 @@ require 'vendor/autoload.php';
 
 $routes = AppFactory::create();
 $errorMiddleware = $routes->addErrorMiddleware(true, true, true);
-
-AppFactory::setContainer($container);
 // Add Routing Middleware
 $methodOverridingMiddleware = new MethodOverrideMiddleware();
 $routes->addRoutingMiddleware();
 $contentLengthMiddleware = new ContentLengthMiddleware();
-$app->add($contentLengthMiddleware);
-$container = $routes->getContainer();
-$container->set('view', function (\Psr\Container\ContainerInterface $container) {
-    return new \Slim\Views\Twig('');
-});
+$routes->add($contentLengthMiddleware);
+
 $routes->setBasePath('http://webprojectmanager.herokuapp.com');
 // Otetaan reitit käyttöön
 require 'config/routes.php';
