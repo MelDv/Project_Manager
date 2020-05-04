@@ -37,7 +37,6 @@ require 'vendor/autoload.php';
 //require __DIR__ . '/../vendor/autoload.php';
 
 $routes = AppFactory::create();
-$errorMiddleware = $routes->addErrorMiddleware(true, true, true);
 
 $routes->setBasePath('http://webprojectmanager.herokuapp.com');
 // Otetaan reitit käyttöön
