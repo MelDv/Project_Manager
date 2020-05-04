@@ -1,9 +1,5 @@
 <?php
 
-$routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-});
-
 //TaskController
 $routes->post('/projektit/:pid/tehtava/:id/lisaatekija', function($pid, $id) {
     TaskController::lisaatekija($pid, $id);
