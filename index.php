@@ -37,7 +37,11 @@ require 'vendor/autoload.php';
 //require __DIR__ . '/../vendor/autoload.php';
 
 $routes = AppFactory::create();
-
+$routes->add(new WhoopsMiddleware());
+$routes->get('/cowsay', function () use ($routes) {
+    $routes['monolog']->addDebug('cowsay');
+    return "<pre>" . \Cowsayphp\Cow::say("Cool beans") . "</pre>";
+});
 $routes->setBasePath('http://webprojectmanager.herokuapp.com');
 // Otetaan reitit käyttöön
 require 'config/routes.php';
