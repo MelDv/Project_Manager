@@ -31,10 +31,11 @@ class View
 
     private static function get_twig()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('app/views');
-        $twig = new\Twig\Environment($loader, ['debug' => true]);
+        Twig_Autoloader::register();
 
-        return new Twig_Environment($twig);
+        $twig_loader = new Twig_Loader_Filesystem('app/views');
+
+        return new Twig_Environment($twig_loader);
     }
 
     private static function set_flash_message(&$content)
@@ -50,5 +51,4 @@ class View
             unset($_SESSION['flash_message']);
         }
     }
-
 }

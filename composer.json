@@ -11,7 +11,7 @@
         "monolog/monolog": "^1.22",
         "php": "7.4.*",
         "slim/slim": "^4.5",
-        "twig/twig": "^2.0",
+        "twig/twig": "^1.0",
         "symfony/twig-bridge": "^3",
         "kint-php/kint": "3.3",
         "zeuxisoo/slim-whoops": "0.7.2",
