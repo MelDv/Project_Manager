@@ -13,7 +13,6 @@
       <path value="$PROJECT_DIR$/vendor/bootstrap/js" />
       <path value="$PROJECT_DIR$/vendor/bootstrap/fonts" />
       <path value="$PROJECT_DIR$/vendor/slim/slim" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/zeuxisoo/slim-whoops" />
