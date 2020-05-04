@@ -13,7 +13,7 @@ class DB
     {
         // Haetaan tietokantakonfiguraatio
         $connection_config = DatabaseConfig::connection_config();
-        $config = $connection_config();
+        $config = connection_config();
 
         try {
             // Alustetaan PDO
